@@ -1,53 +1,169 @@
-<!-- GANTI BAGIAN BANNER DI DALAM <section class="hero-bg..."> DENGAN KODE INI -->
-
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Store ID - Marketplace Akun Game</title>
     
-    <!-- 1. Banner Valorant -->
-    <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
-        <!-- Menggunakan tag img dengan src -->
-        <img src="images/valorant.jpg" alt="Banner Valorant" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
-        
-        <!-- Overlay Gradien Gelap -->
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
-        
-        <!-- Teks -->
-        <div class="absolute bottom-4 left-4 right-4 z-20">
-            <h3 class="text-xl font-bold text-white drop-shadow-md">Valorant</h3>
-            <p class="text-sm text-gray-200 mt-1">Akun & Radianite Points</p>
+    <!-- Link ke file CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- 1. Panggil script Tailwind CDN TERLEBIH DAHULU -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Konfigurasi Tailwind untuk Dark Mode -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 transition-colors duration-300">
+
+    <!-- TOP NAVBAR -->
+    <header class="bg-blue-800 dark:bg-gray-950 text-white sticky top-0 z-50 transition-colors duration-300 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            
+            <!-- Logo Arthur Store ID -->
+            <div class="text-2xl font-bold italic tracking-tighter cursor-pointer hover:scale-105 transition-transform nav-link" data-target="home">
+                Arthur <span class="text-blue-300">Store ID</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-3xl relative">
+                <form id="searchForm" class="w-full relative">
+                    <input type="text" id="searchInput" placeholder="Cari game, diamond, hero..." class="w-full py-2 px-4 rounded-md text-gray-900 dark:text-white dark:bg-gray-800 dark:border-gray-700 border focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all" autocomplete="off">
+                    <button type="submit" class="absolute right-2 top-1.5 text-gray-500 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 px-3 py-1 rounded text-sm transition-colors">ENTER ↵</button>
+                </form>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" class="p-2 rounded-full bg-blue-700 hover:bg-blue-600 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors" title="Ubah Tema">
+                    <span id="themeIcon" class="text-xl">🌙</span>
+                </button>
+                <button id="loginBtn" class="bg-transparent border border-white px-4 py-2 rounded-md hover:bg-white hover:text-blue-800 dark:hover:bg-gray-800 dark:hover:text-white transition-all font-semibold">Masuk</button>
+            </div>
         </div>
+
+        <!-- Secondary Nav (Tombol Menu) -->
+        <nav class="container mx-auto px-4 py-2 text-sm flex gap-6 overflow-x-auto whitespace-nowrap border-t border-blue-700/50 dark:border-gray-800 hide-scrollbar cursor-pointer">
+            <a class="nav-link hover:text-blue-200 font-semibold text-blue-300" data-target="home">Beranda</a>
+            <a class="nav-link hover:text-blue-200 transition-colors" data-target="steam">Steam Voucher</a>
+            <a class="nav-link hover:text-blue-200 transition-colors" data-target="roblox">Roblox Games</a>
+            <a class="nav-link hover:text-blue-200 transition-colors" data-target="mlbb">Mobile Legends</a>
+        </nav>
+    </header>
+
+    <!-- KONTEN UTAMA HALAMAN -->
+    <div id="main-content">
+        
+        <!-- ================= HALAMAN 1: BERANDA ================= -->
+        <div id="page-home" class="page-section block animate-fade-in">
+            <section class="hero-bg text-white pt-6 pb-12 relative overflow-hidden">
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        
+                        <!-- Banner 1: Valorant -->
+                        <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
+                            <img src="images/valorant.jpg" alt="Valorant" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20">
+                                <h3 class="text-xl font-bold text-white drop-shadow-md">Valorant</h3>
+                                <p class="text-sm text-gray-200 mt-1">Akun & Radianite Points</p>
+                            </div>
+                        </div>
+
+                        <!-- Banner 2: Roblox -->
+                        <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
+                            <img src="images/roblox.jpg" alt="Roblox" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20">
+                                <h3 class="text-xl font-bold text-white drop-shadow-md">Roblox</h3>
+                                <p class="text-sm text-yellow-300 mt-1 font-semibold">Promo Robux 25%</p>
+                            </div>
+                        </div>
+
+                        <!-- Banner 3: Mobile Legends -->
+                        <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
+                            <img src="images/mlbb.jpg" alt="Mobile Legends" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20">
+                                <h3 class="text-xl font-bold text-white drop-shadow-md">Mobile Legends</h3>
+                                <p class="text-sm text-gray-200 mt-1">Diamond & Akun Mythic</p>
+                            </div>
+                        </div>
+
+                        <!-- Banner 4: Giveaway -->
+                        <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer bg-gradient-to-br from-yellow-500 to-orange-600">
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-20">
+                                <span class="text-4xl mb-2">🎁</span>
+                                <h3 class="text-2xl font-bold text-white drop-shadow-md">Giveaway</h3>
+                                <p class="text-sm text-yellow-100 mt-1">Gabung Discord Kami!</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            
+            <main class="container mx-auto px-4 py-8">
+                <!-- Kategori Bawah -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 flex flex-wrap justify-center gap-8 transition-colors duration-300">
+                    <div class="category-icon text-center cursor-pointer group"><div class="w-14 h-14 bg-blue-50 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl group-hover:bg-blue-100 dark:group-hover:bg-gray-600">💎</div><span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-blue-600">Top Up</span></div>
+                    <div class="category-icon text-center cursor-pointer group"><div class="w-14 h-14 bg-blue-50 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl group-hover:bg-blue-100 dark:group-hover:bg-gray-600">🎮</div><span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-blue-600">Game Key</span></div>
+                    <div class="category-icon text-center cursor-pointer group"><div class="w-14 h-14 bg-blue-50 dark:bg-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl group-hover:bg-blue-100 dark:group-hover:bg-gray-600">👤</div><span class="text-sm text-gray-600 dark:text-gray-300 group-hover:text-blue-600">Akun</span></div>
+                </div>
+                
+                <!-- Output Pencarian -->
+                <div id="searchResultArea" class="mt-8 p-4 bg-yellow-50 dark:bg-gray-800 border border-yellow-200 dark:border-gray-700 rounded-lg hidden transition-colors duration-300"></div>
+            </main>
+        </div>
+
+        <!-- ================= HALAMAN 2: STEAM VOUCHER ================= -->
+        <div id="page-steam" class="page-section hidden container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Katalog Steam Wallet (IDR)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm text-center">
+                    <h3 class="font-bold text-gray-800 dark:text-white text-lg">Rp 45.000</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Stok Tersedia</p>
+                    <button onclick="processTransaction('Steam Wallet IDR 45k', 47000)" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition-colors">Beli - Rp47rb</button>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm text-center">
+                    <h3 class="font-bold text-gray-800 dark:text-white text-lg">Rp 90.000</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Stok Tersedia</p>
+                    <button onclick="processTransaction('Steam Wallet IDR 90k', 92000)" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition-colors">Beli - Rp92rb</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN 3: ROBLOX GAMES ================= -->
+        <div id="page-roblox" class="page-section hidden container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Jual Beli Akun & Robux</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h3 class="font-bold text-gray-800 dark:text-white">Akun Blox Fruits (Max Level)</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Full Melee V2, CDK, SG</p>
+                    <button onclick="processTransaction('Akun Blox Fruits Max', 150000)" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold transition-colors">Beli Akun - Rp150rb</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN 4: MOBILE LEGENDS ================= -->
+        <div id="page-mlbb" class="page-section hidden container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Akun Mobile Legends (Bind Moonton)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h3 class="font-bold text-gray-800 dark:text-white">Akun Mythic Glory - 150 Skin</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">KOF Chou, Legend Miya.</p>
+                    <button onclick="processTransaction('Akun MLBB 150 Skin', 850000)" class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded font-semibold transition-colors">Beli Akun - Rp850rb</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- 2. Banner Roblox -->
-    <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
-        <!-- Menggunakan tag img dengan src -->
-        <img src="images/roblox.jpg" alt="Banner Roblox" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
-        
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
-        <div class="absolute bottom-4 left-4 right-4 z-20">
-            <h3 class="text-xl font-bold text-white drop-shadow-md">Roblox</h3>
-            <p class="text-sm text-yellow-300 mt-1 font-semibold">Promo Robux 25%</p>
-        </div>
-    </div>
-
-    <!-- 3. Banner Mobile Legends -->
-    <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer">
-        <!-- Menggunakan tag img dengan src -->
-        <img src="images/mlbb.jpg" alt="Banner Mobile Legends" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0">
-        
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/90 transition-all z-10"></div>
-        <div class="absolute bottom-4 left-4 right-4 z-20">
-            <h3 class="text-xl font-bold text-white drop-shadow-md">Mobile Legends</h3>
-            <p class="text-sm text-gray-200 mt-1">Diamond & Akun Mythic</p>
-        </div>
-    </div>
-
-    <!-- 4. Banner Giveaway / Promo (Tetap Pakai Warna Gradien Bawaan CSS) -->
-    <div class="promo-card rounded-lg h-64 relative overflow-hidden shadow-lg group cursor-pointer bg-gradient-to-br from-yellow-500 to-orange-600">
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-20">
-            <span class="text-4xl mb-2">🎁</span>
-            <h3 class="text-2xl font-bold text-white drop-shadow-md">Giveaway</h3>
-            <p class="text-sm text-yellow-100 mt-1">Gabung Discord Kami!</p>
-        </div>
-    </div>
-
-</div>
+    <!-- Panggil file JavaScript di bagian paling bawah -->
+    <script src="script.js"></script>
+</body>
+</html>
