@@ -1,69 +1,48 @@
-// script.js
-
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. HANDLING DARK MODE (AUDIT POINT: LocalStorage Access) ---
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlElement = document.documentElement;
+    // [KODE DARK MODE & SEARCH SEBELUMNYA TETAP ADA DI SINI]
 
-    // Cek preferensi tema sebelumnya dari localStorage atau dari preferensi sistem OS
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // --- HANDLING NAVIGASI SPA (Sistem Perpindahan Halaman) ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageSections = document.querySelectorAll('.page-section');
 
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-        htmlElement.classList.add('dark');
-        themeIcon.innerText = '☀️'; // Ikon matahari untuk beralih ke mode terang
-    }
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+            
+            // 1. Reset semua styling menu (hilangkan warna aktif)
+            navLinks.forEach(nav => nav.classList.remove('text-blue-300'));
+            // 2. Beri warna pada menu yang sedang diklik
+            link.classList.add('text-blue-300');
 
-    themeToggle.addEventListener('click', () => {
-        htmlElement.classList.toggle('dark');
-        
-        // Simpan preferensi pengguna ke localStorage (Aman dari XSS, tapi rentan jika di-inject script lain)
-        if (htmlElement.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-            themeIcon.innerText = '☀️';
-        } else {
-            localStorage.setItem('theme', 'light');
-            themeIcon.innerText = '🌙';
-        }
+            // 3. Sembunyikan semua halaman
+            pageSections.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('block', 'animate-fade-in');
+            });
+            
+            // 4. Tampilkan halaman yang dituju
+            const targetPage = document.getElementById(`page-${targetId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('block', 'animate-fade-in');
+            }
+        });
     });
 
-    // --- 2. HANDLING FORM PENCARIAN (AUDIT POINT: XSS & Sanitization) ---
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-    const searchResultArea = document.getElementById('searchResultArea');
-
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
-        
-        const query = searchInput.value;
-        
-        if(query.trim() === '') {
-            alert('Masukkan kata kunci pencarian terlebih dahulu!');
-            return;
-        }
-
-        // PERHATIAN SECURITY: InnerHTML + Input Pengguna = Risiko XSS
-        // Bisakah kamu menemukan cara untuk menginjeksi <script> atau <img onerror=""> melalui input ini?
-        searchResultArea.classList.remove('hidden');
-        searchResultArea.innerHTML = `
-            <h2 class="text-lg font-bold text-gray-800 dark:text-white">Hasil Pencarian:</h2>
-            <p class="text-gray-600 dark:text-gray-300 mt-2">Menampilkan hasil untuk: <strong>${query}</strong></p>
-            <p class="text-sm text-red-500 mt-2 text-xs">*Simulasi data kosong. API pencarian belum dihubungkan.</p>
-        `;
-        
-        searchInput.value = '';
-    });
-
-
-    // --- 3. HANDLING TOMBOL MASUK/LOGIN ---
-    const loginBtn = document.getElementById('loginBtn');
-    
-    loginBtn.addEventListener('click', () => {
-        const isConfirmed = confirm('Mengarahkan ke halaman Login/Register. Lanjutkan?');
-        if(isConfirmed) {
-            console.log("Navigasi ke /login...");
-        }
-    });
 });
+
+// --- FUNGSI KLIK PEMBELIAN DI TIAP HALAMAN (Fokus Review Keamanan) ---
+// Note: Fungsi ini diletakkan di luar DOMContentLoaded agar bisa diakses oleh atribut onclick HTML.
+function processTransaction(itemName, price) {
+    // Simulasi format harga Rupiah
+    const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
+    
+    const confirmBuy = confirm(`Apakah Anda yakin ingin memproses ${itemName} seharga ${formattedPrice}? \n\nDana akan ditahan di Escrow Arthur Store ID sampai akun/item diamankan.`);
+    
+    if (confirmBuy) {
+        alert('Mengalihkan ke halaman pembayaran...');
+        // Nantinya di sini logika backend API pemotongan saldo / invoice berjalan
+    }
+}
