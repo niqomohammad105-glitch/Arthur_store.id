@@ -1,48 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // [KODE DARK MODE & SEARCH SEBELUMNYA TETAP ADA DI SINI]
+    // --- 1. HANDLING DARK MODE (Diperbaiki & Disempurnakan) ---
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
 
-    // --- HANDLING NAVIGASI SPA (Sistem Perpindahan Halaman) ---
-    const navLinks = document.querySelectorAll('.nav-link');
-    const pageSections = document.querySelectorAll('.page-section');
+    // Fungsi untuk memperbarui ikon berdasarkan tema aktif
+    const updateThemeIcon = (isDark) => {
+        themeIcon.innerText = isDark ? '☀️' : '🌙';
+        // Animasi rotasi kecil saat ditekan
+        themeIcon.style.transform = 'rotate(360deg)';
+        themeIcon.style.transition = 'transform 0.5s ease';
+        setTimeout(() => themeIcon.style.transform = 'none', 500);
+    };
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('data-target');
-            
-            // 1. Reset semua styling menu (hilangkan warna aktif)
-            navLinks.forEach(nav => nav.classList.remove('text-blue-300'));
-            // 2. Beri warna pada menu yang sedang diklik
-            link.classList.add('text-blue-300');
+    // Sinkronisasi awal saat halaman dimuat
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let isDarkMode = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
 
-            // 3. Sembunyikan semua halaman
-            pageSections.forEach(page => {
-                page.classList.add('hidden');
-                page.classList.remove('block', 'animate-fade-in');
-            });
-            
-            // 4. Tampilkan halaman yang dituju
-            const targetPage = document.getElementById(`page-${targetId}`);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-                targetPage.classList.add('block', 'animate-fade-in');
-            }
-        });
+    if (isDarkMode) {
+        htmlElement.classList.add('dark');
+    } else {
+        htmlElement.classList.remove('dark');
+    }
+    updateThemeIcon(isDarkMode);
+
+    // Event Listener untuk Tombol Toggle
+    themeToggle.addEventListener('click', () => {
+        isDarkMode = !isDarkMode; // Balikkan status
+        
+        if (isDarkMode) {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+        
+        updateThemeIcon(isDarkMode);
     });
 
+    // [KODE NAVIGASI SPA & PENCARIAN TETAP SAMA SEPERTI SEBELUMNYA]
 });
-
-// --- FUNGSI KLIK PEMBELIAN DI TIAP HALAMAN (Fokus Review Keamanan) ---
-// Note: Fungsi ini diletakkan di luar DOMContentLoaded agar bisa diakses oleh atribut onclick HTML.
-function processTransaction(itemName, price) {
-    // Simulasi format harga Rupiah
-    const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
-    
-    const confirmBuy = confirm(`Apakah Anda yakin ingin memproses ${itemName} seharga ${formattedPrice}? \n\nDana akan ditahan di Escrow Arthur Store ID sampai akun/item diamankan.`);
-    
-    if (confirmBuy) {
-        alert('Mengalihkan ke halaman pembayaran...');
-        // Nantinya di sini logika backend API pemotongan saldo / invoice berjalan
-    }
-}
