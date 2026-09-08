@@ -1,36 +1,45 @@
-/* style.css */
+/* =========================================
+   style.css - Arthur Store ID
+   ========================================= */
+
+/* 1. Import Font Inter dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 body {
     font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
 }
 
+/* 2. Utilitas: Sembunyikan scrollbar di navigasi tapi tetap bisa digeser */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
 .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
 }
 
-/* Background gradient yang kompatibel baik di mode terang maupun gelap */
+/* 3. Hero Section Background (Sinkronisasi Dark Mode) */
 .hero-bg {
+    /* Gradien biru terang untuk mode standar */
     background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    transition: background 0.3s ease;
 }
-/* Penyesuaian hero background jika mode gelap aktif */
+
 html.dark .hero-bg {
+    /* Gradien biru sangat gelap untuk mode malam */
     background: linear-gradient(135deg, #020617 0%, #1e3a8a 100%);
 }
 
+/* 4. Efek Interaksi pada Kartu Promo & Kategori */
 .promo-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-size: cover;
-    background-position: center;
     border: 1px solid rgba(255,255,255,0.1);
 }
 
 .promo-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
 }
 
 .category-icon {
@@ -41,7 +50,8 @@ html.dark .hero-bg {
     transform: scale(1.1);
 }
 
-/* --- ANIMASI BARU --- */
+/* 5. Animasi SPA (Single Page Application) */
+/* Animasi ini dipicu setiap kali kamu berpindah menu/halaman */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -54,6 +64,5 @@ html.dark .hero-bg {
 }
 
 .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0; /* Menahan visibilitas sampai animasi berjalan */
+    animation: fadeIn 0.4s ease-out forwards;
 }
