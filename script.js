@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. SISTEM DARK MODE
+    // --- 1. SISTEM DARK MODE ---
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateThemeIcon(isDarkMode);
     });
 
-    // 2. SISTEM NAVIGASI ANTAR HALAMAN (SPA)
+
+    // --- 2. SISTEM NAVIGASI ANTAR HALAMAN (SPA) ---
     const navLinks = document.querySelectorAll('.nav-link');
     const pageSections = document.querySelectorAll('.page-section');
 
@@ -54,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. FITUR PENCARIAN (SIMULASI)
+
+    // --- 3. FITUR PENCARIAN (SIMULASI) ---
     const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('searchInput');
     const searchResultArea = document.getElementById('searchResultArea');
@@ -73,13 +75,59 @@ document.addEventListener('DOMContentLoaded', () => {
             searchInput.value = '';
         });
     }
+
+
+    // --- 4. SISTEM MODAL LOGIN ---
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const loginModalContent = document.getElementById('loginModalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const loginForm = document.getElementById('loginForm');
+
+    // Fungsi membuka modal
+    const openModal = () => {
+        loginModal.classList.remove('hidden');
+        setTimeout(() => {
+            loginModal.classList.remove('opacity-0', 'pointer-events-none');
+            loginModalContent.classList.remove('scale-95');
+        }, 10);
+    };
+
+    // Fungsi menutup modal
+    const closeModal = () => {
+        loginModal.classList.add('opacity-0', 'pointer-events-none');
+        loginModalContent.classList.add('scale-95');
+        setTimeout(() => {
+            loginModal.classList.add('hidden');
+        }, 300);
+    };
+
+    // Event Listeners Modal
+    loginBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    loginModal.addEventListener('click', (e) => {
+        if (e.target === loginModal) closeModal();
+    });
+
+    // Simulasi Pengiriman Form Login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault(); 
+        const identifier = document.getElementById('loginIdentifier').value;
+        console.log(`Mencoba login dengan: ${identifier}`);
+        alert('Simulasi Login Berhasil! (Cek Console)');
+        closeModal();
+        loginForm.reset(); 
+    });
+
 });
 
-// 4. FUNGSI TRANSAKSI GLOBAL
+
+// --- 5. FUNGSI TRANSAKSI GLOBAL ---
+// Diletakkan di luar DOMContentLoaded agar bisa diakses oleh atribut onclick pada HTML
 function processTransaction(itemName, price) {
     const formattedPrice = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(price);
     const confirmBuy = confirm(`Proses pembelian: ${itemName} seharga ${formattedPrice}?`);
     if (confirmBuy) {
         alert('Mengalihkan ke sistem Escrow pembayaran...');
     }
-}
+        }
