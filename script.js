@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + Slider Banner Berjalan */
+/* script.js - Arthur Store ID Mobile + Animasi Banner + Sistem Tier */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 bannerSlider.scrollBy({ left: bannerSlider.clientWidth * 0.85, behavior: 'smooth' });
             }
-        }, 3000); // Geser setiap 3 detik
+        }, 3000);
     }
 
 });
