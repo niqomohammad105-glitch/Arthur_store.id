@@ -1,7 +1,13 @@
-/* script.js - Arthur Store ID Mobile + Drag/Drop Produk & Banner Dinamis */
+/* script.js - Arthur Store ID Mobile + Batas Harga 10Jt & Quest Sistem Tier Penjual */
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- DATABASE PENJUAL & TIER ---
+    let sellerStats = {
+        terjual: 3,     // Simulasi awal: 3 produk terjual
+        ulasan: 12      // Simulasi awal: 12 ulasan bintang 5
+    };
+
     let productsData = [
         {
             id: 0,
@@ -31,14 +37,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let bannersData = [
         "images/valorant.jpg",
-        "images/mlbb.jpg",
-        "images/roblox.jpg"
+        "images/mlbb.jpg"
     ];
 
     let activeProductId = null;
     let uploadedImageBase64 = "";
 
-    // --- 1. DARK MODE TEMA ---
+    // --- 1. EVALUASI DAN UPDATE TIER PENJUAL (QUEST SYSTEM) ---
+    function updateSellerTierUI() {
+        const tierNameText = document.getElementById('tierNameText');
+        const tierBadgeIcon = document.getElementById('tierBadgeIcon');
+        const tierProgressBar = document.getElementById('tierProgressBar');
+        const tierPercentText = document.getElementById('tierPercentText');
+        const questTerjualVal = document.getElementById('questTerjualVal');
+        const questUlasanVal = document.getElementById('questUlasanVal');
+        const detailStoreTier = document.getElementById('detailStoreTier');
+
+        if (!tierNameText) return;
+
+        let currentTier = "Bronze";
+        let badge = "🥉";
+        let percent = 0;
+        let targetTerjual = 5;
+        let targetUlasan = 20;
+
+        // Logika Quest Tier Penjual
+        if (sellerStats.terjual >= 50 && sellerStats.ulasan >= 100) {
+            currentTier = "Gold";
+            badge = "🥇";
+            percent = 100;
+            targetTerjual = 50;
+            targetUlasan = 100;
+        } else if (sellerStats.terjual >= 20 && sellerStats.ulasan >= 50) {
+            currentTier = "Silver";
+            badge = "🥈";
+            // Hitung persentase menuju Gold
+            const pTerjual = (sellerStats.terjual / 50) * 50;
+            const pUlasan = (sellerStats.ulasan / 100) * 50;
+            percent = Math.min(Math.round(pTerjual + pUlasan), 99);
+            targetTerjual = 50;
+            targetUlasan = 100;
+        } else {
+            // Menuju Silver
+            const pTerjual = (sellerStats.terjual / 5) * 50;
+            const pUlasan = (sellerStats.ulasan / 20) * 50;
+            percent = Math.min(Math.round(pTerjual + pUlasan), 99);
+            targetTerjual = 5;
+            targetUlasan = 20;
+        }
+
+        tierNameText.innerText = `Tier ${currentTier}`;
+        tierBadgeIcon.innerText = badge;
+        tierPercentText.innerText = `${percent}%`;
+        tierProgressBar.style.width = `${percent}%`;
+
+        // Update teks kuota quest
+        if (currentTier === "Bronze") {
+            questTerjualVal.innerText = `${sellerStats.terjual} / 5`;
+            questUlasanVal.innerText = `${sellerStats.ulasan} / 20`;
+        } else if (currentTier === "Silver") {
+            questTerjualVal.innerText = `${sellerStats.terjual} / 50`;
+            questUlasanVal.innerText = `${sellerStats.ulasan} / 100`;
+        } else {
+            questTerjualVal.innerText = `MAKSIMAL (50+)`;
+            questUlasanVal.innerText = `MAKSIMAL (100+)`;
+        }
+
+        if (detailStoreTier) {
+            detailStoreTier.innerText = `${badge} Penjual ${currentTier}`;
+        }
+    }
+
+    // --- 2. DARK MODE TEMA ---
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
@@ -61,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. RENDER BANNER DINAMIS ---
+    // --- 3. RENDER BANNER & PRODUK ---
     const bannerSlider = document.getElementById('bannerSlider');
     function renderBanners() {
         if (!bannerSlider) return;
@@ -73,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     renderBanners();
 
-    // --- 3. RENDER PRODUK KE BERANDA ---
     const productGrid = document.getElementById('productGrid');
     function renderProducts() {
         if (!productGrid) return;
@@ -104,8 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     renderProducts();
+    updateSellerTierUI(); // Inisialisasi awal UI Tier
 
-    // --- 4. LOGIKA PINDAH HALAMAN (SPA) ---
+    // --- 4. NAVIGASI SPA ---
     const navBtns = document.querySelectorAll('.nav-btn');
     const pageTabs = document.querySelectorAll('.page-tab');
     const mainBottomNav = document.getElementById('main-bottom-nav');
@@ -151,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 5. ALUR DETAIL PRODUK & CHECKOUT ---
+    // --- 5. DETAIL & CHECKOUT ---
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
@@ -179,10 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideAllPages();
                 pageDetail.classList.remove('hidden');
                 pageDetail.classList.add('block');
-                if (mainBottomNav) {
-                    mainBottomNav.classList.add('hidden');
-                    mainBottomNav.classList.remove('flex');
-                }
+                if (mainBottomNav) mainBottomNav.classList.add('hidden');
                 window.scrollTo(0, 0);
             }
         });
@@ -193,10 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hideAllPages();
             pageBeranda.classList.remove('hidden');
             pageBeranda.classList.add('block');
-            if (mainBottomNav) {
-                mainBottomNav.classList.remove('hidden');
-                mainBottomNav.classList.add('flex');
-            }
+            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
             window.scrollTo(0, 0);
         });
     }
@@ -276,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. DRAG & DROP UPLOAD FOTO PRODUK ---
+    // --- 6. UPLOAD AKUN & VALIDASI HARGA MAKSIMAL 10JT ---
     const openJualAkunBtn = document.getElementById('openJualAkunBtn');
     const pageJual = document.getElementById('page-jual');
     const backFromJualBtn = document.getElementById('backFromJualBtn');
@@ -327,13 +391,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formJualAkun) {
         formJualAkun.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            const hargaNum = parseInt(document.getElementById('jualHarga').value);
+
+            // Validasi batas harga maksimal Rp 10.000.000
+            if (hargaNum > 10000000) {
+                alert("Maaf, batas maksimal harga produk yang diizinkan di Arthur Store ID adalah Rp 10.000.000!");
+                return;
+            }
+
             if (!uploadedImageBase64) {
                 alert("Mohon sertakan foto produk terlebih dahulu!");
                 return;
             }
 
             const judul = document.getElementById('jualJudul').value;
-            const hargaNum = parseInt(document.getElementById('jualHarga').value);
             const hargaFormatted = new Intl.NumberFormat('id-ID').format(hargaNum);
             const spesifikasi = document.getElementById('jualSpesifikasi').value;
 
@@ -382,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. LOGIKA UPLOAD BANNER PROMO ---
+    // --- 7. UPLOAD BANNER ---
     const openJualBannerBtn = document.getElementById('openJualBannerBtn');
     const pageBanner = document.getElementById('page-banner');
     const backFromBannerBtn = document.getElementById('backFromBannerBtn');
@@ -436,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 8. MODAL LOGIN & AI CHAT ---
+    // --- 8. MODAL LOGIN & AI ---
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
     const loginModalContent = document.getElementById('loginModalContent');
@@ -497,13 +569,12 @@ document.addEventListener('DOMContentLoaded', () => {
             chatMessages.insertAdjacentHTML('beforeend', `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl"><p class="text-xs">${txt}</p></div>`);
             aiChatInput.value = '';
             setTimeout(() => {
-                chatMessages.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">Sistem AI aktif membantu pembeli 24/7!</p></div>`);
+                chatMessages.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">Sistem AI siap membantu pembeli!</p></div>`);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }, 1000);
         });
     }
 
-    // --- 9. BANNER SLIDER OTOMATIS ---
     const bannerSliderEl = document.getElementById('bannerSlider');
     if (bannerSliderEl) {
         setInterval(() => {
