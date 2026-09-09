@@ -1,11 +1,11 @@
-/* script.js - Arthur Store ID Mobile + Batas Harga 10Jt & Quest Sistem Tier Penjual */
+/* script.js - Arthur Store ID Mobile + QRIS + Animasi Loading Transaksi & Checklist Tugas Pembeli */
 
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- DATABASE PENJUAL & TIER ---
     let sellerStats = {
-        terjual: 3,     // Simulasi awal: 3 produk terjual
-        ulasan: 12      // Simulasi awal: 12 ulasan bintang 5
+        terjual: 3,     
+        ulasan: 12      
     };
 
     let productsData = [
@@ -58,32 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentTier = "Bronze";
         let badge = "🥉";
         let percent = 0;
-        let targetTerjual = 5;
-        let targetUlasan = 20;
 
-        // Logika Quest Tier Penjual
         if (sellerStats.terjual >= 50 && sellerStats.ulasan >= 100) {
             currentTier = "Gold";
             badge = "🥇";
             percent = 100;
-            targetTerjual = 50;
-            targetUlasan = 100;
         } else if (sellerStats.terjual >= 20 && sellerStats.ulasan >= 50) {
             currentTier = "Silver";
             badge = "🥈";
-            // Hitung persentase menuju Gold
             const pTerjual = (sellerStats.terjual / 50) * 50;
             const pUlasan = (sellerStats.ulasan / 100) * 50;
             percent = Math.min(Math.round(pTerjual + pUlasan), 99);
-            targetTerjual = 50;
-            targetUlasan = 100;
         } else {
-            // Menuju Silver
             const pTerjual = (sellerStats.terjual / 5) * 50;
             const pUlasan = (sellerStats.ulasan / 20) * 50;
             percent = Math.min(Math.round(pTerjual + pUlasan), 99);
-            targetTerjual = 5;
-            targetUlasan = 20;
         }
 
         tierNameText.innerText = `Tier ${currentTier}`;
@@ -91,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tierPercentText.innerText = `${percent}%`;
         tierProgressBar.style.width = `${percent}%`;
 
-        // Update teks kuota quest
         if (currentTier === "Bronze") {
             questTerjualVal.innerText = `${sellerStats.terjual} / 5`;
             questUlasanVal.innerText = `${sellerStats.ulasan} / 20`;
@@ -173,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     renderProducts();
-    updateSellerTierUI(); // Inisialisasi awal UI Tier
+    updateSellerTierUI();
 
     // --- 4. NAVIGASI SPA ---
     const navBtns = document.querySelectorAll('.nav-btn');
@@ -221,11 +209,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 5. DETAIL & CHECKOUT ---
+    // --- 5. DETAIL & CHECKOUT DENGAN ANIMASI LOADING TRANSAKSI & TUGAS PEMBELI ---
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
     const pagePayment = document.getElementById('page-payment');
+    const pageBuyerTasks = document.getElementById('page-buyer-tasks');
+    const transactionLoadingModal = document.getElementById('transactionLoadingModal');
+    const loadingStatusText = document.getElementById('loadingStatusText');
     
     const backBtn = document.getElementById('backBtn');
     const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
@@ -272,9 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedProd) {
                 document.getElementById('checkoutImg').src = selectedProd.foto;
                 document.getElementById('checkoutJudul').innerText = selectedProd.judul;
-                document.getElementById('checkoutHarga').innerText = `Rp ${selectedProd.harga}`;
-                document.getElementById('checkoutTotal').innerText = `Rp ${selectedProd.harga}`;
-                document.getElementById('paymentTotal').innerText = `Rp ${selectedProd.harga}`;
+                document.getElementById('subtotalVal').innerText = `Rp ${selectedProd.harga}`;
+                
+                // Hitung total dengan biaya escrow 2.500
+                const totalNum = selectedProd.hargaRaw + 2500;
+                const totalFormatted = new Intl.NumberFormat('id-ID').format(totalNum);
+                document.getElementById('checkoutTotal').innerText = `Rp ${totalFormatted}`;
+                document.getElementById('checkoutTotalBar').innerText = `Rp ${totalFormatted}`;
             }
 
             hideAllPages();
@@ -293,50 +288,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const selectPaymentMethodBtn = document.getElementById('selectPaymentMethodBtn');
-    if (selectPaymentMethodBtn) {
-        selectPaymentMethodBtn.addEventListener('click', () => {
-            hideAllPages();
-            pagePayment.classList.remove('hidden');
-            pagePayment.classList.add('block');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    if (backFromPaymentBtn) {
-        backFromPaymentBtn.addEventListener('click', () => {
-            hideAllPages();
-            pageCheckout.classList.remove('hidden');
-            pageCheckout.classList.add('block');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
-    const selectedPaymentText = document.getElementById('selectedPaymentText');
-    if (confirmPaymentBtn) {
-        confirmPaymentBtn.addEventListener('click', () => {
-            const selectedOption = document.querySelector('input[name="payment_method"]:checked').value;
-            if(selectedPaymentText) {
-                selectedPaymentText.innerText = selectedOption;
-                selectedPaymentText.classList.add('text-green-600', 'dark:text-green-400');
-            }
-            hideAllPages();
-            pageCheckout.classList.remove('hidden');
-            pageCheckout.classList.add('block');
-            window.scrollTo(0, 0);
-        });
-    }
-
+    // Tombol Bayar dengan QRIS -> Memicu Animasi Loading & Pindah ke Tugas Pembeli
     const processPaymentBtn = document.getElementById('processPaymentBtn');
-    if (processPaymentBtn) {
+    if (processPaymentBtn && transactionLoadingModal) {
         processPaymentBtn.addEventListener('click', () => {
-            const currentPayment = selectedPaymentText ? selectedPaymentText.innerText : "";
-            if (currentPayment === "Pilih Metode Pembayaran...") {
-                alert("Mohon pilih metode pembayaran terlebih dahulu!");
-                return;
+            // Tampilkan modal loading transaksi
+            transactionLoadingModal.classList.remove('hidden');
+            
+            // Simulasi urutan tahapan pembayaran QRIS
+            setTimeout(() => {
+                loadingStatusText.innerText = "Memverifikasi pembayaran QRIS...";
+            }, 1200);
+
+            setTimeout(() => {
+                loadingStatusText.innerText = "Pembayaran berhasil! Menyiapkan data akun...";
+            }, 2500);
+
+            setTimeout(() => {
+                // Sembunyikan modal loading
+                transactionLoadingModal.classList.add('hidden');
+                loadingStatusText.innerText = "Menghubungkan ke sistem gateway QRIS..."; // Reset teks
+
+                // Pindah ke Halaman Tugas Pembeli
+                hideAllPages();
+                pageBuyerTasks.classList.remove('hidden');
+                pageBuyerTasks.classList.add('block');
+                window.scrollTo(0, 0);
+            }, 3800);
+        });
+    }
+
+    // --- LOGIKA CHECKLIST TUGAS PEMBELI ---
+    const buyerTaskCheckboxes = document.querySelectorAll('.buyer-task-checkbox');
+    const completeBuyerTasksBtn = document.getElementById('completeBuyerTasksBtn');
+
+    if (buyerTaskCheckboxes.length > 0 && completeBuyerTasksBtn) {
+        buyerTaskCheckboxes.forEach(chk => {
+            chk.addEventListener('change', () => {
+                const allChecked = Array.from(buyerTaskCheckboxes).every(cb => cb.checked);
+                if (allChecked) {
+                    completeBuyerTasksBtn.removeAttribute('disabled');
+                    completeBuyerTasksBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    completeBuyerTasksBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'shadow-md');
+                } else {
+                    completeBuyerTasksBtn.setAttribute('disabled', 'true');
+                    completeBuyerTasksBtn.classList.remove('bg-green-600', 'hover:bg-green-700', 'shadow-md');
+                    completeBuyerTasksBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                }
+            });
+        });
+
+        completeBuyerTasksBtn.addEventListener('click', () => {
+            alert("Transaksi Sukses! Akun telah diverifikasi aman dan dana Escrow diteruskan ke penjual.");
+            
+            // Kembali ke Beranda
+            hideAllPages();
+            pageBeranda.classList.remove('hidden');
+            pageBeranda.classList.add('block');
+            if (mainBottomNav) {
+                mainBottomNav.classList.remove('hidden');
+                mainBottomNav.classList.add('flex');
             }
-            alert(`Pesanan Berhasil Dibuat!\nMengalihkan ke sistem pembayaran ${currentPayment}...`);
+            window.scrollTo(0, 0);
         });
     }
 
@@ -394,7 +407,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const hargaNum = parseInt(document.getElementById('jualHarga').value);
 
-            // Validasi batas harga maksimal Rp 10.000.000
             if (hargaNum > 10000000) {
                 alert("Maaf, batas maksimal harga produk yang diizinkan di Arthur Store ID adalah Rp 10.000.000!");
                 return;
