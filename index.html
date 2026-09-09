@@ -58,46 +58,9 @@
                 <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm uppercase">Rekomendasi Akun</h2>
             </div>
 
-            <!-- GRID PRODUK (Ditambahkan ID productGrid agar JS bisa mendeteksi klik produk baru) -->
+            <!-- GRID PRODUK DINAMIS -->
             <div id="productGrid" class="p-2 grid grid-cols-2 gap-2">
-                
-                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
-                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">-16%</div>
-                    <div class="overflow-hidden"><img src="images/valorant.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+1'"></div>
-                    <div class="p-2 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun Valorant Premium | Full Skin Kuronami & Reaver</h3>
-                            <div class="mt-1.5 flex flex-wrap gap-1">
-                                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">🛡️ Garansi</span>
-                                <span class="text-[9px] text-yellow-600 dark:text-yellow-400 border border-yellow-500/50 px-1 py-0.5 rounded bg-yellow-50 dark:bg-yellow-900/20 font-semibold">🥇 Gold</span>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 349.110</div>
-                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
-                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 5.0</div><span>4 rb Terjual</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
-                    <div class="overflow-hidden"><img src="images/mlbb.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+2'"></div>
-                    <div class="p-2 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun ML Mythic Glory 150 Skin KOF Chou Unbind</h3>
-                            <div class="mt-1.5 flex flex-wrap gap-1">
-                                <span class="text-[9px] text-gray-600 dark:text-gray-300 border border-gray-400/50 px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-semibold">🥈 Silver</span>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 850.000</div>
-                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
-                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 4.9</div><span>10RB+ Terjual</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Data produk akan dirender otomatis oleh JavaScript -->
             </div>
         </div>
 
@@ -110,14 +73,13 @@
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white line-clamp-1">Detail Akun</h1>
             </header>
 
-            <img src="images/valorant.jpg" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/600x400?text=Gambar+Detail'">
+            <img id="detailImg" src="" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/600x400?text=Gambar+Detail'">
 
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors">
-                <div class="text-blue-700 dark:text-blue-400 font-bold text-2xl mb-1">Rp 349.110</div>
-                <h2 class="text-gray-800 dark:text-white font-medium text-sm leading-snug">Akun Premium Arthur Store ID</h2>
+                <div id="detailHarga" class="text-blue-700 dark:text-blue-400 font-bold text-2xl mb-1">Rp 0</div>
+                <h2 id="detailJudul" class="text-gray-800 dark:text-white font-medium text-sm leading-snug">Judul Akun</h2>
             </div>
 
-            <!-- PROFIL PENJUAL DI DETAIL PRODUK -->
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-lg">🏪</div>
@@ -132,11 +94,7 @@
 
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-4 transition-colors">
                 <h3 class="font-bold text-gray-800 dark:text-white mb-2 text-sm">Spesifikasi & Deskripsi</h3>
-                <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                    Halo Gamers! 🎮
-                    Dijual akun game dengan spesifikasi sultan. Data aman 100%.
-                    Transaksi dijamin aman menggunakan sistem Escrow Arthur Store ID.
-                </p>
+                <p id="detailSpesifikasi" class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">Deskripsi akun...</p>
             </div>
 
             <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center z-50 h-14 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
@@ -152,18 +110,15 @@
 
         <!-- HALAMAN 3: CHECKOUT -->
         <div id="page-checkout" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[70]">
-            <!-- (Sama seperti sebelumnya) -->
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
+                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Checkout Escrow</h1>
             </header>
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors flex gap-3">
-                <img src="images/valorant.jpg" class="w-16 h-16 object-cover rounded-md border dark:border-gray-700" onerror="this.src='https://placehold.co/100x100?text=Produk'">
+                <img id="checkoutImg" src="" class="w-16 h-16 object-cover rounded-md border dark:border-gray-700">
                 <div class="flex-1">
-                    <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 leading-tight font-medium">Akun Premium Arthur Store ID</h3>
-                    <div class="text-blue-600 dark:text-blue-400 font-bold text-sm mt-1">Rp 349.110</div>
+                    <h3 id="checkoutJudul" class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 leading-tight font-medium">Judul Akun</h3>
+                    <div id="checkoutHarga" class="text-blue-600 dark:text-blue-400 font-bold text-sm mt-1">Rp 0</div>
                 </div>
             </div>
             <div id="selectPaymentMethodBtn" class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between items-center group">
@@ -174,19 +129,18 @@
                 <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </div>
             <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between z-50 h-16 px-4 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <div class="flex flex-col"><span class="text-[10px] text-gray-500 dark:text-gray-400 font-medium">Total Pembayaran</span><span class="text-blue-600 dark:text-blue-400 font-bold text-lg leading-none mt-0.5">Rp 351.610</span></div>
+                <div class="flex flex-col"><span class="text-[10px] text-gray-500 dark:text-gray-400 font-medium">Total Pembayaran</span><span id="checkoutTotal" class="text-blue-600 dark:text-blue-400 font-bold text-lg leading-none mt-0.5">Rp 0</span></div>
                 <button id="processPaymentBtn" class="bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white font-bold text-sm px-6 py-2.5 rounded-lg transition-all shadow-md shadow-blue-500/30">Buat Pesanan</button>
             </div>
         </div>
 
         <!-- HALAMAN 4: PILIH PEMBAYARAN -->
         <div id="page-payment" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[80]">
-            <!-- (Sama seperti sebelumnya) -->
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
                 <button id="backFromPaymentBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Pilih Pembayaran</h1>
             </header>
-            <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors text-center"><p class="text-xs text-gray-500 dark:text-gray-400">Total Pembayaran</p><p class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">Rp 351.610</p></div>
+            <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors text-center"><p class="text-xs text-gray-500 dark:text-gray-400">Total Pembayaran</p><p id="paymentTotal" class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">Rp 0</p></div>
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors">
                 <h3 class="font-bold text-gray-800 dark:text-white mb-3 text-sm">E-Wallet / Uang Elektronik</h3>
                 <div class="space-y-3">
@@ -199,19 +153,23 @@
             </div>
         </div>
 
-        <!-- HALAMAN 5: NOTIFIKASI -->
+        <!-- HALAMAN 5: NOTIFIKASI (DINAMIS) -->
         <div id="page-notifikasi" class="page-tab hidden fade-in bg-white dark:bg-gray-800 min-h-screen transition-colors">
             <h2 class="font-bold p-4 border-b border-gray-100 dark:border-gray-700 text-gray-800 dark:text-white">Notifikasi</h2>
-            <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20">
-                <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">📦</div>
-                <div>
-                    <h4 class="text-sm font-bold text-gray-800 dark:text-white">Pesanan Selesai</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun Valorant Premium telah berhasil diserahkan.</p>
+            <div id="notificationList" class="divide-y divide-gray-100 dark:divide-gray-700">
+                <!-- Notifikasi default -->
+                <div class="p-4 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">📦</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white">Pesanan Selesai</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun Valorant Premium telah berhasil diserahkan.</p>
+                        <span class="text-[9px] text-gray-400 mt-1 block">Baru saja</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- HALAMAN 6: SAYA (DITAMBAH TOMBOL JUAL AKUN) -->
+        <!-- HALAMAN 6: SAYA -->
         <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
             <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
                 <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
@@ -229,7 +187,6 @@
                 </div>
             </div>
 
-            <!-- DASHBOARD TIER & TOMBOL JUAL AKUN BARU -->
             <div class="bg-white dark:bg-gray-800 mt-2 p-4 shadow-sm transition-colors border-b border-gray-100 dark:border-gray-700">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-bold text-gray-800 dark:text-white text-sm">Dashboard Penjual</h3>
@@ -252,7 +209,6 @@
                     </div>
                 </div>
 
-                <!-- TOMBOL JUAL AKUN -->
                 <button id="openJualAkunBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-3 rounded-lg transition-all shadow-md flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Jual Akun Baru
@@ -260,7 +216,7 @@
             </div>
         </div>
 
-        <!-- ================= HALAMAN 7: FORM JUAL AKUN (FITUR BARU) ================= -->
+        <!-- HALAMAN 7: FORM JUAL AKUN -->
         <div id="page-jual" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[90]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
                 <button id="backFromJualBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
@@ -273,7 +229,6 @@
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">URL Foto Produk</label>
                     <input type="text" id="jualFoto" placeholder="https://contoh-gambar.com/akun.jpg" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" required>
-                    <p class="text-[9px] text-gray-500 mt-1">Gunakan URL gambar valid. (Simulasi Upload)</p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-3">
@@ -286,8 +241,8 @@
                         <input type="number" id="jualHarga" placeholder="50000" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Spesifikasi / Rank</label>
-                        <input type="text" id="jualSpesifikasi" placeholder="Cth: Mythic Glory / Ascendant" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" required>
+                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Spesifikasi / Deskripsi</label>
+                        <textarea id="jualSpesifikasi" rows="3" placeholder="Tulis spesifikasi akun di sini..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm" required></textarea>
                     </div>
                 </div>
 
@@ -304,7 +259,7 @@
     <!-- ================= NAVIGASI BAWAH UTAMA ================= -->
     <nav id="main-bottom-nav" class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex justify-around text-[10px] pt-2 pb-3 z-40 transition-colors shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
         <div class="nav-btn flex flex-col items-center cursor-pointer text-blue-600 dark:text-blue-400" data-target="beranda">
-            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
             <span>Beranda</span>
         </div>
         <div class="nav-btn flex flex-col items-center cursor-pointer text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-target="notifikasi">
@@ -317,7 +272,7 @@
         </div>
     </nav>
 
-    <!-- ================= MODAL LOGIN & AI CHAT (TETAP ADA) ================= -->
+    <!-- ================= MODAL LOGIN & AI CHAT ================= -->
     <div id="loginModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
         <div id="loginModalContent" class="bg-white dark:bg-gray-800 w-[90%] max-w-sm rounded-2xl shadow-2xl p-6 transform scale-95 transition-transform duration-300 mx-auto">
             <div class="flex justify-between items-center mb-6">
