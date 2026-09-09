@@ -1,149 +1,46 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Arthur Store ID - Mobile</title>
-    <!-- Memanggil Tailwind dari CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Memanggil file CSS terpisah -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="bg-gray-100 max-w-md mx-auto relative min-h-screen pb-16 font-sans">
-
-    <!-- ================= TOP HEADER ================= -->
-    <header class="bg-[#ee4d2d] sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3">
-        <div class="flex-1 bg-white rounded-sm flex items-center px-2 py-1.5 shadow-inner">
-            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input type="text" placeholder="Cari akun MLBB Mythic..." class="flex-1 text-sm outline-none text-gray-700 bg-transparent">
-        </div>
-        <div class="relative cursor-pointer text-white">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
-            <span class="absolute -top-1 -right-2 bg-white text-[#ee4d2d] text-[10px] font-bold px-1.5 rounded-full border border-[#ee4d2d]">43</span>
-        </div>
-        <div class="relative cursor-pointer text-white">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-            <span class="absolute -top-1 -right-1 bg-white text-[#ee4d2d] text-[10px] font-bold px-1.5 rounded-full border border-[#ee4d2d]">1</span>
-        </div>
-    </header>
-
-    <!-- ================= AREA KONTEN ================= -->
-    <div id="content-area">
-        
-        <!-- 1. HALAMAN BERANDA -->
-        <div id="page-beranda" class="page-tab block fade-in">
-            <!-- Banner Slider -->
-            <div class="bg-white p-2">
-                <div class="flex gap-2 overflow-x-auto no-scrollbar snap-x">
-                    <img src="images/valorant.jpg" alt="Promo 1" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 border border-gray-100" onerror="this.src='https://placehold.co/600x250/ee4d2d/white?text=Promo+Valorant'">
-                    <img src="images/mlbb.jpg" alt="Promo 2" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 border border-gray-100" onerror="this.src='https://placehold.co/600x250/ee4d2d/white?text=Promo+MLBB'">
-                    <img src="images/roblox.jpg" alt="Promo 3" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 border border-gray-100" onerror="this.src='https://placehold.co/600x250/ee4d2d/white?text=Promo+Roblox'">
-                </div>
-            </div>
-
-            <!-- Menu Kategori Grid -->
-            <div class="bg-white px-2 pb-4 mb-2 grid grid-cols-4 gap-y-4 pt-2 shadow-sm">
-                <div class="flex flex-col items-center gap-1 cursor-pointer">
-                    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-xl">💎</div>
-                    <span class="text-[10px] text-gray-700 text-center">Top Up</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer">
-                    <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-xl">👤</div>
-                    <span class="text-[10px] text-gray-700 text-center">Beli Akun</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer">
-                    <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center text-xl">🎟️</div>
-                    <span class="text-[10px] text-gray-700 text-center">Voucher</span>
-                </div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer">
-                    <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center text-xl">🎮</div>
-                    <span class="text-[10px] text-gray-700 text-center">Game Key</span>
-                </div>
-            </div>
-
-            <!-- Header Rekomendasi -->
-            <div class="bg-white p-3 flex justify-between items-center border-b border-gray-200 sticky top-[60px] z-40">
-                <h2 class="text-[#ee4d2d] font-bold text-sm uppercase">Rekomendasi Untukmu</h2>
-            </div>
-
-            <!-- Grid Produk -->
-            <div class="p-2 grid grid-cols-2 gap-2">
-                <!-- Produk 1 -->
-                <div class="bg-white relative shadow-sm border border-gray-100 cursor-pointer hover:shadow-md">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-white text-[10px] font-bold px-1 py-0.5 z-10">-16%</div>
-                    <img src="images/valorant.jpg" alt="Valorant" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/400x400?text=Gambar+Kosong'">
-                    <div class="p-2">
-                        <h3 class="text-xs text-gray-800 line-clamp-2 leading-tight h-8">Akun Valorant Premium | Full Skin Kuronami & Reaver Vandal</h3>
-                        <div class="text-[#ee4d2d] font-bold text-sm mt-2">Rp 349.110</div>
-                        <div class="flex items-center justify-between mt-2 text-[10px] text-gray-500">
-                            <div><span class="text-yellow-400">★</span> 5.0</div>
-                            <span>4 rb Terjual</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Produk 2 -->
-                <div class="bg-white relative shadow-sm border border-gray-100 cursor-pointer hover:shadow-md">
-                    <img src="images/roblox.jpg" alt="Roblox" class="w-full h-40 object-cover" onerror="this.src='https://placehold.co/400x400?text=Gambar+Kosong'">
-                    <div class="p-2">
-                        <h3 class="text-xs text-gray-800 line-clamp-2 leading-tight h-8">Blox Fruits Max Level | Cyborg V4 + CDK Mulus Aman</h3>
-                        <div class="text-[#ee4d2d] font-bold text-sm mt-2">Rp 150.000</div>
-                        <div class="flex items-center justify-between mt-2 text-[10px] text-gray-500">
-                            <div><span class="text-yellow-400">★</span> 4.8</div>
-                            <span>9 Terjual</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. HALAMAN NOTIFIKASI -->
-        <div id="page-notifikasi" class="page-tab hidden fade-in bg-white min-h-screen">
-            <div class="p-4 border-b border-gray-100 flex items-start gap-3 bg-orange-50">
-                <div class="w-10 h-10 rounded-full bg-[#ee4d2d] text-white flex items-center justify-center">📦</div>
-                <div>
-                    <h4 class="text-sm font-bold text-gray-800">Pesanan Selesai</h4>
-                    <p class="text-xs text-gray-600 mt-1">Akun Valorant Premium telah berhasil diserahkan.</p>
-                    <span class="text-[10px] text-gray-400 mt-1 block">2 jam yang lalu</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. HALAMAN SAYA -->
-        <div id="page-saya" class="page-tab hidden fade-in bg-gray-100 min-h-screen">
-            <div class="bg-[#ee4d2d] p-4 flex items-center gap-4 text-white">
-                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#ee4d2d] text-2xl font-bold">A</div>
-                <div>
-                    <h2 class="font-bold text-lg">Arthur</h2>
-                    <p class="text-xs text-orange-200">Member Silver</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ================= BOTTOM NAVIGATION BAR ================= -->
-    <nav class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-200 flex justify-around text-[10px] pt-2 pb-3 z-50 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
-        
-        <div class="nav-btn flex flex-col items-center cursor-pointer text-[#ee4d2d]" data-target="beranda">
-            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-            <span>Beranda</span>
-        </div>
-
-        <div class="nav-btn flex flex-col items-center cursor-pointer text-gray-500 hover:text-[#ee4d2d] transition-colors relative" data-target="notifikasi">
-            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-            <span class="absolute -top-1 right-2 bg-[#ee4d2d] text-white text-[8px] font-bold px-1 rounded-full border border-white">11</span>
-            <span>Notifikasi</span>
-        </div>
-
-        <div class="nav-btn flex flex-col items-center cursor-pointer text-gray-500 hover:text-[#ee4d2d] transition-colors" data-target="saya">
-            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-            <span>Saya</span>
-        </div>
-
-    </nav>
-
-    <!-- Memanggil file JavaScript terpisah -->
-    <script src="script.js"></script>
-</body>
-                        </html>
+<!-- Kartu Produk Arthur Store ID -->
+<div class="bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
     
+    <!-- Lencana Diskon (Warna Biru Kontras) -->
+    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">
+        -16%
+    </div>
+    
+    <!-- Gambar Produk dengan Efek Zoom Halus Saat Disentuh/Hover -->
+    <div class="overflow-hidden">
+        <img src="images/valorant.jpg" alt="Akun Valorant" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'">
+    </div>
+    
+    <!-- Area Informasi Produk -->
+    <div class="p-2 flex flex-col justify-between">
+        <div>
+            <!-- Judul Produk: Maksimal 2 Baris -->
+            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">
+                Akun Valorant Premium | Full Skin Kuronami & Reaver Vandal
+            </h3>
+            
+            <!-- Label Kepercayaan (Trust Badge) -->
+            <div class="mt-1.5">
+                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">
+                    🛡️ Garansi Anti-Hack
+                </span>
+            </div>
+        </div>
+        
+        <!-- Harga & Statistik (Menempel di Bawah) -->
+        <div class="mt-2">
+            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">
+                Rp 349.110
+            </div>
+            
+            <!-- Pemisah Garis Tipis Ala Shopee -->
+            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                <div class="flex items-center gap-0.5">
+                    <span class="text-yellow-400 text-xs">★</span> 5.0
+                </div>
+                <span>4 rb Terjual</span>
+            </div>
+        </div>
+    </div>
+</div>
+
