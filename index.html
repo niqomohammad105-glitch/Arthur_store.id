@@ -43,7 +43,6 @@
                 <div id="bannerSlider" class="flex gap-2 overflow-x-auto no-scrollbar snap-x scroll-smooth">
                     <img src="images/valorant.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+1'">
                     <img src="images/mlbb.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+2'">
-                    <img src="images/roblox.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+3'">
                 </div>
             </div>
 
@@ -58,7 +57,6 @@
                 <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm uppercase">Rekomendasi Akun</h2>
             </div>
 
-            <!-- GRID PRODUK DINAMIS -->
             <div id="productGrid" class="p-2 grid grid-cols-2 gap-2">
                 <!-- Data produk dimuat otomatis -->
             </div>
@@ -67,7 +65,7 @@
         <!-- HALAMAN 2: DETAIL PRODUK -->
         <div id="page-detail" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-16 relative z-[60]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                <button id="backBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white line-clamp-1">Detail Akun</h1>
@@ -86,7 +84,7 @@
                     <div>
                         <h3 class="font-bold text-gray-800 dark:text-white text-sm leading-none">StoreGamer ID</h3>
                         <div class="flex items-center gap-1 mt-1">
-                            <span class="text-[10px] text-yellow-600 dark:text-yellow-400 font-bold bg-yellow-50 dark:bg-yellow-900/30 px-1.5 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">🥇 Penjual Gold</span>
+                            <span id="detailStoreTier" class="text-[10px] text-yellow-600 dark:text-yellow-400 font-bold bg-yellow-50 dark:bg-yellow-900/30 px-1.5 py-0.5 rounded border border-yellow-200">🥇 Penjual Gold</span>
                         </div>
                     </div>
                 </div>
@@ -98,7 +96,7 @@
             </div>
 
             <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center z-50 h-14 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <button class="flex flex-col items-center justify-center w-[20%] h-full border-r border-gray-200 dark:border-gray-800 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                <button class="flex flex-col items-center justify-center w-[20%] h-full border-r text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                     <span class="text-[9px]">Chat</span>
                 </button>
@@ -111,7 +109,7 @@
         <!-- HALAMAN 3: CHECKOUT -->
         <div id="page-checkout" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[70]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Checkout Escrow</h1>
             </header>
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors flex gap-3">
@@ -121,35 +119,35 @@
                     <div id="checkoutHarga" class="text-blue-600 dark:text-blue-400 font-bold text-sm mt-1">Rp 0</div>
                 </div>
             </div>
-            <div id="selectPaymentMethodBtn" class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between items-center group">
+            <div id="selectPaymentMethodBtn" class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors cursor-pointer hover:bg-gray-50 flex justify-between items-center group">
                 <div>
                     <h3 class="font-bold text-gray-800 dark:text-white text-xs uppercase text-gray-500 mb-1">Metode Pembayaran</h3>
                     <div id="selectedPaymentText" class="text-sm font-medium text-blue-600 dark:text-blue-400">Pilih Metode Pembayaran...</div>
                 </div>
-                <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </div>
-            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between z-50 h-16 px-4 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <div class="flex flex-col"><span class="text-[10px] text-gray-500 dark:text-gray-400 font-medium">Total Pembayaran</span><span id="checkoutTotal" class="text-blue-600 dark:text-blue-400 font-bold text-lg leading-none mt-0.5">Rp 0</span></div>
-                <button id="processPaymentBtn" class="bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white font-bold text-sm px-6 py-2.5 rounded-lg transition-all shadow-md shadow-blue-500/30">Buat Pesanan</button>
+            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t p-3 z-50 flex items-center justify-between px-4">
+                <div class="flex flex-col"><span class="text-[10px] text-gray-500">Total Pembayaran</span><span id="checkoutTotal" class="text-blue-600 dark:text-blue-400 font-bold text-lg">Rp 0</span></div>
+                <button id="processPaymentBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-lg shadow-md">Buat Pesanan</button>
             </div>
         </div>
 
         <!-- HALAMAN 4: PILIH PEMBAYARAN -->
         <div id="page-payment" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[80]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromPaymentBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button id="backFromPaymentBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Pilih Pembayaran</h1>
             </header>
-            <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors text-center"><p class="text-xs text-gray-500 dark:text-gray-400">Total Pembayaran</p><p id="paymentTotal" class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">Rp 0</p></div>
+            <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors text-center"><p class="text-xs text-gray-500">Total Pembayaran</p><p id="paymentTotal" class="text-2xl font-bold text-blue-600 dark:text-blue-400 mt-1">Rp 0</p></div>
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors">
-                <h3 class="font-bold text-gray-800 dark:text-white mb-3 text-sm">E-Wallet / Uang Elektronik</h3>
+                <h3 class="font-bold text-gray-800 dark:text-white mb-3 text-sm">E-Wallet</h3>
                 <div class="space-y-3">
-                    <label class="flex items-center justify-between p-3 border dark:border-gray-700 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors"><div class="flex items-center gap-3"><span class="text-xl">📱</span><span class="text-sm font-medium text-gray-800 dark:text-white">GoPay</span></div><input type="radio" name="payment_method" value="GoPay" class="w-4 h-4 text-blue-600" checked></label>
-                    <label class="flex items-center justify-between p-3 border dark:border-gray-700 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors"><div class="flex items-center gap-3"><span class="text-xl">💰</span><span class="text-sm font-medium text-gray-800 dark:text-white">DANA</span></div><input type="radio" name="payment_method" value="DANA" class="w-4 h-4 text-blue-600"></label>
+                    <label class="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700"><div class="flex items-center gap-3"><span class="text-xl">📱</span><span class="text-sm font-medium text-gray-800 dark:text-white">GoPay</span></div><input type="radio" name="payment_method" value="GoPay" class="w-4 h-4 text-blue-600" checked></label>
+                    <label class="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700"><div class="flex items-center gap-3"><span class="text-xl">💰</span><span class="text-sm font-medium text-gray-800 dark:text-white">DANA</span></div><input type="radio" name="payment_method" value="DANA" class="w-4 h-4 text-blue-600"></label>
                 </div>
             </div>
-            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 p-3 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <button id="confirmPaymentBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-3 rounded-lg transition-all shadow-md">Konfirmasi Metode</button>
+            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t p-3 z-50">
+                <button id="confirmPaymentBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-3 rounded-lg shadow-md">Konfirmasi Metode</button>
             </div>
         </div>
 
@@ -168,15 +166,15 @@
             </div>
         </div>
 
-        <!-- HALAMAN 6: SAYA -->
+        <!-- HALAMAN 6: SAYA (DENGAN QUEST & PROGRES TIER OTOMATIS) -->
         <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
             <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
                 <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
                 <div><h2 class="font-bold text-lg">Arthur</h2><p class="text-xs text-blue-200">Pengguna Terverifikasi</p></div>
             </div>
             
-            <div class="bg-white dark:bg-gray-800 p-4 flex justify-between text-sm shadow-sm transition-colors border-b border-gray-100 dark:border-gray-700">
-                <div class="text-center w-1/2 border-r border-gray-100 dark:border-gray-700">
+            <div class="bg-white dark:bg-gray-800 p-4 flex justify-between text-sm shadow-sm transition-colors border-b dark:border-gray-700">
+                <div class="text-center w-1/2 border-r dark:border-gray-700">
                     <div class="font-bold text-blue-600 dark:text-blue-400">Rp 0</div>
                     <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Saldo Escrow</div>
                 </div>
@@ -186,25 +184,42 @@
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 mt-2 p-4 shadow-sm transition-colors border-b border-gray-100 dark:border-gray-700">
+            <!-- DASHBOARD TIER & QUEST PENJUAL -->
+            <div class="bg-white dark:bg-gray-800 mt-2 p-4 shadow-sm transition-colors border-b dark:border-gray-700">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Dashboard Penjual</h3>
+                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Dashboard & Quest Penjual</h3>
                 </div>
-                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-900 transition-colors mb-4">
-                    <div class="flex justify-between items-center mb-3">
+                
+                <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900 transition-colors mb-4">
+                    <div class="flex justify-between items-center mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="text-2xl drop-shadow-sm">🥈</span>
+                            <span id="tierBadgeIcon" class="text-2xl">🥉</span>
                             <div>
-                                <div class="font-bold text-gray-800 dark:text-white text-sm leading-tight">Tier Silver</div>
-                                <div class="text-[10px] text-gray-500">Toko Terpercaya</div>
+                                <div id="tierNameText" class="font-bold text-gray-800 dark:text-white text-sm leading-tight">Tier Bronze</div>
+                                <div class="text-[10px] text-gray-500">Status Toko Anda</div>
                             </div>
                         </div>
                         <div class="text-right">
-                            <div class="text-xs font-bold text-blue-600 dark:text-blue-400">75%</div><div class="text-[9px] text-gray-500 dark:text-gray-400">Menuju Gold</div>
+                            <button id="claimTierBtn" class="hidden bg-green-600 hover:bg-green-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow animate-bounce">Klaim Naik Tier!</button>
+                            <span id="tierPercentText" class="text-xs font-bold text-blue-600 dark:text-blue-400">0%</span>
                         </div>
                     </div>
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2 shadow-inner">
-                        <div class="bg-gradient-to-r from-gray-400 via-blue-500 to-blue-600 h-2 rounded-full" style="width: 75%"></div>
+                    
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3 shadow-inner">
+                        <div id="tierProgressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+
+                    <!-- Detail Quest / Syarat Kenaikan Tier -->
+                    <div class="space-y-1.5 pt-2 border-t border-gray-200 dark:border-gray-800 text-[11px]">
+                        <div class="text-gray-700 dark:text-gray-300 font-bold mb-1">Quest Syarat Tier Berikutnya:</div>
+                        <div id="questTerjual" class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>📦 Produk Terjual:</span>
+                            <span id="questTerjualVal" class="font-semibold text-gray-800 dark:text-white">0 / 5</span>
+                        </div>
+                        <div id="questUlasan" class="flex justify-between text-gray-600 dark:text-gray-400">
+                            <span>⭐ Ulasan Bintang 5:</span>
+                            <span id="questUlasanVal" class="font-semibold text-gray-800 dark:text-white">0 / 20</span>
+                        </div>
                     </div>
                 </div>
 
@@ -219,19 +234,17 @@
             </div>
         </div>
 
-        <!-- HALAMAN 7: FORM JUAL AKUN -->
+        <!-- HALAMAN 7: FORM JUAL AKUN (DENGAN BATAS HARGA 10JT) -->
         <div id="page-jual" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-24 relative z-[90]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromJualBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
+                <button id="backFromJualBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Form Jual Akun</h1>
             </header>
 
             <form id="formJualAkun" class="p-4 space-y-4">
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                     <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">Foto Produk Akun</label>
-                    <div id="dropZone" class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 text-center cursor-pointer hover:border-blue-500 transition-all bg-gray-50 dark:bg-gray-900 relative">
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-6 text-center cursor-pointer hover:border-blue-500 bg-gray-50 dark:bg-gray-900 relative">
                         <input type="file" id="jualFileFoto" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10">
                         <div id="dropZoneContent" class="flex flex-col items-center">
                             <svg class="w-10 h-10 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -250,8 +263,9 @@
                         <input type="text" id="jualJudul" placeholder="Cth: Akun Valorant Sultan" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Harga (Rupiah)</label>
-                        <input type="number" id="jualHarga" placeholder="50000" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>
+                        <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Harga (Maksimal Rp 10.000.000)</label>
+                        <input type="number" id="jualHarga" max="10000000" placeholder="Cth: 500000" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required>
+                        <p class="text-[9px] text-gray-400 mt-1">Batas harga tertinggi yang diizinkan sistem adalah Rp 10.000.000.</p>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Spesifikasi / Deskripsi</label>
@@ -270,9 +284,7 @@
         <!-- HALAMAN 8: FORM TAMBAH BANNER -->
         <div id="page-banner" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-24 relative z-[90]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromBannerBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
+                <button id="backFromBannerBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Upload Banner Promo</h1>
             </header>
 
