@@ -1,7 +1,37 @@
-/* script.js - Arthur Store ID Mobile + Fitur Jual Akun Dinamis */
+/* script.js - Arthur Store ID Mobile + Dynamic Index Fix & Notifikasi Upload */
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- DATABASE SEMENTARA (ARRAY PRODUK) ---
+    let productsData = [
+        {
+            id: 0,
+            judul: "Akun Valorant Premium | Full Skin Kuronami & Reaver",
+            harga: "349.110",
+            hargaRaw: 349110,
+            foto: "images/valorant.jpg",
+            spesifikasi: "Status: Aman / Anti-Hack\nRank: Ascendant 1\nSkin: 34 Premium Skins\nLogin: Riot ID (Unbind)",
+            tier: "🥇 Gold",
+            terjual: "4 rb",
+            rating: "5.0",
+            diskon: "-16%"
+        },
+        {
+            id: 1,
+            judul: "Akun ML Mythic Glory 150 Skin KOF Chou Unbind",
+            harga: "850.000",
+            hargaRaw: 850000,
+            foto: "images/mlbb.jpg",
+            spesifikasi: "Status: Aman 100%\nRank: Mythic Glory\nSkin: 150 (KOF Chou, Epic Limited)\nLogin: Moonton (Unbind)",
+            tier: "🥈 Silver",
+            terjual: "10RB+",
+            rating: "4.9",
+            diskon: ""
+        }
+    ];
+
+    let activeProductId = null; // Menyimpan produk yang sedang diklik
+
     // --- 1. DARK MODE TEMA ---
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
@@ -25,7 +55,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. LOGIKA PINDAH HALAMAN (SPA) ---
+    // --- 2. RENDER PRODUK KE BERANDA (MENGATASI BUG KLIK PRODUK LAIN) ---
+    const productGrid = document.getElementById('productGrid');
+
+    function renderProducts() {
+        if (!productGrid) return;
+        productGrid.innerHTML = "";
+
+        productsData.forEach((prod) => {
+            const cardHtml = `
+                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group" data-id="${prod.id}">
+                    ${prod.diskon ? `<div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">${prod.diskon}</div>` : '<div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">BARU</div>'}
+                    <div class="overflow-hidden"><img src="${prod.foto}" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'"></div>
+                    <div class="p-2 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">${prod.judul}</h3>
+                            <div class="mt-1.5 flex flex-wrap gap-1">
+                                <span class="text-[9px] text-gray-600 dark:text-gray-300 border border-gray-400/50 px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-semibold">${prod.tier}</span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp ${prod.harga}</div>
+                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> ${prod.rating}</div><span>${prod.terjual} Terjual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            productGrid.insertAdjacentHTML('beforeend', cardHtml);
+        });
+    }
+
+    renderProducts(); // Render awal
+
+    // --- 3. LOGIKA PINDAH HALAMAN (SPA) ---
     const navBtns = document.querySelectorAll('.nav-btn');
     const pageTabs = document.querySelectorAll('.page-tab');
     const mainBottomNav = document.getElementById('main-bottom-nav');
@@ -71,22 +135,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. ALUR PEMBELIAN DENGAN EVENT DELEGATION (AGAR PRODUK BARU BISA DIKLIK) ---
+    // --- 4. ALUR PEMBELIAN & DETAIL PRODUK (FIXED INDEX BUG) ---
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
     const pagePayment = document.getElementById('page-payment');
-    const productGrid = document.getElementById('productGrid'); // Deteksi grid
     
     const backBtn = document.getElementById('backBtn');
     const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
     const backFromPaymentBtn = document.getElementById('backFromPaymentBtn');
     
-    // Klik Produk di Grid (Berlaku juga untuk produk yang baru ditambah)
+    // Tangkap klik produk berdasarkan ID aslinya (Mencegah bug salah produk)
     if (productGrid) {
         productGrid.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
             if (card) {
+                const prodId = parseInt(card.getAttribute('data-id'));
+                activeProductId = prodId; // Simpan ID produk yang dipilih
+                const selectedProd = productsData.find(p => p.id === prodId);
+
+                if (selectedProd) {
+                    // Masukkan data ke Halaman Detail
+                    document.getElementById('detailImg').src = selectedProd.foto;
+                    document.getElementById('detailHarga').innerText = `Rp ${selectedProd.harga}`;
+                    document.getElementById('detailJudul').innerText = selectedProd.judul;
+                    document.getElementById('detailSpesifikasi').innerText = selectedProd.spesifikasi;
+                }
+
                 hideAllPages();
                 pageDetail.classList.remove('hidden');
                 pageDetail.classList.add('block');
@@ -115,6 +190,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const buyNowBtn = document.getElementById('buyNowBtn');
     if (buyNowBtn) {
         buyNowBtn.addEventListener('click', () => {
+            const selectedProd = productsData.find(p => p.id === activeProductId);
+            if (selectedProd) {
+                document.getElementById('checkoutImg').src = selectedProd.foto;
+                document.getElementById('checkoutJudul').innerText = selectedProd.judul;
+                document.getElementById('checkoutHarga').innerText = `Rp ${selectedProd.harga}`;
+                document.getElementById('checkoutTotal').innerText = `Rp ${selectedProd.harga}`;
+                document.getElementById('paymentTotal').innerText = `Rp ${selectedProd.harga}`;
+            }
+
             hideAllPages();
             pageCheckout.classList.remove('hidden');
             pageCheckout.classList.add('block');
@@ -178,13 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. ALUR PENJUALAN (FITUR BARU) ---
+    // --- 5. ALUR PENJUALAN & NOTIFIKASI UPLOAD (FITUR BARU) ---
     const openJualAkunBtn = document.getElementById('openJualAkunBtn');
     const pageJual = document.getElementById('page-jual');
     const backFromJualBtn = document.getElementById('backFromJualBtn');
     const formJualAkun = document.getElementById('formJualAkun');
+    const notificationList = document.getElementById('notificationList');
 
-    // Buka Halaman Jual
     if (openJualAkunBtn) {
         openJualAkunBtn.addEventListener('click', () => {
             hideAllPages();
@@ -198,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Kembali dari Halaman Jual
     if (backFromJualBtn) {
         backFromJualBtn.addEventListener('click', () => {
             hideAllPages();
@@ -212,55 +295,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Proses Submit Penjualan
     if (formJualAkun) {
         formJualAkun.addEventListener('submit', (e) => {
             e.preventDefault();
             
             const judul = document.getElementById('jualJudul').value;
-            const harga = document.getElementById('jualHarga').value;
+            const hargaNum = parseInt(document.getElementById('jualHarga').value);
+            const hargaFormatted = new Intl.NumberFormat('id-ID').format(hargaNum);
             const fotoUrl = document.getElementById('jualFoto').value || 'https://placehold.co/400x400?text=Baru';
+            const spesifikasi = document.getElementById('jualSpesifikasi').value;
 
-            // Format uang Rupiah
-            const hargaFormatted = new Intl.NumberFormat('id-ID').format(harga);
+            // Buat objek produk baru dengan ID unik
+            const newProd = {
+                id: productsData.length,
+                judul: judul,
+                harga: hargaFormatted,
+                hargaRaw: hargaNum,
+                foto: fotoUrl,
+                spesifikasi: spesifikasi,
+                tier: "🥉 Bronze",
+                terjual: "0",
+                rating: "0.0",
+                diskon: ""
+            };
 
-            // Buat HTML Kartu Produk Baru
-            // [VIBE CODING SECURITY ALERT] Di sistem production, pastikan input judul di-*sanitize* untuk mencegah XSS!
-            const newCardHtml = `
-                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group fade-in">
-                    <div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">BARU</div>
-                    <div class="overflow-hidden"><img src="${fotoUrl}" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'"></div>
-                    <div class="p-2 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">${judul}</h3>
-                            <div class="mt-1.5 flex flex-wrap gap-1">
-                                <span class="text-[9px] text-gray-600 dark:text-gray-300 border border-gray-400/50 px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-semibold">🥉 Bronze</span>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp ${hargaFormatted}</div>
-                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
-                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 0.0</div><span>0 Terjual</span>
-                            </div>
-                        </div>
+            // Masukkan ke array paling depan
+            productsData.unshift(newProd);
+            renderProducts(); // Render ulang beranda
+
+            // TAMBAHKAN NOTIFIKASI OTOMATIS KE MENU NOTIFIKASI
+            const notifHtml = `
+                <div class="p-4 flex items-start gap-3 bg-green-50 dark:bg-green-900/20 fade-in">
+                    <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center shrink-0">🏷️</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white">Produk Berhasil Ditayangkan!</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun "${judul}" sudah aktif dan tampil di halaman Beranda.</p>
+                        <span class="text-[9px] text-gray-400 mt-1 block">Baru saja</span>
                     </div>
                 </div>
             `;
-
-            // Suntikkan produk baru ke Grid Beranda paling atas
-            if (productGrid) {
-                productGrid.insertAdjacentHTML('afterbegin', newCardHtml);
+            if (notificationList) {
+                notificationList.insertAdjacentHTML('afterbegin', notifHtml);
             }
 
-            alert('Sukses! Akun Anda telah di-display di Beranda.');
+            alert('Sukses! Akun Anda berhasil di-upload dan notifikasi telah dikirim.');
             formJualAkun.reset();
 
-            // Otomatis pindah ke Beranda
+            // Pindah ke Beranda
             hideAllPages();
             pageBeranda.classList.remove('hidden');
             pageBeranda.classList.add('block');
             
-            // Aktifkan ikon biru di Navigasi Beranda
             navBtns.forEach(b => {
                 b.classList.remove('text-blue-600', 'dark:text-blue-400');
                 b.classList.add('text-gray-500');
@@ -284,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. LOGIKA MODAL LOGIN ---
+    // --- 6. MODAL LOGIN & AI CHAT (TETAP AMAN) ---
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
     const loginModalContent = document.getElementById('loginModalContent');
@@ -299,32 +384,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 loginModalContent.classList.remove('scale-95');
             }, 10);
         };
-
         const closeModal = () => {
             loginModal.classList.add('opacity-0', 'pointer-events-none');
             loginModalContent.classList.add('scale-95');
-            setTimeout(() => {
-                loginModal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => loginModal.classList.add('hidden'), 300);
         };
-
         loginBtn.addEventListener('click', openModal);
         closeModalBtn.addEventListener('click', closeModal);
-        loginModal.addEventListener('click', (e) => { 
-            if (e.target === loginModal) closeModal();
+        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeModal(); });
+        loginForm?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login Berhasil!');
+            closeModal();
+            loginForm.reset();
         });
-
-        if (loginForm) {
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Login Berhasil ke sistem Arthur Store ID!');
-                closeModal();
-                loginForm.reset();
-            });
-        }
     }
 
-    // --- 6. LOGIKA AI CHATBOT ---
+    // --- 7. AI CHATBOT & BANNER ---
     const aiChatFab = document.getElementById('aiChatFab');
     const aiChatModal = document.getElementById('aiChatModal');
     const aiChatContent = document.getElementById('aiChatContent');
@@ -341,50 +417,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 aiChatContent.classList.remove('translate-y-full');
             }, 10);
         });
-
         const closeChat = () => {
             aiChatModal.classList.add('opacity-0');
             aiChatContent.classList.add('translate-y-full');
             setTimeout(() => aiChatModal.classList.add('hidden'), 300);
         };
-
         closeAiChatBtn.addEventListener('click', closeChat);
-        aiChatModal.addEventListener('click', (e) => {
-            if (e.target === aiChatModal) closeChat();
-        });
-
-        aiChatForm.addEventListener('submit', (e) => {
+        aiChatModal.addEventListener('click', (e) => { if (e.target === aiChatModal) closeChat(); });
+        aiChatForm?.addEventListener('submit', (e) => {
             e.preventDefault();
-            const userText = aiChatInput.value.trim();
-            if (!userText) return;
-
-            const userMsgHtml = `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm"><p class="text-xs">${userText}</p></div>`;
-            chatMessages.insertAdjacentHTML('beforeend', userMsgHtml);
+            const txt = aiChatInput.value.trim();
+            if(!txt) return;
+            chatMessages.insertAdjacentHTML('beforeend', `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl"><p class="text-xs">${txt}</p></div>`);
             aiChatInput.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            const typingId = 'typing-' + Date.now();
-            const typingHtml = `<div id="${typingId}" class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-500 italic">Arthur AI sedang mengetik...</p></div>`;
-            chatMessages.insertAdjacentHTML('beforeend', typingHtml);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
             setTimeout(() => {
-                document.getElementById(typingId).remove();
-                let aiResponse = "Maaf, sistem AI sedang offline. Sistem akan dihubungkan ke backend segera!";
-                const lowerText = userText.toLowerCase();
-                
-                if (lowerText.includes('garansi') || lowerText.includes('aman')) {
-                    aiResponse = "Tenang saja! Semua transaksi dilindungi garansi Escrow 30 hari.";
-                }
-
-                const aiMsgHtml = `<div class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700 fade-in"><p class="text-xs text-gray-800 dark:text-gray-200 leading-relaxed">${aiResponse}</p></div>`;
-                chatMessages.insertAdjacentHTML('beforeend', aiMsgHtml);
+                chatMessages.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">Sistem AI aktif membantu pembeli 24/7!</p></div>`);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1200);
+            }, 1000);
         });
     }
 
-    // --- 7. LOGIKA BANNER SLIDER OTOMATIS ---
     const bannerSlider = document.getElementById('bannerSlider');
     if (bannerSlider) {
         setInterval(() => {
@@ -396,5 +448,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 3000);
     }
-
 });
