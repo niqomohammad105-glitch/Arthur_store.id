@@ -1,46 +1,224 @@
-<!-- Kartu Produk Arthur Store ID -->
-<div class="bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
-    
-    <!-- Lencana Diskon (Warna Biru Kontras) -->
-    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">
-        -16%
-    </div>
-    
-    <!-- Gambar Produk dengan Efek Zoom Halus Saat Disentuh/Hover -->
-    <div class="overflow-hidden">
-        <img src="images/valorant.jpg" alt="Akun Valorant" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'">
-    </div>
-    
-    <!-- Area Informasi Produk -->
-    <div class="p-2 flex flex-col justify-between">
-        <div>
-            <!-- Judul Produk: Maksimal 2 Baris -->
-            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">
-                Akun Valorant Premium | Full Skin Kuronami & Reaver Vandal
-            </h3>
-            
-            <!-- Label Kepercayaan (Trust Badge) -->
-            <div class="mt-1.5">
-                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">
-                    🛡️ Garansi Anti-Hack
-                </span>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arthur Store ID - Mobile</title>
+    <!-- Wajib: Panggil Tailwind terlebih dahulu -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <!-- Wajib: Panggil CSS kustom -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300 max-w-md mx-auto relative min-h-screen pb-16 font-sans shadow-2xl">
+
+    <!-- ================= HEADER UTAMA ================= -->
+    <header class="bg-blue-800 dark:bg-gray-950 text-white sticky top-0 z-50 p-3 shadow-md transition-colors duration-300">
+        <div class="flex items-center justify-between mb-2">
+            <!-- Logo -->
+            <div class="text-xl font-bold italic tracking-tighter cursor-pointer">
+                Arthur <span class="text-blue-300">Store ID</span>
+            </div>
+            <!-- Tombol Tema & Login -->
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" class="p-1.5 rounded-full hover:bg-blue-700 dark:hover:bg-gray-800 transition-colors">
+                    <span id="themeIcon" class="text-lg">🌙</span>
+                </button>
+                <button id="loginBtn" class="bg-transparent border border-white text-sm px-3 py-1 rounded hover:bg-white hover:text-blue-800 dark:hover:bg-gray-800 dark:hover:text-white transition-all font-semibold">
+                    Masuk
+                </button>
             </div>
         </div>
         
-        <!-- Harga & Statistik (Menempel di Bawah) -->
-        <div class="mt-2">
-            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">
-                Rp 349.110
-            </div>
+        <!-- Search Bar -->
+        <form id="searchForm" class="flex-1 bg-white dark:bg-gray-800 rounded-md flex items-center px-2 py-1.5 shadow-inner border dark:border-gray-700">
+            <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input type="text" id="searchInput" placeholder="Cari akun, voucher, top up..." class="flex-1 text-sm outline-none text-gray-900 dark:text-white bg-transparent" autocomplete="off">
+        </form>
+    </header>
+
+    <!-- ================= AREA KONTEN (SPA) ================= -->
+    <div id="content-area">
+        
+        <!-- HALAMAN 1: BERANDA -->
+        <div id="page-beranda" class="page-tab block fade-in">
             
-            <!-- Pemisah Garis Tipis Ala Shopee -->
-            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
-                <div class="flex items-center gap-0.5">
-                    <span class="text-yellow-400 text-xs">★</span> 5.0
+            <!-- Banner Slider -->
+            <div class="bg-white dark:bg-gray-800 p-2 transition-colors">
+                <div class="flex gap-2 overflow-x-auto no-scrollbar snap-x">
+                    <img src="images/valorant.jpg" alt="Promo 1" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+1'">
+                    <img src="images/mlbb.jpg" alt="Promo 2" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+2'">
+                    <img src="images/roblox.jpg" alt="Promo 3" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+3'">
                 </div>
-                <span>4 rb Terjual</span>
+            </div>
+
+            <!-- Kategori -->
+            <div class="bg-white dark:bg-gray-800 px-2 pb-4 mb-2 grid grid-cols-4 gap-y-4 pt-2 shadow-sm transition-colors">
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">💎</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Top Up</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">👤</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Akun</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎟️</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Voucher</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎮</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Game Key</span></div>
+            </div>
+
+            <!-- Header Grid Produk -->
+            <div class="bg-white dark:bg-gray-800 p-3 flex justify-between items-center border-b border-gray-100 dark:border-gray-700 sticky top-[90px] z-40 transition-colors">
+                <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm uppercase">Rekomendasi Akun</h2>
+            </div>
+
+            <!-- Grid Produk (Desain Shopee x Arthur Store) -->
+            <div class="p-2 grid grid-cols-2 gap-2">
+                
+                <!-- Produk 1 -->
+                <div class="bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">-16%</div>
+                    <div class="overflow-hidden">
+                        <img src="images/valorant.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'">
+                    </div>
+                    <div class="p-2 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun Valorant Premium | Full Skin Kuronami & Reaver</h3>
+                            <div class="mt-1.5">
+                                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">🛡️ Garansi Anti-Hack</span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 349.110</div>
+                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 5.0</div>
+                                <span>4 rb Terjual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 2 -->
+                <div class="bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
+                    <div class="overflow-hidden">
+                        <img src="images/mlbb.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'">
+                    </div>
+                    <div class="p-2 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun ML Mythic Glory 150 Skin KOF Chou Unbind</h3>
+                            <div class="mt-1.5">
+                                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">⚡ Pengiriman Instan</span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 850.000</div>
+                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 4.9</div>
+                                <span>10RB+ Terjual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 3 -->
+                <div class="bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">-2%</div>
+                    <div class="overflow-hidden">
+                        <img src="images/roblox.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'">
+                    </div>
+                    <div class="p-2 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Blox Fruits Max Level | Cyborg V4 + CDK Mulus</h3>
+                            <div class="mt-1.5">
+                                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">🛡️ Garansi Anti-Hack</span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 150.000</div>
+                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
+                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> 4.8</div>
+                                <span>9 Terjual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HALAMAN 2: NOTIFIKASI -->
+        <div id="page-notifikasi" class="page-tab hidden fade-in bg-white dark:bg-gray-800 min-h-screen transition-colors">
+            <h2 class="font-bold text-gray-800 dark:text-white p-4 border-b border-gray-100 dark:border-gray-700">Notifikasi Anda</h2>
+            <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20">
+                <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">📦</div>
+                <div>
+                    <h4 class="text-sm font-bold text-gray-800 dark:text-white">Pesanan Selesai</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun Valorant Premium telah berhasil diserahkan. Dana diteruskan ke penjual.</p>
+                    <span class="text-[10px] text-gray-400 mt-1 block">2 jam yang lalu</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- HALAMAN 3: SAYA -->
+        <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+            <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
+                <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
+                <div>
+                    <h2 class="font-bold text-lg">Arthur</h2>
+                    <p class="text-xs text-blue-200">Member Silver</p>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 mt-2 p-4 flex justify-between text-sm shadow-sm transition-colors border-y border-gray-100 dark:border-gray-700">
+                <div class="text-center w-1/2 border-r border-gray-100 dark:border-gray-700">
+                    <div class="font-bold text-blue-600 dark:text-blue-400">Rp 0</div>
+                    <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Saldo Escrow</div>
+                </div>
+                <div class="text-center w-1/2">
+                    <div class="font-bold text-blue-600 dark:text-blue-400">0</div>
+                    <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Koin Store</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+    <nav class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex justify-around text-[10px] pt-2 pb-3 z-40 transition-colors shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+        
+        <div class="nav-btn flex flex-col items-center cursor-pointer text-blue-600 dark:text-blue-400" data-target="beranda">
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+            <span>Beranda</span>
+        </div>
+
+        <div class="nav-btn flex flex-col items-center cursor-pointer text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors relative" data-target="notifikasi">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            <span class="absolute -top-1 right-2 bg-red-500 text-white text-[8px] font-bold px-1 rounded-full border border-white dark:border-gray-950">1</span>
+            <span>Notifikasi</span>
+        </div>
+
+        <div class="nav-btn flex flex-col items-center cursor-pointer text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-target="saya">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            <span>Saya</span>
+        </div>
+
+    </nav>
+
+    <!-- ================= MODAL LOGIN ================= -->
+    <div id="loginModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div id="loginModalContent" class="bg-white dark:bg-gray-800 w-[90%] max-w-sm rounded-2xl shadow-2xl p-6 transform scale-95 transition-transform duration-300 mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Masuk</h2>
+                <button id="closeModalBtn" class="text-gray-400 hover:text-red-500 text-2xl font-bold leading-none focus:outline-none">&times;</button>
+            </div>
+            <form id="loginForm" class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Username / Email</label>
+                    <input type="text" id="loginIdentifier" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" required autocomplete="username">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                    <input type="password" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg mt-2 transition-colors shadow-lg shadow-blue-500/30">Masuk Sekarang</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Wajib: Panggil Script Javascript di bagian paling bawah -->
+    <script src="script.js"></script>
+</body>
+                </html>
+                            
