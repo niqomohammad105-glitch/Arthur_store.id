@@ -60,15 +60,20 @@
                 <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm uppercase">Rekomendasi Akun</h2>
             </div>
 
-            <!-- GRID PRODUK -->
+            <!-- GRID PRODUK DENGAN LENCANA TIER -->
             <div class="p-2 grid grid-cols-2 gap-2">
+                <!-- Produk 1 (Tier Gold) -->
                 <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
                     <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">-16%</div>
                     <div class="overflow-hidden"><img src="images/valorant.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+1'"></div>
                     <div class="p-2 flex flex-col justify-between">
                         <div>
                             <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun Valorant Premium | Full Skin Kuronami & Reaver</h3>
-                            <div class="mt-1.5"><span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">🛡️ Garansi Anti-Hack</span></div>
+                            <!-- Lencana Badge -->
+                            <div class="mt-1.5 flex flex-wrap gap-1">
+                                <span class="text-[9px] text-blue-600 dark:text-blue-400 border border-blue-600/50 dark:border-blue-400/50 px-1 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20">🛡️ Garansi</span>
+                                <span class="text-[9px] text-yellow-600 dark:text-yellow-400 border border-yellow-500/50 px-1 py-0.5 rounded bg-yellow-50 dark:bg-yellow-900/20 font-semibold">🥇 Gold</span>
+                            </div>
                         </div>
                         <div class="mt-2">
                             <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 349.110</div>
@@ -79,11 +84,15 @@
                     </div>
                 </div>
 
+                <!-- Produk 2 (Tier Silver) -->
                 <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
                     <div class="overflow-hidden"><img src="images/mlbb.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+2'"></div>
                     <div class="p-2 flex flex-col justify-between">
                         <div>
                             <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">Akun ML Mythic Glory 150 Skin KOF Chou Unbind</h3>
+                            <div class="mt-1.5 flex flex-wrap gap-1">
+                                <span class="text-[9px] text-gray-600 dark:text-gray-300 border border-gray-400/50 px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-semibold">🥈 Silver</span>
+                            </div>
                         </div>
                         <div class="mt-2">
                             <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp 850.000</div>
@@ -110,6 +119,21 @@
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors">
                 <div class="text-blue-700 dark:text-blue-400 font-bold text-2xl mb-1">Rp 349.110</div>
                 <h2 class="text-gray-800 dark:text-white font-medium text-sm leading-snug">Akun Valorant Premium | Full Skin Kuronami & Reaver Vandal (Edisi Terbatas)</h2>
+            </div>
+
+            <!-- PROFIL PENJUAL DI DETAIL PRODUK -->
+            <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-lg">🏪</div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 dark:text-white text-sm leading-none">StoreGamer ID</h3>
+                        <div class="flex items-center gap-1 mt-1">
+                            <span class="text-[10px] text-yellow-600 dark:text-yellow-400 font-bold bg-yellow-50 dark:bg-yellow-900/30 px-1.5 py-0.5 rounded border border-yellow-200 dark:border-yellow-700/50">🥇 Penjual Gold</span>
+                            <span class="text-[10px] text-gray-500">| Aktif 5 mnt lalu</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="border border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400 text-xs px-3 py-1.5 rounded font-medium hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors">Kunjungi</button>
             </div>
 
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-4 transition-colors">
@@ -149,7 +173,6 @@
                 </div>
             </div>
 
-            <!-- Tombol Pilih Pembayaran -->
             <div id="selectPaymentMethodBtn" class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between items-center group">
                 <div>
                     <h3 class="font-bold text-gray-800 dark:text-white text-xs uppercase text-gray-500 mb-1">Metode Pembayaran</h3>
@@ -228,16 +251,19 @@
             </div>
         </div>
 
-        <!-- HALAMAN 6: SAYA (PROFIL) -->
+        <!-- HALAMAN 6: SAYA (PROFIL & TIER PENJUAL) -->
         <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
+            <!-- Profil Atas -->
             <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
                 <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
                 <div>
                     <h2 class="font-bold text-lg">Arthur</h2>
-                    <p class="text-xs text-blue-200">Member Silver</p>
+                    <p class="text-xs text-blue-200">Pengguna Terverifikasi</p>
                 </div>
             </div>
-            <div class="bg-white dark:bg-gray-800 mt-2 p-4 flex justify-between text-sm shadow-sm transition-colors border-y border-gray-100 dark:border-gray-700">
+            
+            <!-- Saldo Pembeli -->
+            <div class="bg-white dark:bg-gray-800 p-4 flex justify-between text-sm shadow-sm transition-colors border-b border-gray-100 dark:border-gray-700">
                 <div class="text-center w-1/2 border-r border-gray-100 dark:border-gray-700">
                     <div class="font-bold text-blue-600 dark:text-blue-400">Rp 0</div>
                     <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Saldo Escrow</div>
@@ -247,11 +273,47 @@
                     <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Koin Store</div>
                 </div>
             </div>
+
+            <!-- DASHBOARD TIER PENJUAL (FITUR BARU) -->
+            <div class="bg-white dark:bg-gray-800 mt-2 p-4 shadow-sm transition-colors border-b border-gray-100 dark:border-gray-700">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Dashboard Penjual</h3>
+                    <span class="text-[10px] text-gray-500 cursor-pointer hover:text-blue-600">Lihat Detail ></span>
+                </div>
+                
+                <!-- Card Tier Status -->
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3 bg-gray-50 dark:bg-gray-900 transition-colors">
+                    <div class="flex justify-between items-center mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl drop-shadow-sm">🥈</span>
+                            <div>
+                                <div class="font-bold text-gray-800 dark:text-white text-sm leading-tight">Tier Silver</div>
+                                <div class="text-[10px] text-gray-500">Toko Terpercaya</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-blue-600 dark:text-blue-400">75%</div>
+                            <div class="text-[9px] text-gray-500 dark:text-gray-400">Menuju Gold</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar Tier -->
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2 shadow-inner">
+                        <div class="bg-gradient-to-r from-gray-400 via-blue-500 to-blue-600 h-2 rounded-full transition-all duration-1000" style="width: 75%"></div>
+                    </div>
+                    <p class="text-[10px] text-gray-600 dark:text-gray-400">Selesaikan <span class="font-bold text-blue-600 dark:text-blue-400">5 transaksi sukses</span> tanpa komplain untuk naik ke 🥇 Gold.</p>
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 mt-2 p-3 shadow-sm transition-colors flex flex-col">
+                <button class="text-left text-sm text-gray-700 dark:text-gray-200 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between">Daftar Produk Saya <span class="text-gray-400">></span></button>
+                <button class="text-left text-sm text-gray-700 dark:text-gray-200 py-3 border-b border-gray-100 dark:border-gray-700 flex justify-between">Riwayat Penarikan Dana <span class="text-gray-400">></span></button>
+            </div>
         </div>
 
     </div> <!-- Penutup content-area -->
 
-    <!-- ================= 3. NAVIGASI BAWAH UTAMA ================= -->
+    <!-- ================= NAVIGASI BAWAH UTAMA ================= -->
     <nav id="main-bottom-nav" class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex justify-around text-[10px] pt-2 pb-3 z-40 transition-colors shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
         <div class="nav-btn flex flex-col items-center cursor-pointer text-blue-600 dark:text-blue-400" data-target="beranda">
             <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
@@ -267,7 +329,7 @@
         </div>
     </nav>
 
-    <!-- ================= 4. MODAL LOGIN ================= -->
+    <!-- ================= MODAL LOGIN ================= -->
     <div id="loginModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
         <div id="loginModalContent" class="bg-white dark:bg-gray-800 w-[90%] max-w-sm rounded-2xl shadow-2xl p-6 transform scale-95 transition-transform duration-300 mx-auto">
             <div class="flex justify-between items-center mb-6">
@@ -282,7 +344,7 @@
         </div>
     </div>
 
-    <!-- ================= 5. AI CHATBOT ================= -->
+    <!-- ================= AI CHATBOT ================= -->
     <button id="aiChatFab" class="fixed bottom-20 right-4 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full shadow-[0_4px_15px_rgba(37,99,235,0.4)] flex items-center justify-center text-white z-40 hover:scale-105 transition-transform border-2 border-white dark:border-gray-800">
         <span class="text-2xl">🤖</span>
     </button>
@@ -311,7 +373,7 @@
         </div>
     </div>
 
-    <!-- ================= 6. PANGGIL JAVASCRIPT ================= -->
+    <!-- Panggil Script JS -->
     <script src="script.js"></script>
 </body>
 </html>
