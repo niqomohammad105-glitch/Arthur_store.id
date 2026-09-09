@@ -1,15 +1,10 @@
-/* =========================================
-   style.css - Arthur Store ID Mobile
-   ========================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body { 
     font-family: 'Inter', sans-serif; 
     scroll-behavior: smooth; 
 }
 
-/* Memotong teks judul produk jika lebih dari 2 baris */
 .line-clamp-2 { 
     display: -webkit-box; 
     -webkit-line-clamp: 2; 
@@ -17,7 +12,6 @@ body {
     overflow: hidden; 
 }
 
-/* Menyembunyikan scrollbar di menu kategori, tapi tetap bisa digeser dengan jari/mouse */
 .no-scrollbar::-webkit-scrollbar { 
     display: none; 
 }
@@ -26,9 +20,8 @@ body {
     scrollbar-width: none; 
 }
 
-/* Efek transisi halus saat pindah halaman di menu bawah */
 .fade-in { 
-    animation: fadeIn 0.3s ease-in-out; 
+    animation: fadeIn 0.3s ease-in-out forwards; 
 }
 
 @keyframes fadeIn {
