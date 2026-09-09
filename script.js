@@ -1,22 +1,17 @@
-/* =========================================
-   script.js - Arthur Store ID Mobile
-   ========================================= */
-
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. LOGIKA TEMA GELAP (DARK MODE) ---
+    // --- 1. DARK MODE TEMA ---
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
 
-    // Cek penyimpanan lokal
-    const savedTheme = localStorage.getItem('theme');
-    let isDarkMode = savedTheme === 'dark';
-    
-    if (isDarkMode) htmlElement.classList.add('dark');
-    if (themeIcon) themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
+    if (themeToggle && themeIcon) {
+        const savedTheme = localStorage.getItem('theme');
+        let isDarkMode = savedTheme === 'dark';
+        
+        if (isDarkMode) htmlElement.classList.add('dark');
+        themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
 
-    if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             isDarkMode = !isDarkMode;
             if (isDarkMode) {
@@ -26,107 +21,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 htmlElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
             }
-            if (themeIcon) themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
+            themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
         });
     }
 
-    // --- 2. LOGIKA NAVIGASI BAWAH (SPA) ---
+    // --- 2. NAVIGASI BAWAH (PINDAH HALAMAN) ---
     const navBtns = document.querySelectorAll('.nav-btn');
     const pageTabs = document.querySelectorAll('.page-tab');
 
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            
-            // A. Reset semua tombol navigasi ke warna abu-abu
+            // Reset semua warna ikon ke abu-abu
             navBtns.forEach(b => {
                 b.classList.remove('text-blue-600', 'dark:text-blue-400');
                 b.classList.add('text-gray-500');
-                if(b.querySelector('svg') && b.querySelector('svg').getAttribute('fill') === 'currentColor') {
-                    b.querySelector('svg').setAttribute('fill', 'none');
-                    b.querySelector('svg').setAttribute('stroke', 'currentColor');
+                const svg = b.querySelector('svg');
+                if(svg && svg.getAttribute('fill') === 'currentColor') {
+                    svg.setAttribute('fill', 'none');
+                    svg.setAttribute('stroke', 'currentColor');
                 }
             });
 
-            // B. Aktifkan warna biru untuk tombol yang diklik
+            // Aktifkan warna biru untuk tombol yang sedang diklik
             btn.classList.add('text-blue-600', 'dark:text-blue-400');
             btn.classList.remove('text-gray-500');
-            if(btn.querySelector('svg')) {
-                btn.querySelector('svg').setAttribute('fill', 'currentColor');
-                btn.querySelector('svg').removeAttribute('stroke');
+            const clickedSvg = btn.querySelector('svg');
+            if(clickedSvg) {
+                clickedSvg.setAttribute('fill', 'currentColor');
+                clickedSvg.removeAttribute('stroke');
             }
 
-            // C. Sembunyikan semua konten halaman
+            // Sembunyikan semua halaman, lalu tampilkan yang sesuai
+            const targetId = btn.getAttribute('data-target');
             pageTabs.forEach(page => {
                 page.classList.add('hidden');
                 page.classList.remove('block');
             });
             
-            // D. Tampilkan halaman yang dituju
-            const targetId = btn.getAttribute('data-target');
             const targetPage = document.getElementById(`page-${targetId}`);
             if (targetPage) {
                 targetPage.classList.remove('hidden');
                 targetPage.classList.add('block');
             }
-            window.scrollTo(0, 0); // Otomatis gulir ke atas
+            
+            // Gulir otomatis ke atas saat pindah menu
+            window.scrollTo(0, 0);
         });
     });
 
-    // --- 3. LOGIKA MODAL LOGIN ---
+    // --- 3. MODAL POPUP LOGIN ---
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
     const loginModalContent = document.getElementById('loginModalContent');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const loginForm = document.getElementById('loginForm');
 
-    const openModal = () => {
-        if(loginModal && loginModalContent) {
+    if (loginBtn && loginModal && loginModalContent && closeModalBtn) {
+        
+        const openModal = () => {
             loginModal.classList.remove('hidden');
             setTimeout(() => {
                 loginModal.classList.remove('opacity-0', 'pointer-events-none');
                 loginModalContent.classList.remove('scale-95');
             }, 10);
-        }
-    };
+        };
 
-    const closeModal = () => {
-        if(loginModal && loginModalContent) {
+        const closeModal = () => {
             loginModal.classList.add('opacity-0', 'pointer-events-none');
             loginModalContent.classList.add('scale-95');
             setTimeout(() => loginModal.classList.add('hidden'), 300);
-        }
-    };
+        };
 
-    if (loginBtn) loginBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    
-    // Tutup modal jika area gelap di sekitarnya diklik
-    if (loginModal) {
+        loginBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Klik area hitam untuk menutup
         loginModal.addEventListener('click', (e) => { 
             if (e.target === loginModal) closeModal(); 
         });
+
+        // Simulasi submit
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Proses Audit Keamanan Login Berjalan... Akses Diberikan!');
+                closeModal();
+                loginForm.reset();
+            });
+        }
     }
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Simulasi Login Arthur Store ID Berhasil!');
-            closeModal();
-            loginForm.reset();
-        });
-    }
-    
-    // --- 4. LOGIKA PENCARIAN (SIMULASI) ---
+    // --- 4. SIMULASI PENCARIAN ---
     const searchForm = document.getElementById('searchForm');
-    if(searchForm) {
+    if (searchForm) {
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const query = document.getElementById('searchInput')?.value;
-            if(query.trim() !== "") {
-                alert(`Mencari: ${query}\n\n[Sistem Escrow Siaga]`);
+            const inputVal = document.getElementById('searchInput').value;
+            if (inputVal.trim() !== '') {
+                alert(`Mencari data: ${inputVal}\n\nFitur ini akan segera terhubung ke database.`);
             }
         });
     }
-
 });
-                                                        
+                   
