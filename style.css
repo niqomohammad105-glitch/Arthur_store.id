@@ -1,20 +1,23 @@
-/* Menggunakan font Inter agar terlihat modern */
+/* =========================================
+   style.css - Arthur Store ID Mobile
+   ========================================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-body {
-    font-family: 'Inter', sans-serif;
-    scroll-behavior: smooth;
+body { 
+    font-family: 'Inter', sans-serif; 
+    scroll-behavior: smooth; 
 }
 
-/* Memotong teks jika terlalu panjang (seperti judul produk) */
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+/* Memotong teks judul produk jika lebih dari 2 baris */
+.line-clamp-2 { 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
 }
 
-/* Menyembunyikan scrollbar di menu kategori tapi tetap bisa digeser */
+/* Menyembunyikan scrollbar di menu kategori, tapi tetap bisa digeser dengan jari/mouse */
 .no-scrollbar::-webkit-scrollbar { 
     display: none; 
 }
@@ -23,7 +26,7 @@ body {
     scrollbar-width: none; 
 }
 
-/* Animasi perpindahan halaman agar mulus */
+/* Efek transisi halus saat pindah halaman di menu bawah */
 .fade-in { 
     animation: fadeIn 0.3s ease-in-out; 
 }
