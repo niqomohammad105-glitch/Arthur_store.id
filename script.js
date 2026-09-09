@@ -1,3 +1,5 @@
+/* script.js - Arthur Store ID Mobile + Slider Banner Berjalan */
+
 document.addEventListener('DOMContentLoaded', () => {
     
     // --- 1. DARK MODE TEMA ---
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Navigasi Bawah Utama
     navBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             navBtns.forEach(b => {
@@ -62,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById(`page-${targetId}`).classList.remove('hidden');
             document.getElementById(`page-${targetId}`).classList.add('block');
             
-            // Pastikan bottom nav terlihat di halaman utama
             if (mainBottomNav) {
                 mainBottomNav.classList.remove('hidden');
                 mainBottomNav.classList.add('flex');
@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
     const backFromPaymentBtn = document.getElementById('backFromPaymentBtn');
     
-    // Ke Detail
     productCards.forEach(card => {
         card.addEventListener('click', () => {
             hideAllPages();
@@ -97,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Balik ke Beranda
     if (backBtn) {
         backBtn.addEventListener('click', () => {
             hideAllPages();
@@ -111,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Ke Checkout
     const buyNowBtn = document.getElementById('buyNowBtn');
     if (buyNowBtn) {
         buyNowBtn.addEventListener('click', () => {
@@ -122,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Balik ke Detail
     if (backFromCheckoutBtn) {
         backFromCheckoutBtn.addEventListener('click', () => {
             hideAllPages();
@@ -132,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Ke Pembayaran
     const selectPaymentMethodBtn = document.getElementById('selectPaymentMethodBtn');
     if (selectPaymentMethodBtn) {
         selectPaymentMethodBtn.addEventListener('click', () => {
@@ -143,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Balik ke Checkout
     if (backFromPaymentBtn) {
         backFromPaymentBtn.addEventListener('click', () => {
             hideAllPages();
@@ -153,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Konfirmasi Metode
     const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
     const selectedPaymentText = document.getElementById('selectedPaymentText');
     if (confirmPaymentBtn) {
@@ -170,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Submit Checkout
     const processPaymentBtn = document.getElementById('processPaymentBtn');
     if (processPaymentBtn) {
         processPaymentBtn.addEventListener('click', () => {
@@ -282,4 +274,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         });
     }
+
+    // --- 6. LOGIKA BANNER SLIDER OTOMATIS ---
+    const bannerSlider = document.getElementById('bannerSlider');
+    if (bannerSlider) {
+        setInterval(() => {
+            const maxScroll = bannerSlider.scrollWidth - bannerSlider.clientWidth;
+            if (bannerSlider.scrollLeft >= maxScroll - 10) {
+                bannerSlider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                bannerSlider.scrollBy({ left: bannerSlider.clientWidth * 0.85, behavior: 'smooth' });
+            }
+        }, 3000); // Geser setiap 3 detik
+    }
+
 });
