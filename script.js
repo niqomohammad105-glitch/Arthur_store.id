@@ -1,8 +1,7 @@
-/* script.js - Arthur Store ID Mobile + Dynamic Index Fix & Notifikasi Upload */
+/* script.js - Arthur Store ID Mobile + Drag/Drop Produk & Banner Dinamis */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- DATABASE SEMENTARA (ARRAY PRODUK) ---
     let productsData = [
         {
             id: 0,
@@ -30,7 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
-    let activeProductId = null; // Menyimpan produk yang sedang diklik
+    let bannersData = [
+        "images/valorant.jpg",
+        "images/mlbb.jpg",
+        "images/roblox.jpg"
+    ];
+
+    let activeProductId = null;
+    let uploadedImageBase64 = "";
 
     // --- 1. DARK MODE TEMA ---
     const themeToggle = document.getElementById('themeToggle');
@@ -55,9 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 2. RENDER PRODUK KE BERANDA (MENGATASI BUG KLIK PRODUK LAIN) ---
-    const productGrid = document.getElementById('productGrid');
+    // --- 2. RENDER BANNER DINAMIS ---
+    const bannerSlider = document.getElementById('bannerSlider');
+    function renderBanners() {
+        if (!bannerSlider) return;
+        bannerSlider.innerHTML = "";
+        bannersData.forEach(src => {
+            const imgHtml = `<img src="${src}" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 shadow-sm" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Arthur+Store'">`;
+            bannerSlider.insertAdjacentHTML('beforeend', imgHtml);
+        });
+    }
+    renderBanners();
 
+    // --- 3. RENDER PRODUK KE BERANDA ---
+    const productGrid = document.getElementById('productGrid');
     function renderProducts() {
         if (!productGrid) return;
         productGrid.innerHTML = "";
@@ -86,10 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
             productGrid.insertAdjacentHTML('beforeend', cardHtml);
         });
     }
+    renderProducts();
 
-    renderProducts(); // Render awal
-
-    // --- 3. LOGIKA PINDAH HALAMAN (SPA) ---
+    // --- 4. LOGIKA PINDAH HALAMAN (SPA) ---
     const navBtns = document.querySelectorAll('.nav-btn');
     const pageTabs = document.querySelectorAll('.page-tab');
     const mainBottomNav = document.getElementById('main-bottom-nav');
@@ -135,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 4. ALUR PEMBELIAN & DETAIL PRODUK (FIXED INDEX BUG) ---
+    // --- 5. ALUR DETAIL PRODUK & CHECKOUT ---
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
@@ -145,17 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
     const backFromPaymentBtn = document.getElementById('backFromPaymentBtn');
     
-    // Tangkap klik produk berdasarkan ID aslinya (Mencegah bug salah produk)
     if (productGrid) {
         productGrid.addEventListener('click', (e) => {
             const card = e.target.closest('.product-card');
             if (card) {
                 const prodId = parseInt(card.getAttribute('data-id'));
-                activeProductId = prodId; // Simpan ID produk yang dipilih
+                activeProductId = prodId;
                 const selectedProd = productsData.find(p => p.id === prodId);
 
                 if (selectedProd) {
-                    // Masukkan data ke Halaman Detail
                     document.getElementById('detailImg').src = selectedProd.foto;
                     document.getElementById('detailHarga').innerText = `Rp ${selectedProd.harga}`;
                     document.getElementById('detailJudul').innerText = selectedProd.judul;
@@ -262,22 +276,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 5. ALUR PENJUALAN & NOTIFIKASI UPLOAD (FITUR BARU) ---
+    // --- 6. DRAG & DROP UPLOAD FOTO PRODUK ---
     const openJualAkunBtn = document.getElementById('openJualAkunBtn');
     const pageJual = document.getElementById('page-jual');
     const backFromJualBtn = document.getElementById('backFromJualBtn');
     const formJualAkun = document.getElementById('formJualAkun');
     const notificationList = document.getElementById('notificationList');
+    
+    const jualFileFoto = document.getElementById('jualFileFoto');
+    const dropZoneContent = document.getElementById('dropZoneContent');
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+
+    if (jualFileFoto) {
+        jualFileFoto.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedImageBase64 = event.target.result;
+                    imagePreview.src = uploadedImageBase64;
+                    dropZoneContent.classList.add('hidden');
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
     if (openJualAkunBtn) {
         openJualAkunBtn.addEventListener('click', () => {
             hideAllPages();
             pageJual.classList.remove('hidden');
             pageJual.classList.add('block');
-            if (mainBottomNav) {
-                mainBottomNav.classList.add('hidden');
-                mainBottomNav.classList.remove('flex');
-            }
+            if (mainBottomNav) mainBottomNav.classList.add('hidden');
             window.scrollTo(0, 0);
         });
     }
@@ -287,10 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hideAllPages();
             document.getElementById('page-saya').classList.remove('hidden');
             document.getElementById('page-saya').classList.add('block');
-            if (mainBottomNav) {
-                mainBottomNav.classList.remove('hidden');
-                mainBottomNav.classList.add('flex');
-            }
+            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
             window.scrollTo(0, 0);
         });
     }
@@ -298,20 +327,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formJualAkun) {
         formJualAkun.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+            if (!uploadedImageBase64) {
+                alert("Mohon sertakan foto produk terlebih dahulu!");
+                return;
+            }
+
             const judul = document.getElementById('jualJudul').value;
             const hargaNum = parseInt(document.getElementById('jualHarga').value);
             const hargaFormatted = new Intl.NumberFormat('id-ID').format(hargaNum);
-            const fotoUrl = document.getElementById('jualFoto').value || 'https://placehold.co/400x400?text=Baru';
             const spesifikasi = document.getElementById('jualSpesifikasi').value;
 
-            // Buat objek produk baru dengan ID unik
             const newProd = {
                 id: productsData.length,
                 judul: judul,
                 harga: hargaFormatted,
                 hargaRaw: hargaNum,
-                foto: fotoUrl,
+                foto: uploadedImageBase64,
                 spesifikasi: spesifikasi,
                 tier: "🥉 Bronze",
                 terjual: "0",
@@ -319,11 +350,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 diskon: ""
             };
 
-            // Masukkan ke array paling depan
             productsData.unshift(newProd);
-            renderProducts(); // Render ulang beranda
+            renderProducts();
 
-            // TAMBAHKAN NOTIFIKASI OTOMATIS KE MENU NOTIFIKASI
             const notifHtml = `
                 <div class="p-4 flex items-start gap-3 bg-green-50 dark:bg-green-900/20 fade-in">
                     <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center shrink-0">🏷️</div>
@@ -334,33 +363,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
-            if (notificationList) {
-                notificationList.insertAdjacentHTML('afterbegin', notifHtml);
-            }
+            if (notificationList) notificationList.insertAdjacentHTML('afterbegin', notifHtml);
 
-            alert('Sukses! Akun Anda berhasil di-upload dan notifikasi telah dikirim.');
+            alert('Sukses! Akun Anda berhasil di-upload.');
             formJualAkun.reset();
+            uploadedImageBase64 = "";
+            imagePreviewContainer.classList.add('hidden');
+            dropZoneContent.classList.remove('hidden');
 
-            // Pindah ke Beranda
             hideAllPages();
             pageBeranda.classList.remove('hidden');
             pageBeranda.classList.add('block');
-            
-            navBtns.forEach(b => {
-                b.classList.remove('text-blue-600', 'dark:text-blue-400');
-                b.classList.add('text-gray-500');
-                const svg = b.querySelector('svg');
-                if(svg && svg.getAttribute('fill') === 'currentColor') {
-                    svg.setAttribute('fill', 'none');
-                    svg.setAttribute('stroke', 'currentColor');
-                }
-            });
-            const berandaBtn = document.querySelector('.nav-btn[data-target="beranda"]');
-            berandaBtn.classList.add('text-blue-600', 'dark:text-blue-400');
-            berandaBtn.classList.remove('text-gray-500');
-            berandaBtn.querySelector('svg').setAttribute('fill', 'currentColor');
-            berandaBtn.querySelector('svg').removeAttribute('stroke');
-
             if (mainBottomNav) {
                 mainBottomNav.classList.remove('hidden');
                 mainBottomNav.classList.add('flex');
@@ -369,7 +382,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. MODAL LOGIN & AI CHAT (TETAP AMAN) ---
+    // --- 7. LOGIKA UPLOAD BANNER PROMO ---
+    const openJualBannerBtn = document.getElementById('openJualBannerBtn');
+    const pageBanner = document.getElementById('page-banner');
+    const backFromBannerBtn = document.getElementById('backFromBannerBtn');
+    const formBanner = document.getElementById('formBanner');
+
+    if (openJualBannerBtn) {
+        openJualBannerBtn.addEventListener('click', () => {
+            hideAllPages();
+            pageBanner.classList.remove('hidden');
+            pageBanner.classList.add('block');
+            if (mainBottomNav) mainBottomNav.classList.add('hidden');
+            window.scrollTo(0, 0);
+        });
+    }
+
+    if (backFromBannerBtn) {
+        backFromBannerBtn.addEventListener('click', () => {
+            hideAllPages();
+            document.getElementById('page-saya').classList.remove('hidden');
+            document.getElementById('page-saya').classList.add('block');
+            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        });
+    }
+
+    if (formBanner) {
+        formBanner.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('bannerFileFoto');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    bannersData.push(event.target.result);
+                    renderBanners();
+                    alert('Banner promo berhasil ditambahkan!');
+                    formBanner.reset();
+
+                    hideAllPages();
+                    pageBeranda.classList.remove('hidden');
+                    pageBeranda.classList.add('block');
+                    if (mainBottomNav) {
+                        mainBottomNav.classList.remove('hidden');
+                        mainBottomNav.classList.add('flex');
+                    }
+                    window.scrollTo(0, 0);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // --- 8. MODAL LOGIN & AI CHAT ---
     const loginBtn = document.getElementById('loginBtn');
     const loginModal = document.getElementById('loginModal');
     const loginModalContent = document.getElementById('loginModalContent');
@@ -400,7 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 7. AI CHATBOT & BANNER ---
     const aiChatFab = document.getElementById('aiChatFab');
     const aiChatModal = document.getElementById('aiChatModal');
     const aiChatContent = document.getElementById('aiChatContent');
@@ -437,14 +503,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const bannerSlider = document.getElementById('bannerSlider');
-    if (bannerSlider) {
+    // --- 9. BANNER SLIDER OTOMATIS ---
+    const bannerSliderEl = document.getElementById('bannerSlider');
+    if (bannerSliderEl) {
         setInterval(() => {
-            const maxScroll = bannerSlider.scrollWidth - bannerSlider.clientWidth;
-            if (bannerSlider.scrollLeft >= maxScroll - 10) {
-                bannerSlider.scrollTo({ left: 0, behavior: 'smooth' });
+            const maxScroll = bannerSliderEl.scrollWidth - bannerSliderEl.clientWidth;
+            if (bannerSliderEl.scrollLeft >= maxScroll - 10) {
+                bannerSliderEl.scrollTo({ left: 0, behavior: 'smooth' });
             } else {
-                bannerSlider.scrollBy({ left: bannerSlider.clientWidth * 0.85, behavior: 'smooth' });
+                bannerSliderEl.scrollBy({ left: bannerSliderEl.clientWidth * 0.85, behavior: 'smooth' });
             }
         }, 3000);
     }
