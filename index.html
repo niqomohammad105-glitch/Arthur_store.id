@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Arthur Store ID - Mobile</title>
-    <!-- Memanggil Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
-    <!-- Memanggil CSS Kustom -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300 max-w-md mx-auto relative min-h-screen pb-16 font-sans shadow-2xl">
 
-    <!-- ================= 1. HEADER UTAMA ================= -->
+    <!-- ================= HEADER UTAMA ================= -->
     <header class="bg-blue-800 dark:bg-gray-950 text-white sticky top-0 z-50 p-3 shadow-md transition-colors duration-300">
         <div class="flex items-center justify-between mb-2">
             <div class="text-xl font-bold italic tracking-tighter cursor-pointer">
@@ -32,24 +30,25 @@
         
         <form id="searchForm" class="flex-1 bg-white dark:bg-gray-800 rounded-md flex items-center px-2 py-1.5 shadow-inner border dark:border-gray-700">
             <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input type="text" id="searchInput" placeholder="Cari akun, voucher, top up..." class="flex-1 text-sm outline-none text-gray-900 dark:text-white bg-transparent" autocomplete="off">
+            <input type="text" id="searchInput" placeholder="Cari akun, voucher..." class="flex-1 text-sm outline-none text-gray-900 dark:text-white bg-transparent" autocomplete="off">
         </form>
     </header>
 
-    <!-- ================= 2. AREA KONTEN UTAMA (SPA) ================= -->
+    <!-- ================= AREA KONTEN (SPA) ================= -->
     <div id="content-area">
         
-        <!-- HALAMAN: BERANDA -->
+        <!-- HALAMAN 1: BERANDA -->
         <div id="page-beranda" class="page-tab block fade-in">
-            <!-- Slider Banner -->
+            <!-- BANNER BERGERAK -->
             <div class="bg-white dark:bg-gray-800 p-2 transition-colors">
-                <div class="flex gap-2 overflow-x-auto no-scrollbar snap-x">
+                <div id="bannerSlider" class="flex gap-2 overflow-x-auto no-scrollbar snap-x scroll-smooth">
                     <img src="images/valorant.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+1'">
                     <img src="images/mlbb.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+2'">
+                    <img src="images/roblox.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+3'">
                 </div>
             </div>
 
-            <!-- Menu Kategori -->
+            <!-- KATEGORI -->
             <div class="bg-white dark:bg-gray-800 px-2 pb-4 mb-2 grid grid-cols-4 gap-y-4 pt-2 shadow-sm transition-colors">
                 <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">💎</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Top Up</span></div>
                 <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">👤</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Akun</span></div>
@@ -61,9 +60,8 @@
                 <h2 class="text-blue-700 dark:text-blue-400 font-bold text-sm uppercase">Rekomendasi Akun</h2>
             </div>
 
-            <!-- Grid Produk -->
+            <!-- GRID PRODUK -->
             <div class="p-2 grid grid-cols-2 gap-2">
-                <!-- Produk 1 -->
                 <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
                     <div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">-16%</div>
                     <div class="overflow-hidden"><img src="images/valorant.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+1'"></div>
@@ -81,7 +79,6 @@
                     </div>
                 </div>
 
-                <!-- Produk 2 -->
                 <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group">
                     <div class="overflow-hidden"><img src="images/mlbb.jpg" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Produk+2'"></div>
                     <div class="p-2 flex flex-col justify-between">
@@ -99,7 +96,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN: DETAIL PRODUK -->
+        <!-- HALAMAN 2: DETAIL PRODUK -->
         <div id="page-detail" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-16 relative z-[60]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
                 <button id="backBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
@@ -135,7 +132,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN: CHECKOUT -->
+        <!-- HALAMAN 3: CHECKOUT -->
         <div id="page-checkout" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[70]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
                 <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
@@ -184,7 +181,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN: PILIH PEMBAYARAN -->
+        <!-- HALAMAN 4: PILIH PEMBAYARAN -->
         <div id="page-payment" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[80]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
                 <button id="backFromPaymentBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
@@ -219,7 +216,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN: NOTIFIKASI -->
+        <!-- HALAMAN 5: NOTIFIKASI -->
         <div id="page-notifikasi" class="page-tab hidden fade-in bg-white dark:bg-gray-800 min-h-screen transition-colors">
             <h2 class="font-bold p-4 border-b border-gray-100 dark:border-gray-700 text-gray-800 dark:text-white">Notifikasi</h2>
             <div class="p-4 border-b border-gray-100 dark:border-gray-700 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20">
@@ -231,7 +228,7 @@
             </div>
         </div>
 
-        <!-- HALAMAN: SAYA (PROFIL) -->
+        <!-- HALAMAN 6: SAYA (PROFIL) -->
         <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
             <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
                 <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
@@ -314,7 +311,7 @@
         </div>
     </div>
 
-    <!-- Panggil Script JS -->
+    <!-- ================= 6. PANGGIL JAVASCRIPT ================= -->
     <script src="script.js"></script>
 </body>
 </html>
