@@ -1,8 +1,7 @@
-/* script.js - Arthur Store ID Mobile + Fully Integrated Smart AI Chat & Features */
+/* script.js - Arthur Store ID Mobile + Stabilized Fix */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- DATABASE PENJUAL & TIER ---
     let sellerStats = {
         terjual: 3,     
         ulasan: 12      
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeProductId = null;
     let uploadedImageBase64 = "";
 
-    // --- 1. EVALUASI DAN UPDATE TIER PENJUAL (QUEST SYSTEM) ---
+    // --- 1. TIER PENJUAL ---
     function updateSellerTierUI() {
         const tierNameText = document.getElementById('tierNameText');
         const tierBadgeIcon = document.getElementById('tierBadgeIcon');
@@ -66,13 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (sellerStats.terjual >= 20 && sellerStats.ulasan >= 50) {
             currentTier = "Silver";
             badge = "🥈";
-            const pTerjual = (sellerStats.terjual / 50) * 50;
-            const pUlasan = (sellerStats.ulasan / 100) * 50;
-            percent = Math.min(Math.round(pTerjual + pUlasan), 99);
+            percent = Math.min(Math.round(((sellerStats.terjual/50)*50) + ((sellerStats.ulasan/100)*50)), 99);
         } else {
-            const pTerjual = (sellerStats.terjual / 5) * 50;
-            const pUlasan = (sellerStats.ulasan / 20) * 50;
-            percent = Math.min(Math.round(pTerjual + pUlasan), 99);
+            percent = Math.min(Math.round(((sellerStats.terjual/5)*50) + ((sellerStats.ulasan/20)*50)), 99);
         }
 
         tierNameText.innerText = `Tier ${currentTier}`;
@@ -96,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- 2. DARK MODE TEMA ---
+    // --- 2. DARK MODE ---
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const htmlElement = document.documentElement;
@@ -213,14 +208,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
-    const pagePayment = document.getElementById('page-payment');
     const pageBuyerTasks = document.getElementById('page-buyer-tasks');
     const transactionLoadingModal = document.getElementById('transactionLoadingModal');
     const loadingStatusText = document.getElementById('loadingStatusText');
     
     const backBtn = document.getElementById('backBtn');
     const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
-    const backFromPaymentBtn = document.getElementById('backFromPaymentBtn');
     
     if (productGrid) {
         productGrid.addEventListener('click', (e) => {
@@ -294,11 +287,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             setTimeout(() => {
                 loadingStatusText.innerText = "Memverifikasi pembayaran QRIS...";
-            }, 1200);
+            }, 1000);
 
             setTimeout(() => {
                 loadingStatusText.innerText = "Pembayaran berhasil! Menyiapkan data akun...";
-            }, 2500);
+            }, 2200);
 
             setTimeout(() => {
                 transactionLoadingModal.classList.add('hidden');
@@ -308,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pageBuyerTasks.classList.remove('hidden');
                 pageBuyerTasks.classList.add('block');
                 window.scrollTo(0, 0);
-            }, 3800);
+            }, 3200);
         });
     }
 
@@ -333,8 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         completeBuyerTasksBtn.addEventListener('click', () => {
-            alert("Transaksi Sukses! Akun telah diverifikasi aman dan dana Escrow diteruskan ke penjual.");
-            
+            alert("Transaksi Sukses! Akun telah diverifikasi aman.");
             hideAllPages();
             pageBeranda.classList.remove('hidden');
             pageBeranda.classList.add('block');
@@ -346,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. UPLOAD AKUN & VALIDASI HARGA ---
+    // --- 6. UPLOAD AKUN & VALIDASI ---
     const openJualAkunBtn = document.getElementById('openJualAkunBtn');
     const pageJual = document.getElementById('page-jual');
     const backFromJualBtn = document.getElementById('backFromJualBtn');
@@ -400,12 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const hargaNum = parseInt(document.getElementById('jualHarga').value);
 
             if (hargaNum > 10000000) {
-                alert("Maaf, batas maksimal harga produk yang diizinkan di Arthur Store ID adalah Rp 10.000.000!");
+                alert("Batas maksimal harga produk adalah Rp 10.000.000!");
                 return;
             }
 
             if (!uploadedImageBase64) {
-                alert("Mohon sertakan foto produk terlebih dahulu!");
+                alert("Mohon sertakan foto produk!");
                 return;
             }
 
@@ -434,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center shrink-0">🏷️</div>
                     <div>
                         <h4 class="text-sm font-bold text-gray-800 dark:text-white">Produk Berhasil Ditayangkan!</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun "${judul}" sudah aktif dan tampil di halaman Beranda.</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun "${judul}" sudah aktif.</p>
                         <span class="text-[9px] text-gray-400 mt-1 block">Baru saja</span>
                     </div>
                 </div>
@@ -459,4 +451,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 7. UPLOAD BANNER ---
-    co
+    const openJualBannerBtn = document.getElementById('openJualBannerBtn');
+    const pageBanner = document.getElementById('page-banner');
+    const backFromBannerBtn = document.getElementById('backFromBannerBtn');
+    const formBanner = document.getElementById('formBanner');
+
+    if (openJualBannerBtn) {
+        openJualBannerBtn.addEventListener('click', () => {
+            hideAllPages();
+            pageBanner.classList.remove('hidden');
+            pageBanner.classList.add('block');
+            if (mainBottomNav) mainBottomNav.classList.add('hidde
