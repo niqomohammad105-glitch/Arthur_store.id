@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + QRIS + Animasi Loading Transaksi & Checklist Tugas Pembeli */
+/* script.js - Arthur Store ID Mobile + Fully Integrated Smart AI Chat & Features */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 5. DETAIL & CHECKOUT DENGAN ANIMASI LOADING TRANSAKSI & TUGAS PEMBELI ---
+    // --- 5. DETAIL & CHECKOUT ---
     const pageBeranda = document.getElementById('page-beranda');
     const pageDetail = document.getElementById('page-detail');
     const pageCheckout = document.getElementById('page-checkout');
@@ -265,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('checkoutJudul').innerText = selectedProd.judul;
                 document.getElementById('subtotalVal').innerText = `Rp ${selectedProd.harga}`;
                 
-                // Hitung total dengan biaya escrow 2.500
                 const totalNum = selectedProd.hargaRaw + 2500;
                 const totalFormatted = new Intl.NumberFormat('id-ID').format(totalNum);
                 document.getElementById('checkoutTotal').innerText = `Rp ${totalFormatted}`;
@@ -288,14 +287,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Tombol Bayar dengan QRIS -> Memicu Animasi Loading & Pindah ke Tugas Pembeli
     const processPaymentBtn = document.getElementById('processPaymentBtn');
     if (processPaymentBtn && transactionLoadingModal) {
         processPaymentBtn.addEventListener('click', () => {
-            // Tampilkan modal loading transaksi
             transactionLoadingModal.classList.remove('hidden');
             
-            // Simulasi urutan tahapan pembayaran QRIS
             setTimeout(() => {
                 loadingStatusText.innerText = "Memverifikasi pembayaran QRIS...";
             }, 1200);
@@ -305,11 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
 
             setTimeout(() => {
-                // Sembunyikan modal loading
                 transactionLoadingModal.classList.add('hidden');
-                loadingStatusText.innerText = "Menghubungkan ke sistem gateway QRIS..."; // Reset teks
+                loadingStatusText.innerText = "Menghubungkan ke sistem gateway QRIS...";
 
-                // Pindah ke Halaman Tugas Pembeli
                 hideAllPages();
                 pageBuyerTasks.classList.remove('hidden');
                 pageBuyerTasks.classList.add('block');
@@ -318,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LOGIKA CHECKLIST TUGAS PEMBELI ---
+    // --- CHECKLIST TUGAS PEMBELI ---
     const buyerTaskCheckboxes = document.querySelectorAll('.buyer-task-checkbox');
     const completeBuyerTasksBtn = document.getElementById('completeBuyerTasksBtn');
 
@@ -341,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
         completeBuyerTasksBtn.addEventListener('click', () => {
             alert("Transaksi Sukses! Akun telah diverifikasi aman dan dana Escrow diteruskan ke penjual.");
             
-            // Kembali ke Beranda
             hideAllPages();
             pageBeranda.classList.remove('hidden');
             pageBeranda.classList.add('block');
@@ -353,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 6. UPLOAD AKUN & VALIDASI HARGA MAKSIMAL 10JT ---
+    // --- 6. UPLOAD AKUN & VALIDASI HARGA ---
     const openJualAkunBtn = document.getElementById('openJualAkunBtn');
     const pageJual = document.getElementById('page-jual');
     const backFromJualBtn = document.getElementById('backFromJualBtn');
@@ -404,7 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (formJualAkun) {
         formJualAkun.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const hargaNum = parseInt(document.getElementById('jualHarga').value);
 
             if (hargaNum > 10000000) {
@@ -467,135 +459,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- 7. UPLOAD BANNER ---
-    const openJualBannerBtn = document.getElementById('openJualBannerBtn');
-    const pageBanner = document.getElementById('page-banner');
-    const backFromBannerBtn = document.getElementById('backFromBannerBtn');
-    const formBanner = document.getElementById('formBanner');
-
-    if (openJualBannerBtn) {
-        openJualBannerBtn.addEventListener('click', () => {
-            hideAllPages();
-            pageBanner.classList.remove('hidden');
-            pageBanner.classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.add('hidden');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    if (backFromBannerBtn) {
-        backFromBannerBtn.addEventListener('click', () => {
-            hideAllPages();
-            document.getElementById('page-saya').classList.remove('hidden');
-            document.getElementById('page-saya').classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    if (formBanner) {
-        formBanner.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fileInput = document.getElementById('bannerFileFoto');
-            const file = fileInput.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    bannersData.push(event.target.result);
-                    renderBanners();
-                    alert('Banner promo berhasil ditambahkan!');
-                    formBanner.reset();
-
-                    hideAllPages();
-                    pageBeranda.classList.remove('hidden');
-                    pageBeranda.classList.add('block');
-                    if (mainBottomNav) {
-                        mainBottomNav.classList.remove('hidden');
-                        mainBottomNav.classList.add('flex');
-                    }
-                    window.scrollTo(0, 0);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-
-    // --- 8. MODAL LOGIN & AI ---
-    const loginBtn = document.getElementById('loginBtn');
-    const loginModal = document.getElementById('loginModal');
-    const loginModalContent = document.getElementById('loginModalContent');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const loginForm = document.getElementById('loginForm');
-
-    if (loginBtn && loginModal && loginModalContent) {
-        const openModal = () => {
-            loginModal.classList.remove('hidden');
-            setTimeout(() => {
-                loginModal.classList.remove('opacity-0', 'pointer-events-none');
-                loginModalContent.classList.remove('scale-95');
-            }, 10);
-        };
-        const closeModal = () => {
-            loginModal.classList.add('opacity-0', 'pointer-events-none');
-            loginModalContent.classList.add('scale-95');
-            setTimeout(() => loginModal.classList.add('hidden'), 300);
-        };
-        loginBtn.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) closeModal(); });
-        loginForm?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Login Berhasil!');
-            closeModal();
-            loginForm.reset();
-        });
-    }
-
-    const aiChatFab = document.getElementById('aiChatFab');
-    const aiChatModal = document.getElementById('aiChatModal');
-    const aiChatContent = document.getElementById('aiChatContent');
-    const closeAiChatBtn = document.getElementById('closeAiChatBtn');
-    const aiChatForm = document.getElementById('aiChatForm');
-    const aiChatInput = document.getElementById('aiChatInput');
-    const chatMessages = document.getElementById('chatMessages');
-
-    if (aiChatFab && aiChatModal) {
-        aiChatFab.addEventListener('click', () => {
-            aiChatModal.classList.remove('hidden');
-            setTimeout(() => {
-                aiChatModal.classList.remove('opacity-0');
-                aiChatContent.classList.remove('translate-y-full');
-            }, 10);
-        });
-        const closeChat = () => {
-            aiChatModal.classList.add('opacity-0');
-            aiChatContent.classList.add('translate-y-full');
-            setTimeout(() => aiChatModal.classList.add('hidden'), 300);
-        };
-        closeAiChatBtn.addEventListener('click', closeChat);
-        aiChatModal.addEventListener('click', (e) => { if (e.target === aiChatModal) closeChat(); });
-        aiChatForm?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const txt = aiChatInput.value.trim();
-            if(!txt) return;
-            chatMessages.insertAdjacentHTML('beforeend', `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl"><p class="text-xs">${txt}</p></div>`);
-            aiChatInput.value = '';
-            setTimeout(() => {
-                chatMessages.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">Sistem AI siap membantu pembeli!</p></div>`);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1000);
-        });
-    }
-
-    const bannerSliderEl = document.getElementById('bannerSlider');
-    if (bannerSliderEl) {
-        setInterval(() => {
-            const maxScroll = bannerSliderEl.scrollWidth - bannerSliderEl.clientWidth;
-            if (bannerSliderEl.scrollLeft >= maxScroll - 10) {
-                bannerSliderEl.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                bannerSliderEl.scrollBy({ left: bannerSliderEl.clientWidth * 0.85, behavior: 'smooth' });
-            }
-        }, 3000);
-    }
-});
+    co
