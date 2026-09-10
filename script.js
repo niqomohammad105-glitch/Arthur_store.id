@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI GEMINI */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI GEMINI (LIVE API) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderProducts();
         document.getElementById('notificationList')?.insertAdjacentHTML('afterbegin', `
-            <div class="p-4 flex gap-3 bg-green-50"><div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center">🏷️</div><div><h4 class="font-bold text-sm">Produk Tayang!</h4><p class="text-xs">Akun "${judul}" sudah aktif.</p></div></div>
+            <div class="p-4 flex items-start gap-3 bg-green-50 dark:bg-green-900/20"><div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center">🏷️</div><div><h4 class="font-bold text-sm dark:text-white">Produk Tayang!</h4><p class="text-xs dark:text-gray-300">Akun "${judul}" sudah aktif.</p></div></div>
         `);
         
         alert("Sukses Upload Akun!");
@@ -260,8 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    // --- 6. AI CHATBOT INTERAKTIF (PERSONA: TSUNDERE) ---
+    // --- 6. AI CHATBOT TSUNDERE (DENGAN API KEY USER) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -270,9 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==============================================================
-    // KUNCI API GEMINI (GANTI TEKS DI BAWAH INI DENGAN API KEY-MU)
+    // KUNCI API GEMINI (MILIKMU)
     // ==============================================================
-    const GEMINI_API_KEY = AQ.Ab8RN6L3rWantyEfvXvjg6h1fudpf_LFp0ajHXxMJDXMyHRG6Q 
+    const GEMINI_API_KEY = "AQ.Ab8RN6KcqR1ATUwDeL9JkAdTfVkxZWtuP5KHgEePdWHUfqLYSg"; 
     
     // KEPRIBADIAN TSUNDERE
     const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
@@ -301,23 +300,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalReply = "";
 
         try {
-            if (GEMINI_API_KEY === "TARUH_API_KEY_KAMU_DISINI") {
-                finalReply = "Hmph! Dasar bodoh! Developer-ku belum memasukkan 'API KEY Gemini' ke dalam kodenya. B-bukan berarti aku nggak mau jawab lho ya! Suruh dia pasang kodenya dulu!";
-            } else {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: AI_PERSONA + "\n\nUser: " + txt + "\nArthur:" }] }]
-                    })
-                });
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: AI_PERSONA + "\n\nUser: " + txt + "\nArthur:" }] }]
+                })
+            });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    finalReply = data.candidates[0].content.parts[0].text;
-                } else {
-                    finalReply = "Cih! Server Google sedang bodoh, koneksinya terputus! B-bukan berarti aku kabur ya, tanya soal toko aja mendingan!";
-                }
+            if (response.ok) {
+                const data = await response.json();
+                finalReply = data.candidates[0].content.parts[0].text;
+            } else {
+                // Jika API Key tidak valid (bukan format standar)
+                finalReply = "Cih! Kunci API yang kamu masukkan itu aneh! Server Google menolaknya. Pastikan format API Key-nya benar (biasanya diawali dengan AIzaSy...). Jangan membuang waktuku!";
             }
         } catch (error) {
             // Fallback Offline - Tsundere Mode
@@ -326,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById(typingId)?.remove();
         const formattedReply = finalReply.replace(/\n/g, '<br>');
-        chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
+        chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
         chat.scrollTop = chat.scrollHeight;
     });
 
@@ -339,4 +335,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 3000);
 });
-            
+        
