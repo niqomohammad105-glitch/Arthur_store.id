@@ -41,16 +41,15 @@
         <div id="page-beranda" class="page-tab block fade-in">
             <div class="bg-white dark:bg-gray-800 p-2 transition-colors">
                 <div id="bannerSlider" class="flex gap-2 overflow-x-auto no-scrollbar snap-x scroll-smooth">
-                    <img src="images/valorant.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+1'">
-                    <img src="images/mlbb.jpg" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Promo+2'">
+                    <!-- Banner dirender otomatis oleh JS -->
                 </div>
             </div>
 
             <div class="bg-white dark:bg-gray-800 px-2 pb-4 mb-2 grid grid-cols-4 gap-y-4 pt-2 shadow-sm transition-colors">
-                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">💎</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Top Up</span></div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">👤</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Akun</span></div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎟️</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Voucher</span></div>
-                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎮</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Game Key</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">💎</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Top Up</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">👤</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Akun</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎟️</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Voucher</span></div>
+                <div class="flex flex-col items-center gap-1 cursor-pointer hover:scale-105"><div class="w-10 h-10 bg-blue-50 dark:bg-gray-700 rounded-xl flex items-center justify-center text-xl border dark:border-gray-600">🎮</div><span class="text-[10px] text-gray-600 dark:text-gray-300">Game Key</span></div>
             </div>
 
             <div class="bg-white dark:bg-gray-800 p-3 flex justify-between items-center border-b border-gray-100 dark:border-gray-700 sticky top-[90px] z-40 transition-colors">
@@ -58,49 +57,32 @@
             </div>
 
             <div id="productGrid" class="p-2 grid grid-cols-2 gap-2">
-                <!-- Data produk dirender dinamis -->
+                <!-- Produk dirender otomatis oleh JS -->
             </div>
         </div>
 
         <!-- HALAMAN 2: DETAIL PRODUK -->
         <div id="page-detail" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-16 relative z-[60]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                <button id="backBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white line-clamp-1">Detail Akun</h1>
             </header>
-
-            <img id="detailImg" src="" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/600x400?text=Gambar+Detail'">
-
+            <img id="detailImg" src="" class="w-full h-72 object-cover" onerror="this.src='https://placehold.co/600x400?text=Gambar+Produk'">
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors">
                 <div id="detailHarga" class="text-blue-700 dark:text-blue-400 font-bold text-2xl mb-1">Rp 0</div>
                 <h2 id="detailJudul" class="text-gray-800 dark:text-white font-medium text-sm leading-snug">Judul Akun</h2>
             </div>
-
-            <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-2 transition-colors flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-lg">🏪</div>
-                    <div>
-                        <h3 class="font-bold text-gray-800 dark:text-white text-sm leading-none">StoreGamer ID</h3>
-                        <div class="flex items-center gap-1 mt-1">
-                            <span id="detailStoreTier" class="text-[10px] text-yellow-600 dark:text-yellow-400 font-bold bg-yellow-50 dark:bg-yellow-900/30 px-1.5 py-0.5 rounded border border-yellow-200">🥇 Penjual Gold</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="bg-white dark:bg-gray-800 p-4 shadow-sm mb-4 transition-colors">
                 <h3 class="font-bold text-gray-800 dark:text-white mb-2 text-sm">Spesifikasi & Deskripsi</h3>
                 <p id="detailSpesifikasi" class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">Deskripsi akun...</p>
             </div>
-
             <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 flex items-center z-50 h-14 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <button class="flex flex-col items-center justify-center w-[20%] h-full border-r border-gray-200 dark:border-gray-800 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
-                    <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    <span class="text-[9px]">Chat</span>
+                <button class="w-[20%] h-full border-r text-gray-500 hover:bg-gray-50 flex flex-col items-center justify-center">
+                    <span class="text-xl">💬</span><span class="text-[9px]">Chat</span>
                 </button>
-                <button id="buyNowBtn" class="w-[80%] h-full bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-800 hover:to-blue-600 text-white font-bold text-sm transition-all shadow-inner">
+                <button id="buyNowBtn" class="w-[80%] h-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition-all shadow-inner">
                     Beli Sekarang
                 </button>
             </div>
@@ -109,7 +91,7 @@
         <!-- HALAMAN 3: CHECKOUT (QRIS) -->
         <div id="page-checkout" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 relative z-[70]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button id="backFromCheckoutBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
                 <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Checkout Escrow</h1>
             </header>
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors flex gap-3">
@@ -119,21 +101,6 @@
                     <div id="checkoutHarga" class="text-blue-600 dark:text-blue-400 font-bold text-sm mt-1">Rp 0</div>
                 </div>
             </div>
-
-            <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors">
-                <h3 class="font-bold text-gray-800 dark:text-white text-xs uppercase text-gray-500 mb-2">Metode Pembayaran Resmi</h3>
-                <div class="flex items-center justify-between p-3 border border-blue-500 dark:border-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-lg">
-                    <div class="flex items-center gap-3">
-                        <span class="text-2xl">📱</span>
-                        <div>
-                            <div class="text-sm font-medium text-gray-800 dark:text-white">QRIS All Payment</div>
-                            <div class="text-[10px] text-gray-500">Scan via Gopay, OVO, DANA, BCA, dll</div>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400">Terpilih</span>
-                </div>
-            </div>
-
             <div class="bg-white dark:bg-gray-800 p-4 mt-2 shadow-sm transition-colors mb-4 border-b dark:border-gray-700">
                 <h3 class="font-bold text-gray-800 dark:text-white mb-3 text-xs uppercase text-gray-500">Rincian Pembayaran</h3>
                 <div class="space-y-2 text-xs">
@@ -145,53 +112,45 @@
                     </div>
                 </div>
             </div>
-
-            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 p-3 z-50 flex items-center justify-between px-4 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t p-3 z-50 flex items-center justify-between px-4 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
                 <div class="flex flex-col"><span class="text-[10px] text-gray-500">Total Tagihan</span><span id="checkoutTotalBar" class="text-blue-600 dark:text-blue-400 font-bold text-lg">Rp 0</span></div>
-                <button id="processPaymentBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-lg shadow-md transition-all">Bayar dengan QRIS</button>
+                <button id="processPaymentBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-2.5 rounded-lg shadow-md transition-all">Bayar (QRIS)</button>
             </div>
         </div>
 
         <!-- HALAMAN 4: TUGAS PEMBELI & AKUN GOOGLE -->
         <div id="page-buyer-tasks" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-24 relative z-[80]">
             <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
-                <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Pusat Tugas & Amankan Akun</h1>
+                <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Amankan Akun</h1>
                 <span class="text-[10px] bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded">Escrow Aktif</span>
             </header>
-
             <div class="p-4 space-y-4">
                 <div class="bg-blue-900 text-white p-4 rounded-xl shadow-md">
-                    <h3 class="font-bold text-sm mb-1 flex items-center gap-2">🔑 Kredensial Akun Game / Google Baru</h3>
-                    <p class="text-[10px] text-blue-200 mb-3">Gunakan data di bawah ini untuk masuk ke dalam game:</p>
-                    <div class="bg-blue-950 p-3 rounded-lg space-y-1.5 text-xs border border-blue-800">
-                        <div class="flex justify-between"><span>Email/ID:</span> <strong id="taskAccountEmail" class="text-green-300">game.store.id@gmail.com</strong></div>
-                        <div class="flex justify-between"><span>Password:</span> <strong id="taskAccountPass" class="text-green-300">ArthurStore2026#</strong></div>
+                    <h3 class="font-bold text-sm mb-1 flex items-center gap-2">🔑 Data Akun Pesanan Anda</h3>
+                    <div class="bg-blue-950 p-3 rounded-lg space-y-1.5 text-xs border border-blue-800 mt-2">
+                        <div class="flex justify-between"><span>Email/ID:</span> <strong class="text-green-300">game.store.id@gmail.com</strong></div>
+                        <div class="flex justify-between"><span>Password:</span> <strong class="text-green-300">ArthurStore2026#</strong></div>
                     </div>
                 </div>
-
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-3">
-                    <h3 class="font-bold text-xs uppercase text-gray-500 tracking-wider">Tugas Validasi Pembeli</h3>
-                    
-                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <h3 class="font-bold text-xs uppercase text-gray-500 tracking-wider">Checklist Pengamanan</h3>
+                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50">
                         <input type="checkbox" class="buyer-task-checkbox mt-0.5 w-4 h-4 text-blue-600 rounded">
-                        <span class="text-xs text-gray-800 dark:text-gray-200 font-medium">Saya telah berhasil login menggunakan kredensial Google di atas.</span>
+                        <span class="text-xs text-gray-800 dark:text-gray-200">Saya berhasil login dengan data di atas.</span>
                     </label>
-
-                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50">
                         <input type="checkbox" class="buyer-task-checkbox mt-0.5 w-4 h-4 text-blue-600 rounded">
-                        <span class="text-xs text-gray-800 dark:text-gray-200 font-medium">Memastikan akun Google penjual sebelumnya sudah dilepas (Unbind) sepenuhnya.</span>
+                        <span class="text-xs text-gray-800 dark:text-gray-200">Akun Google penjual sebelumnya sudah di-unbind.</span>
                     </label>
-
-                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                    <label class="flex items-start gap-3 p-2.5 rounded-lg border dark:border-gray-700 cursor-pointer hover:bg-gray-50">
                         <input type="checkbox" class="buyer-task-checkbox mt-0.5 w-4 h-4 text-blue-600 rounded">
-                        <span class="text-xs text-gray-800 dark:text-gray-200 font-medium">Mengubah kata sandi (*password*) dan memulihkan email keamanan ke data pribadi saya.</span>
+                        <span class="text-xs text-gray-800 dark:text-gray-200">Saya sudah mengganti password dan email pemulihan.</span>
                     </label>
                 </div>
             </div>
-
-            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 p-3 z-50">
+            <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t p-3 z-50">
                 <button id="completeBuyerTasksBtn" class="w-full bg-gray-400 text-white font-bold text-sm py-3 rounded-lg shadow-md cursor-not-allowed transition-all" disabled>
-                    Konfirmasi Akun Aman & Selesai
+                    Konfirmasi & Selesai
                 </button>
             </div>
         </div>
@@ -201,52 +160,72 @@
             <h2 class="font-bold p-4 border-b border-gray-100 dark:border-gray-700 text-gray-800 dark:text-white">Notifikasi</h2>
             <div id="notificationList" class="divide-y divide-gray-100 dark:divide-gray-700">
                 <div class="p-4 flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20">
-                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">📦</div>
+                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0">👋</div>
                     <div>
-                        <h4 class="text-sm font-bold text-gray-800 dark:text-white">Pesanan Selesai</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun Valorant Premium telah berhasil diserahkan.</p>
-                        <span class="text-[9px] text-gray-400 mt-1 block">Baru saja</span>
+                        <h4 class="text-sm font-bold text-gray-800 dark:text-white">Selamat Datang di Arthur Store!</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Temukan akun impianmu di sini.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- HALAMAN 6: SAYA -->
+        <!-- HALAMAN 6: SAYA (TIER PENJUAL) -->
         <div id="page-saya" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors">
             <div class="bg-blue-800 dark:bg-gray-950 p-4 flex items-center gap-4 text-white">
                 <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-800 text-2xl font-bold">A</div>
                 <div><h2 class="font-bold text-lg">Arthur</h2><p class="text-xs text-blue-200">Pengguna Terverifikasi</p></div>
             </div>
             
-            <div class="bg-white dark:bg-gray-800 p-4 flex justify-between text-sm shadow-sm transition-colors border-b dark:border-gray-700">
-                <div class="text-center w-1/2 border-r dark:border-gray-700">
-                    <div class="font-bold text-blue-600 dark:text-blue-400">Rp 0</div>
-                    <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Saldo Escrow</div>
-                </div>
-                <div class="text-center w-1/2">
-                    <div class="font-bold text-blue-600 dark:text-blue-400">0</div>
-                    <div class="text-gray-500 dark:text-gray-400 text-xs mt-1">Koin Store</div>
-                </div>
-            </div>
-
             <div class="bg-white dark:bg-gray-800 mt-2 p-4 shadow-sm transition-colors border-b dark:border-gray-700">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Dashboard & Quest Penjual</h3>
-                </div>
-                
-                <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900 transition-colors mb-4">
+                <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-3">Quest & Tier Penjual</h3>
+                <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900 mb-4">
                     <div class="flex justify-between items-center mb-2">
                         <div class="flex items-center gap-2">
                             <span id="tierBadgeIcon" class="text-2xl">🥉</span>
                             <div>
-                                <div id="tierNameText" class="font-bold text-gray-800 dark:text-white text-sm leading-tight">Tier Bronze</div>
-                                <div class="text-[10px] text-gray-500">Status Toko Anda</div>
+                                <div id="tierNameText" class="font-bold text-gray-800 dark:text-white text-sm">Tier Bronze</div>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <span id="tierPercentText" class="text-xs font-bold text-blue-600 dark:text-blue-400">0%</span>
-                        </div>
+                        <span id="tierPercentText" class="text-xs font-bold text-blue-600">0%</span>
                     </div>
-                    
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3 shadow-inner">
-                        <div id="
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-3">
+                        <div id="tierProgressBar" class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <div class="space-y-1.5 pt-2 border-t border-gray-200 dark:border-gray-800 text-[11px]">
+                        <div class="text-gray-700 dark:text-gray-300 font-bold mb-1">Quest Naik Tier:</div>
+                        <div class="flex justify-between text-gray-600"><span>📦 Produk Terjual:</span><span id="questTerjualVal" class="font-semibold text-gray-800 dark:text-white">0 / 5</span></div>
+                        <div class="flex justify-between text-gray-600"><span>⭐ Ulasan Bintang 5:</span><span id="questUlasanVal" class="font-semibold text-gray-800 dark:text-white">0 / 20</span></div>
+                    </div>
+                </div>
+
+                <button id="openJualAkunBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-3 rounded-lg shadow-md mb-2">Jual Akun Baru</button>
+                <button id="openJualBannerBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm py-3 rounded-lg shadow-md">Tambah Banner Promo</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 7: FORM JUAL AKUN -->
+        <div id="page-jual" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-24 relative z-[90]">
+            <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
+                <button id="backFromJualBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <h1 class="flex-1 text-sm font-bold text-gray-800 dark:text-white">Form Jual Akun</h1>
+            </header>
+            <form id="formJualAkun" class="p-4 space-y-4">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">Foto Produk (Wajib)</label>
+                    <input type="file" id="jualFileFoto" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-blue-700" required>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-3">
+                    <div><label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Judul Produk</label><input type="text" id="jualJudul" placeholder="Cth: Akun Valorant Sultan" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required></div>
+                    <div><label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Harga (Maks Rp 10.000.000)</label><input type="number" id="jualHarga" max="10000000" placeholder="Cth: 500000" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required></div>
+                    <div><label class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">Spesifikasi</label><textarea id="jualSpesifikasi" rows="3" class="w-full px-3 py-2 border rounded bg-gray-50 dark:bg-gray-700 dark:text-white text-sm" required></textarea></div>
+                </div>
+                <div class="fixed bottom-0 w-full max-w-md bg-white dark:bg-gray-950 border-t p-3 z-50">
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold text-sm py-3 rounded-lg shadow-md">Tayangkan Akun</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- HALAMAN 8: FORM TAMBAH BANNER -->
+        <div id="page-banner" class="page-tab hidden fade-in bg-gray-50 dark:bg-gray-900 min-h-screen pb-24 relative z-[90]">
+            <header class="bg-white dark:bg-gray-950 sticky top-0 z-50 p-3 shadow-sm flex items-center gap-3 transition-colors border-b dark:border-gray-800">
+                <button id="backFromBannerBtn" class="text-gray-800 dark:text-white p-1 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none" stroke="currentCol
