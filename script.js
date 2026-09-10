@@ -1,464 +1,342 @@
-/* script.js - Arthur Store ID Mobile + Stabilized Fix */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI GEMINI */
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    let sellerStats = {
-        terjual: 3,     
-        ulasan: 12      
-    };
-
+    // --- DATABASE AWAL ---
+    let sellerStats = { terjual: 3, ulasan: 12 };
+    let bannersData = ["images/valorant.jpg", "images/mlbb.jpg"];
     let productsData = [
         {
-            id: 0,
-            judul: "Akun Valorant Premium | Full Skin Kuronami & Reaver",
-            harga: "349.110",
-            hargaRaw: 349110,
-            foto: "images/valorant.jpg",
-            spesifikasi: "Status: Aman / Anti-Hack\nRank: Ascendant 1\nSkin: 34 Premium Skins\nLogin: Riot ID (Unbind)",
-            tier: "🥇 Gold",
-            terjual: "4 rb",
-            rating: "5.0",
-            diskon: "-16%"
+            id: 0, judul: "Akun Valorant Premium | Full Skin Kuronami",
+            harga: "349.110", hargaRaw: 349110, foto: "images/valorant.jpg",
+            spesifikasi: "Aman 100%\nRank: Ascendant", tier: "🥇 Gold",
+            terjual: "4 rb", rating: "5.0", diskon: "-16%"
         },
         {
-            id: 1,
-            judul: "Akun ML Mythic Glory 150 Skin KOF Chou Unbind",
-            harga: "850.000",
-            hargaRaw: 850000,
-            foto: "images/mlbb.jpg",
-            spesifikasi: "Status: Aman 100%\nRank: Mythic Glory\nSkin: 150 (KOF Chou, Epic Limited)\nLogin: Moonton (Unbind)",
-            tier: "🥈 Silver",
-            terjual: "10RB+",
-            rating: "4.9",
-            diskon: ""
+            id: 1, judul: "Akun ML Mythic Glory 150 Skin KOF",
+            harga: "850.000", hargaRaw: 850000, foto: "images/mlbb.jpg",
+            spesifikasi: "Rank: Mythic Glory\nUnbind", tier: "🥈 Silver",
+            terjual: "10RB+", rating: "4.9", diskon: ""
         }
-    ];
-
-    let bannersData = [
-        "images/valorant.jpg",
-        "images/mlbb.jpg"
     ];
 
     let activeProductId = null;
     let uploadedImageBase64 = "";
 
-    // --- 1. TIER PENJUAL ---
+    // --- 1. RENDER TIER PENJUAL ---
     function updateSellerTierUI() {
         const tierNameText = document.getElementById('tierNameText');
-        const tierBadgeIcon = document.getElementById('tierBadgeIcon');
-        const tierProgressBar = document.getElementById('tierProgressBar');
-        const tierPercentText = document.getElementById('tierPercentText');
-        const questTerjualVal = document.getElementById('questTerjualVal');
-        const questUlasanVal = document.getElementById('questUlasanVal');
-        const detailStoreTier = document.getElementById('detailStoreTier');
-
         if (!tierNameText) return;
 
-        let currentTier = "Bronze";
-        let badge = "🥉";
-        let percent = 0;
+        let currentTier = "Bronze", badge = "🥉", percent = 0;
 
         if (sellerStats.terjual >= 50 && sellerStats.ulasan >= 100) {
-            currentTier = "Gold";
-            badge = "🥇";
-            percent = 100;
+            currentTier = "Gold"; badge = "🥇"; percent = 100;
         } else if (sellerStats.terjual >= 20 && sellerStats.ulasan >= 50) {
-            currentTier = "Silver";
-            badge = "🥈";
+            currentTier = "Silver"; badge = "🥈";
             percent = Math.min(Math.round(((sellerStats.terjual/50)*50) + ((sellerStats.ulasan/100)*50)), 99);
         } else {
             percent = Math.min(Math.round(((sellerStats.terjual/5)*50) + ((sellerStats.ulasan/20)*50)), 99);
         }
 
         tierNameText.innerText = `Tier ${currentTier}`;
-        tierBadgeIcon.innerText = badge;
-        tierPercentText.innerText = `${percent}%`;
-        tierProgressBar.style.width = `${percent}%`;
+        document.getElementById('tierBadgeIcon').innerText = badge;
+        document.getElementById('tierPercentText').innerText = `${percent}%`;
+        document.getElementById('tierProgressBar').style.width = `${percent}%`;
 
         if (currentTier === "Bronze") {
-            questTerjualVal.innerText = `${sellerStats.terjual} / 5`;
-            questUlasanVal.innerText = `${sellerStats.ulasan} / 20`;
+            document.getElementById('questTerjualVal').innerText = `${sellerStats.terjual} / 5`;
+            document.getElementById('questUlasanVal').innerText = `${sellerStats.ulasan} / 20`;
         } else if (currentTier === "Silver") {
-            questTerjualVal.innerText = `${sellerStats.terjual} / 50`;
-            questUlasanVal.innerText = `${sellerStats.ulasan} / 100`;
+            document.getElementById('questTerjualVal').innerText = `${sellerStats.terjual} / 50`;
+            document.getElementById('questUlasanVal').innerText = `${sellerStats.ulasan} / 100`;
         } else {
-            questTerjualVal.innerText = `MAKSIMAL (50+)`;
-            questUlasanVal.innerText = `MAKSIMAL (100+)`;
-        }
-
-        if (detailStoreTier) {
-            detailStoreTier.innerText = `${badge} Penjual ${currentTier}`;
+            document.getElementById('questTerjualVal').innerText = `MAKS (50+)`;
+            document.getElementById('questUlasanVal').innerText = `MAKS (100+)`;
         }
     }
 
-    // --- 2. DARK MODE ---
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlElement = document.documentElement;
-
-    if (themeToggle && themeIcon) {
-        let isDarkMode = localStorage.getItem('theme') === 'dark';
-        if (isDarkMode) htmlElement.classList.add('dark');
-        themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
-
-        themeToggle.addEventListener('click', () => {
-            isDarkMode = !isDarkMode;
-            if (isDarkMode) {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-            themeIcon.innerText = isDarkMode ? '☀️' : '🌙';
-        });
-    }
-
-    // --- 3. RENDER BANNER & PRODUK ---
-    const bannerSlider = document.getElementById('bannerSlider');
+    // --- 2. RENDER BANNER & PRODUK ---
     function renderBanners() {
-        if (!bannerSlider) return;
-        bannerSlider.innerHTML = "";
+        const slider = document.getElementById('bannerSlider');
+        if (!slider) return;
+        slider.innerHTML = "";
         bannersData.forEach(src => {
-            const imgHtml = `<img src="${src}" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 shadow-sm" onerror="this.src='https://placehold.co/600x250/1e40af/white?text=Banner+Arthur+Store'">`;
-            bannerSlider.insertAdjacentHTML('beforeend', imgHtml);
+            slider.insertAdjacentHTML('beforeend', `<img src="${src}" class="w-[85%] h-32 object-cover rounded-lg snap-center flex-shrink-0 shadow-sm" onerror="this.src='https://placehold.co/600x250?text=Banner'">`);
         });
     }
-    renderBanners();
 
-    const productGrid = document.getElementById('productGrid');
     function renderProducts() {
-        if (!productGrid) return;
-        productGrid.innerHTML = "";
-
+        const grid = document.getElementById('productGrid');
+        if (!grid) return;
+        grid.innerHTML = "";
         productsData.forEach((prod) => {
-            const cardHtml = `
-                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer hover:shadow-md transition-all group" data-id="${prod.id}">
-                    ${prod.diskon ? `<div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">${prod.diskon}</div>` : '<div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 z-10 rounded-bl-md shadow-sm">BARU</div>'}
-                    <div class="overflow-hidden"><img src="${prod.foto}" class="w-full h-36 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x400?text=Kosong'"></div>
+            grid.insertAdjacentHTML('beforeend', `
+                <div class="product-card bg-white dark:bg-gray-800 relative shadow-sm border border-gray-100 dark:border-gray-700 rounded-md overflow-hidden cursor-pointer" data-id="${prod.id}">
+                    ${prod.diskon ? `<div class="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-bl-md">${prod.diskon}</div>` : '<div class="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-bl-md">BARU</div>'}
+                    <img src="${prod.foto}" class="w-full h-36 object-cover" onerror="this.src='https://placehold.co/400x400?text=Produk'">
                     <div class="p-2 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 leading-tight font-medium">${prod.judul}</h3>
-                            <div class="mt-1.5 flex flex-wrap gap-1">
-                                <span class="text-[9px] text-gray-600 dark:text-gray-300 border border-gray-400/50 px-1 py-0.5 rounded bg-gray-100 dark:bg-gray-800 font-semibold">${prod.tier}</span>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div class="text-blue-700 dark:text-blue-400 font-bold text-sm">Rp ${prod.harga}</div>
-                            <div class="flex items-center justify-between mt-1.5 text-[10px] text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-1.5">
-                                <div class="flex items-center gap-0.5"><span class="text-yellow-400 text-xs">★</span> ${prod.rating}</div><span>${prod.terjual} Terjual</span>
-                            </div>
-                        </div>
+                        <h3 class="text-xs text-gray-800 dark:text-gray-200 line-clamp-2 h-8 font-medium">${prod.judul}</h3>
+                        <span class="text-[9px] text-gray-600 dark:text-gray-300 font-semibold mt-1">${prod.tier}</span>
+                        <div class="text-blue-700 dark:text-blue-400 font-bold text-sm mt-2">Rp ${prod.harga}</div>
                     </div>
                 </div>
-            `;
-            productGrid.insertAdjacentHTML('beforeend', cardHtml);
+            `);
         });
     }
+
+    renderBanners();
     renderProducts();
     updateSellerTierUI();
 
-    // --- 4. NAVIGASI SPA ---
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const pageTabs = document.querySelectorAll('.page-tab');
-    const mainBottomNav = document.getElementById('main-bottom-nav');
-
+    // --- 3. NAVIGASI SPA & DARK MODE ---
     const hideAllPages = () => {
-        pageTabs.forEach(page => {
-            page.classList.add('hidden');
-            page.classList.remove('block');
+        document.querySelectorAll('.page-tab').forEach(page => {
+            page.classList.add('hidden'); page.classList.remove('block');
         });
     };
 
-    navBtns.forEach(btn => {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            navBtns.forEach(b => {
+            document.querySelectorAll('.nav-btn').forEach(b => {
                 b.classList.remove('text-blue-600', 'dark:text-blue-400');
                 b.classList.add('text-gray-500');
-                const svg = b.querySelector('svg');
-                if(svg && svg.getAttribute('fill') === 'currentColor') {
-                    svg.setAttribute('fill', 'none');
-                    svg.setAttribute('stroke', 'currentColor');
-                }
+                b.querySelector('svg')?.setAttribute('fill', 'none');
             });
-
             btn.classList.add('text-blue-600', 'dark:text-blue-400');
             btn.classList.remove('text-gray-500');
-            const clickedSvg = btn.querySelector('svg');
-            if(clickedSvg) {
-                clickedSvg.setAttribute('fill', 'currentColor');
-                clickedSvg.removeAttribute('stroke');
-            }
+            btn.querySelector('svg')?.setAttribute('fill', 'currentColor');
 
             hideAllPages();
-            
-            const targetId = btn.getAttribute('data-target');
-            document.getElementById(`page-${targetId}`).classList.remove('hidden');
-            document.getElementById(`page-${targetId}`).classList.add('block');
-            
-            if (mainBottomNav) {
-                mainBottomNav.classList.remove('hidden');
-                mainBottomNav.classList.add('flex');
+            const targetPage = document.getElementById(`page-${btn.getAttribute('data-target')}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('block');
             }
+            document.getElementById('main-bottom-nav')?.classList.remove('hidden');
             window.scrollTo(0, 0);
         });
     });
 
-    // --- 5. DETAIL & CHECKOUT ---
-    const pageBeranda = document.getElementById('page-beranda');
-    const pageDetail = document.getElementById('page-detail');
-    const pageCheckout = document.getElementById('page-checkout');
-    const pageBuyerTasks = document.getElementById('page-buyer-tasks');
-    const transactionLoadingModal = document.getElementById('transactionLoadingModal');
-    const loadingStatusText = document.getElementById('loadingStatusText');
-    
-    const backBtn = document.getElementById('backBtn');
-    const backFromCheckoutBtn = document.getElementById('backFromCheckoutBtn');
-    
-    if (productGrid) {
-        productGrid.addEventListener('click', (e) => {
-            const card = e.target.closest('.product-card');
-            if (card) {
-                const prodId = parseInt(card.getAttribute('data-id'));
-                activeProductId = prodId;
-                const selectedProd = productsData.find(p => p.id === prodId);
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
 
-                if (selectedProd) {
-                    document.getElementById('detailImg').src = selectedProd.foto;
-                    document.getElementById('detailHarga').innerText = `Rp ${selectedProd.harga}`;
-                    document.getElementById('detailJudul').innerText = selectedProd.judul;
-                    document.getElementById('detailSpesifikasi').innerText = selectedProd.spesifikasi;
-                }
-
-                hideAllPages();
-                pageDetail.classList.remove('hidden');
-                pageDetail.classList.add('block');
-                if (mainBottomNav) mainBottomNav.classList.add('hidden');
-                window.scrollTo(0, 0);
-            }
-        });
-    }
-
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            hideAllPages();
-            pageBeranda.classList.remove('hidden');
-            pageBeranda.classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    const buyNowBtn = document.getElementById('buyNowBtn');
-    if (buyNowBtn) {
-        buyNowBtn.addEventListener('click', () => {
-            const selectedProd = productsData.find(p => p.id === activeProductId);
-            if (selectedProd) {
-                document.getElementById('checkoutImg').src = selectedProd.foto;
-                document.getElementById('checkoutJudul').innerText = selectedProd.judul;
-                document.getElementById('subtotalVal').innerText = `Rp ${selectedProd.harga}`;
+    // --- 4. ALUR BELI, LOADING, TUGAS PEMBELI ---
+    document.getElementById('productGrid')?.addEventListener('click', (e) => {
+        const card = e.target.closest('.product-card');
+        if (card) {
+            const prod = productsData.find(p => p.id === parseInt(card.getAttribute('data-id')));
+            if (prod) {
+                activeProductId = prod.id;
+                document.getElementById('detailImg').src = prod.foto;
+                document.getElementById('detailHarga').innerText = `Rp ${prod.harga}`;
+                document.getElementById('detailJudul').innerText = prod.judul;
+                document.getElementById('detailSpesifikasi').innerText = prod.spesifikasi;
                 
-                const totalNum = selectedProd.hargaRaw + 2500;
-                const totalFormatted = new Intl.NumberFormat('id-ID').format(totalNum);
-                document.getElementById('checkoutTotal').innerText = `Rp ${totalFormatted}`;
-                document.getElementById('checkoutTotalBar').innerText = `Rp ${totalFormatted}`;
-            }
-
-            hideAllPages();
-            pageCheckout.classList.remove('hidden');
-            pageCheckout.classList.add('block');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    if (backFromCheckoutBtn) {
-        backFromCheckoutBtn.addEventListener('click', () => {
-            hideAllPages();
-            pageDetail.classList.remove('hidden');
-            pageDetail.classList.add('block');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    const processPaymentBtn = document.getElementById('processPaymentBtn');
-    if (processPaymentBtn && transactionLoadingModal) {
-        processPaymentBtn.addEventListener('click', () => {
-            transactionLoadingModal.classList.remove('hidden');
-            
-            setTimeout(() => {
-                loadingStatusText.innerText = "Memverifikasi pembayaran QRIS...";
-            }, 1000);
-
-            setTimeout(() => {
-                loadingStatusText.innerText = "Pembayaran berhasil! Menyiapkan data akun...";
-            }, 2200);
-
-            setTimeout(() => {
-                transactionLoadingModal.classList.add('hidden');
-                loadingStatusText.innerText = "Menghubungkan ke sistem gateway QRIS...";
-
                 hideAllPages();
-                pageBuyerTasks.classList.remove('hidden');
-                pageBuyerTasks.classList.add('block');
+                document.getElementById('page-detail')?.classList.replace('hidden', 'block');
+                document.getElementById('main-bottom-nav')?.classList.add('hidden');
                 window.scrollTo(0, 0);
-            }, 3200);
-        });
-    }
-
-    // --- CHECKLIST TUGAS PEMBELI ---
-    const buyerTaskCheckboxes = document.querySelectorAll('.buyer-task-checkbox');
-    const completeBuyerTasksBtn = document.getElementById('completeBuyerTasksBtn');
-
-    if (buyerTaskCheckboxes.length > 0 && completeBuyerTasksBtn) {
-        buyerTaskCheckboxes.forEach(chk => {
-            chk.addEventListener('change', () => {
-                const allChecked = Array.from(buyerTaskCheckboxes).every(cb => cb.checked);
-                if (allChecked) {
-                    completeBuyerTasksBtn.removeAttribute('disabled');
-                    completeBuyerTasksBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
-                    completeBuyerTasksBtn.classList.add('bg-green-600', 'hover:bg-green-700', 'shadow-md');
-                } else {
-                    completeBuyerTasksBtn.setAttribute('disabled', 'true');
-                    completeBuyerTasksBtn.classList.remove('bg-green-600', 'hover:bg-green-700', 'shadow-md');
-                    completeBuyerTasksBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
-                }
-            });
-        });
-
-        completeBuyerTasksBtn.addEventListener('click', () => {
-            alert("Transaksi Sukses! Akun telah diverifikasi aman.");
-            hideAllPages();
-            pageBeranda.classList.remove('hidden');
-            pageBeranda.classList.add('block');
-            if (mainBottomNav) {
-                mainBottomNav.classList.remove('hidden');
-                mainBottomNav.classList.add('flex');
             }
+        }
+    });
+
+    const route = (btnId, pageId) => {
+        document.getElementById(btnId)?.addEventListener('click', () => {
+            hideAllPages();
+            document.getElementById(pageId)?.classList.replace('hidden', 'block');
             window.scrollTo(0, 0);
         });
-    }
+    };
 
-    // --- 6. UPLOAD AKUN & VALIDASI ---
-    const openJualAkunBtn = document.getElementById('openJualAkunBtn');
-    const pageJual = document.getElementById('page-jual');
-    const backFromJualBtn = document.getElementById('backFromJualBtn');
-    const formJualAkun = document.getElementById('formJualAkun');
-    const notificationList = document.getElementById('notificationList');
-    
-    const jualFileFoto = document.getElementById('jualFileFoto');
-    const dropZoneContent = document.getElementById('dropZoneContent');
-    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-    const imagePreview = document.getElementById('imagePreview');
+    route('backBtn', 'page-beranda');
+    route('backFromCheckoutBtn', 'page-detail');
 
-    if (jualFileFoto) {
-        jualFileFoto.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    uploadedImageBase64 = event.target.result;
-                    imagePreview.src = uploadedImageBase64;
-                    dropZoneContent.classList.add('hidden');
-                    imagePreviewContainer.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
+    document.getElementById('buyNowBtn')?.addEventListener('click', () => {
+        const prod = productsData.find(p => p.id === activeProductId);
+        if (prod) {
+            document.getElementById('checkoutImg').src = prod.foto;
+            document.getElementById('checkoutJudul').innerText = prod.judul;
+            document.getElementById('subtotalVal').innerText = `Rp ${prod.harga}`;
+            const total = new Intl.NumberFormat('id-ID').format(prod.hargaRaw + 2500);
+            document.getElementById('checkoutTotal').innerText = `Rp ${total}`;
+            document.getElementById('checkoutTotalBar').innerText = `Rp ${total}`;
+        }
+        hideAllPages();
+        document.getElementById('page-checkout')?.classList.replace('hidden', 'block');
+        window.scrollTo(0, 0);
+    });
 
-    if (openJualAkunBtn) {
-        openJualAkunBtn.addEventListener('click', () => {
+    document.getElementById('processPaymentBtn')?.addEventListener('click', () => {
+        const modal = document.getElementById('transactionLoadingModal');
+        const text = document.getElementById('loadingStatusText');
+        modal?.classList.remove('hidden');
+        
+        setTimeout(() => text && (text.innerText = "Memverifikasi QRIS..."), 1200);
+        setTimeout(() => text && (text.innerText = "Pembayaran Berhasil!"), 2500);
+        setTimeout(() => {
+            modal?.classList.add('hidden');
+            text && (text.innerText = "Sistem QRIS...");
             hideAllPages();
-            pageJual.classList.remove('hidden');
-            pageJual.classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.add('hidden');
+            document.getElementById('page-buyer-tasks')?.classList.replace('hidden', 'block');
             window.scrollTo(0, 0);
-        });
-    }
+        }, 3800);
+    });
 
-    if (backFromJualBtn) {
-        backFromJualBtn.addEventListener('click', () => {
-            hideAllPages();
-            document.getElementById('page-saya').classList.remove('hidden');
-            document.getElementById('page-saya').classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.remove('hidden');
-            window.scrollTo(0, 0);
-        });
-    }
-
-    if (formJualAkun) {
-        formJualAkun.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const hargaNum = parseInt(document.getElementById('jualHarga').value);
-
-            if (hargaNum > 10000000) {
-                alert("Batas maksimal harga produk adalah Rp 10.000.000!");
-                return;
+    const checkBoxes = document.querySelectorAll('.buyer-task-checkbox');
+    const completeBtn = document.getElementById('completeBuyerTasksBtn');
+    checkBoxes.forEach(chk => {
+        chk.addEventListener('change', () => {
+            if (Array.from(checkBoxes).every(cb => cb.checked)) {
+                completeBtn.removeAttribute('disabled');
+                completeBtn.classList.replace('bg-gray-400', 'bg-green-600');
+            } else {
+                completeBtn.setAttribute('disabled', 'true');
+                completeBtn.classList.replace('bg-green-600', 'bg-gray-400');
             }
+        });
+    });
 
-            if (!uploadedImageBase64) {
-                alert("Mohon sertakan foto produk!");
-                return;
-            }
+    completeBtn?.addEventListener('click', () => {
+        alert("Transaksi Sukses! Dana diteruskan ke penjual.");
+        hideAllPages();
+        document.getElementById('page-beranda')?.classList.replace('hidden', 'block');
+        document.getElementById('main-bottom-nav')?.classList.remove('hidden');
+    });
 
-            const judul = document.getElementById('jualJudul').value;
-            const hargaFormatted = new Intl.NumberFormat('id-ID').format(hargaNum);
-            const spesifikasi = document.getElementById('jualSpesifikasi').value;
+    // --- 5. JUAL AKUN & BANNER ---
+    route('openJualAkunBtn', 'page-jual');
+    route('backFromJualBtn', 'page-saya');
+    route('openJualBannerBtn', 'page-banner');
+    route('backFromBannerBtn', 'page-saya');
 
-            const newProd = {
-                id: productsData.length,
-                judul: judul,
-                harga: hargaFormatted,
-                hargaRaw: hargaNum,
-                foto: uploadedImageBase64,
-                spesifikasi: spesifikasi,
-                tier: "🥉 Bronze",
-                terjual: "0",
-                rating: "0.0",
-                diskon: ""
+    document.getElementById('jualFileFoto')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => { uploadedImageBase64 = event.target.result; };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('formJualAkun')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const hargaNum = parseInt(document.getElementById('jualHarga').value);
+        if (hargaNum > 10000000) return alert("Batas maksimal harga Rp 10 Juta!");
+        if (!uploadedImageBase64) return alert("Pilih foto dulu!");
+
+        const judul = document.getElementById('jualJudul').value;
+        productsData.unshift({
+            id: productsData.length, judul, harga: new Intl.NumberFormat('id-ID').format(hargaNum),
+            hargaRaw: hargaNum, foto: uploadedImageBase64,
+            spesifikasi: document.getElementById('jualSpesifikasi').value,
+            tier: "🥉 Bronze", terjual: "0", rating: "0.0", diskon: ""
+        });
+        
+        renderProducts();
+        document.getElementById('notificationList')?.insertAdjacentHTML('afterbegin', `
+            <div class="p-4 flex gap-3 bg-green-50"><div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center">🏷️</div><div><h4 class="font-bold text-sm">Produk Tayang!</h4><p class="text-xs">Akun "${judul}" sudah aktif.</p></div></div>
+        `);
+        
+        alert("Sukses Upload Akun!");
+        e.target.reset(); uploadedImageBase64 = "";
+        document.getElementById('backFromJualBtn').click(); 
+    });
+
+    document.getElementById('formBanner')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const file = document.getElementById('bannerFileFoto').files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                bannersData.push(event.target.result);
+                renderBanners();
+                alert("Banner berhasil ditambah!");
+                e.target.reset();
+                document.getElementById('backFromBannerBtn').click();
             };
+            reader.readAsDataURL(file);
+        }
+    });
 
-            productsData.unshift(newProd);
-            renderProducts();
 
-            const notifHtml = `
-                <div class="p-4 flex items-start gap-3 bg-green-50 dark:bg-green-900/20 fade-in">
-                    <div class="w-10 h-10 rounded-full bg-green-600 text-white flex items-center justify-center shrink-0">🏷️</div>
-                    <div>
-                        <h4 class="text-sm font-bold text-gray-800 dark:text-white">Produk Berhasil Ditayangkan!</h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1">Akun "${judul}" sudah aktif.</p>
-                        <span class="text-[9px] text-gray-400 mt-1 block">Baru saja</span>
-                    </div>
-                </div>
-            `;
-            if (notificationList) notificationList.insertAdjacentHTML('afterbegin', notifHtml);
+    // --- 6. AI CHATBOT INTERAKTIF (PERSONA: TSUNDERE) ---
+    document.getElementById('aiChatFab')?.addEventListener('click', () => {
+        document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
+    });
+    document.getElementById('closeAiChatBtn')?.addEventListener('click', () => {
+        document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
+    });
 
-            alert('Sukses! Akun Anda berhasil di-upload.');
-            formJualAkun.reset();
-            uploadedImageBase64 = "";
-            imagePreviewContainer.classList.add('hidden');
-            dropZoneContent.classList.remove('hidden');
+    // ==============================================================
+    // KUNCI API GEMINI (GANTI TEKS DI BAWAH INI DENGAN API KEY-MU)
+    // ==============================================================
+    const GEMINI_API_KEY = AQ.Ab8RN6L3rWantyEfvXvjg6h1fudpf_LFp0ajHXxMJDXMyHRG6Q 
+    
+    // KEPRIBADIAN TSUNDERE
+    const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
+    Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
+    Kamu sering pakai kata "Hmph!", "B-bukan berarti...", "Jangan salah paham ya!", atau "Bodoh!". 
+    Kamu melayani transaksi jual beli akun game. Kalau ditanya soal toko: kasih tau cara belinya gampang pakai QRIS, ada Escrow 30 hari yang aman, jual akun maksimal harga 10 juta, dan ada sistem Tier penjual.
+    Kalau user curhat atau ajak ngobrol random di luar game, kamu pura-pura ogah-ogahan tapi tetap tanggapi dan jawab pertanyaannya dengan baik. 
+    Jawablah dengan bahasa Indonesia gaul, singkat, dan natural.`;
 
-            hideAllPages();
-            pageBeranda.classList.remove('hidden');
-            pageBeranda.classList.add('block');
-            if (mainBottomNav) {
-                mainBottomNav.classList.remove('hidden');
-                mainBottomNav.classList.add('flex');
+    document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('aiChatInput');
+        const txt = input.value.trim();
+        if (!txt) return;
+
+        const chat = document.getElementById('chatMessages');
+        
+        chat.insertAdjacentHTML('beforeend', `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm"><p class="text-xs">${txt}</p></div>`);
+        input.value = '';
+        chat.scrollTop = chat.scrollHeight;
+
+        const typingId = 'typing-' + Date.now();
+        chat.insertAdjacentHTML('beforeend', `<div id="${typingId}" class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm"><p class="text-xs text-gray-500 italic dark:text-gray-400">Arthur mengetik dengan kesal...</p></div>`);
+        chat.scrollTop = chat.scrollHeight;
+
+        let finalReply = "";
+
+        try {
+            if (GEMINI_API_KEY === "TARUH_API_KEY_KAMU_DISINI") {
+                finalReply = "Hmph! Dasar bodoh! Developer-ku belum memasukkan 'API KEY Gemini' ke dalam kodenya. B-bukan berarti aku nggak mau jawab lho ya! Suruh dia pasang kodenya dulu!";
+            } else {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: AI_PERSONA + "\n\nUser: " + txt + "\nArthur:" }] }]
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    finalReply = data.candidates[0].content.parts[0].text;
+                } else {
+                    finalReply = "Cih! Server Google sedang bodoh, koneksinya terputus! B-bukan berarti aku kabur ya, tanya soal toko aja mendingan!";
+                }
             }
-            window.scrollTo(0, 0);
-        });
-    }
+        } catch (error) {
+            // Fallback Offline - Tsundere Mode
+            finalReply = "Hmph! Koneksiku lagi jelek! J-jangan mikir aku sengaja nggak bales ya! Kalau mau tanya soal toko, transaksi kita pakai QRIS dan sistem Escrow yang aman kok. Puas?!";
+        }
 
-    // --- 7. UPLOAD BANNER ---
-    const openJualBannerBtn = document.getElementById('openJualBannerBtn');
-    const pageBanner = document.getElementById('page-banner');
-    const backFromBannerBtn = document.getElementById('backFromBannerBtn');
-    const formBanner = document.getElementById('formBanner');
+        document.getElementById(typingId)?.remove();
+        const formattedReply = finalReply.replace(/\n/g, '<br>');
+        chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
+        chat.scrollTop = chat.scrollHeight;
+    });
 
-    if (openJualBannerBtn) {
-        openJualBannerBtn.addEventListener('click', () => {
-            hideAllPages();
-            pageBanner.classList.remove('hidden');
-            pageBanner.classList.add('block');
-            if (mainBottomNav) mainBottomNav.classList.add('hidde
+    // --- 7. AUTO-SCROLL BANNER ---
+    setInterval(() => {
+        const bs = document.getElementById('bannerSlider');
+        if (bs) {
+            if (bs.scrollLeft >= bs.scrollWidth - bs.clientWidth - 10) bs.scrollTo({ left: 0, behavior: 'smooth' });
+            else bs.scrollBy({ left: bs.clientWidth * 0.85, behavior: 'smooth' });
+        }
+    }, 3000);
+});
+            
