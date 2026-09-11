@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + HYBRID TSUNDERE AI (LIVE API + OFFLINE FALLBACK) */
+/* script.js - Arthur Store ID Mobile + HYBRID TSUNDERE AI (TANPA BLOKIR API) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. AI CHATBOT (HYBRID BRAIN) ---
+    // --- 6. AI CHATBOT (HYBRID BRAIN BEBAS KODE) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -269,22 +269,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
-    // PASTIKAN KUNCI INI DIAWALI DENGAN "AIzaSy..." AGAR BOT BISA JAWAB BEBAS
+    // API KEY AQ MILIKMU (Sudah tidak diblokir lagi oleh sistem!)
     // =========================================================================
-    const GEMINI_API_KEY = "AQ.Ab8RN6ID76O0baIU7GMUL4IGu23AK-WiguynVWn-QC4EbFkbFw"; 
+    const GEMINI_API_KEY = "AQ.Ab8RN6KcqR1ATUwDeL9JkAdTfVkxZWtuP5KHgEePdWHUfqLYSg"; 
     
     const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
     Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
     Kalau user curhat atau ajak ngobrol random di luar game, kamu pura-pura ogah-ogahan tapi tetap tanggapi dan jawab pertanyaannya dengan baik secara bebas. 
     Jawablah dengan bahasa Indonesia gaul, singkat, dan natural.`;
 
-    // Otak Cadangan (Hanya aktif jika koneksi API gagal / Kunci API salah)
     function offlineTsundereBrain(text) {
         const lower = text.toLowerCase();
         if (lower.includes('cara beli') || lower.includes('qris')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari.";
         if (lower.includes('jual') || lower.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya 10 Juta!";
         if (lower.includes('halo') || lower.includes('hai')) return "Apa lihat-lihat?! Kalau mau beli akun buruan!";
-        return "Berisik! Karena API Key-nya belum valid, otak utamaku sedang offline! Aku cuma bisa jawab pertanyaan seputar toko sekarang. B-bukan berarti aku nggak mau ngobrol sama kamu ya!";
+        return "Berisik! Server pusat menolak API Key-ku (Error)! K-kenapa kamu nanya yang aneh-aneh sih?! Tanya soal toko aja, pasti aku bantu!";
     }
 
     document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
@@ -306,12 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalReply = "";
 
         try {
-            // Validasi Kunci Dasar
-            if (!GEMINI_API_KEY.startsWith("AIzaSy")) {
-                throw new Error("Invalid Key Format");
-            }
-
-            // Mencoba akses Otak Bebas (Live API)
+            // TIDAK ADA LAGI BLOKIR VALIDASI, LANGSUNG TEMBAK SERVER GOOGLE!
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -324,10 +318,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 finalReply = data.candidates[0].content.parts[0].text;
             } else {
-                throw new Error("API Error"); // Jika terblokir, pindah ke offline
+                throw new Error("API Ditolak Server Google"); 
             }
         } catch (error) {
-            // Gagal akses? Gunakan Otak Offline tanpa error log di web
+            // Jika ditolak sungguhan oleh Google, jalankan otak offline
             finalReply = offlineTsundereBrain(txt);
         }
 
