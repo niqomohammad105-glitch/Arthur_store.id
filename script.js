@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     // PASTIKAN KUNCI INI DIAWALI DENGAN "AIzaSy..." AGAR BOT BISA JAWAB BEBAS
     // =========================================================================
-    const GEMINI_API_KEY = "MASUKKAN_KUNCI_API_ASLI_DISINI"; 
+    const GEMINI_API_KEY = "AQ.Ab8RN6ID76O0baIU7GMUL4IGu23AK-WiguynVWn-QC4EbFkbFw"; 
     
     const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
     Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
