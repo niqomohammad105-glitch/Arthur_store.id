@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI (KEYLESS PUBLIC API) */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI (SUPER OFFLINE SIMULATION) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -244,23 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('backFromJualBtn').click(); 
     });
 
-    document.getElementById('formBanner')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const file = document.getElementById('bannerFileFoto').files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                bannersData.push(event.target.result);
-                renderBanners();
-                alert("Banner berhasil ditambah!");
-                e.target.reset();
-                document.getElementById('backFromBannerBtn').click();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // --- 6. AI CHATBOT (KEYLESS FREE API) ---
+    // --- 6. AI CHATBOT (SUPER SIMULASI OFFLINE) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -268,15 +252,44 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
 
-    // Kepribadian AI (Sifat Bot)
-    const AI_PERSONA = "Namamu adalah Arthur, penjaga toko Arthur Store ID. Sifatmu TSUNDERE (galak, gengsian, tapi peduli). Jawablah semua pertanyaan pengguna secara bebas dengan bahasa Indonesia gaul dan singkat.";
+    // KAMUS PINTAR TSUNDERE (Bisa jawab banyak topik tanpa internet!)
+    function superOfflineBrain(text) {
+        const txt = text.toLowerCase();
+        
+        // Seputar Toko
+        if (txt.includes('beli') || txt.includes('qris') || txt.includes('bayar')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari.";
+        if (txt.includes('jual') || txt.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Inget, batas maksimal harganya 10 Juta!";
+        if (txt.includes('garansi') || txt.includes('aman') || txt.includes('escrow')) return "Sistem Escrow kita itu nahan uang pembeli sampai akunnya beneran aman di tangan pembeli! J-jadi jangan ragu buat transaksi di sini!";
+        if (txt.includes('harga') || txt.includes('mahal')) return "Harga di sini udah yang paling pas tau! Kalau mau yang murah cari yang lagi diskon aja sana!";
+        
+        // Sapaan
+        if (txt.includes('halo') || txt.includes('hai') || txt.includes('pagi') || txt.includes('malam')) return "Apa lihat-lihat?! Kalau mau beli akun buruan, jangan buang waktuku buat ngobrol doang!";
+        if (txt.includes('nama') || txt.includes('siapa')) return "Namaku Arthur! Penjaga toko Arthur Store ID. A-R-T-H-U-R! Jangan sampai lupa, bodoh!";
+        if (txt.includes('makasih') || txt.includes('terima kasih') || txt.includes('thanks')) return "Hmph! S-sama-sama... Jangan salah paham, ini emang pekerjaanku buat bantu kamu tau!";
+        if (txt.includes('kabar') || txt.includes('apa kabar')) return "Kabarku baik-baik aja! Yang penting tokonya lancar. Udah sana belanja!";
 
-    // Otak Cadangan (Bila internet mati)
-    function offlineTsundereBrain(text) {
-        return "Berisik! Koneksiku lagi jelek nih, jadi aku cuma bisa jawab kalau nanya soal beli akun atau jualan aja!";
+        // Topik Random / Bebas
+        if (txt.includes('anime') || txt.includes('manga') || txt.includes('wibu')) return "Hah?! A-anime?! Aku sesekali nonton sih, tapi jangan mikir aku wibu ya! Cuma buat ngisi waktu luang!";
+        if (txt.includes('game') || txt.includes('main') || txt.includes('valorant') || txt.includes('ml')) return "Game favoritku? Itu rahasia! Udah sana cari akun Valorant atau ML di beranda aja, jangan nanya-nanya urusan pribadiku!";
+        if (txt.includes('cinta') || txt.includes('suka') || txt.includes('pacar')) return "A-apa-apaan bahas cinta?! B-bodoh! Jangan bahas hal memalukan gitu pas aku lagi jaga toko!";
+        if (txt.includes('cuaca') || txt.includes('hujan') || txt.includes('panas')) return "Cuaca di luar mau badai kek, panas kek, nggak ngaruh buatku! Yang penting transaksi di Arthur Store jalan terus.";
+        if (txt.includes('lucu') || txt.includes('lelucon') || txt.includes('bercanda')) return "Lelucon? Ini toko game profesional, bukan panggung stand-up comedy! Hmph!";
+        if (txt.includes('sekolah') || txt.includes('tugas') || txt.includes('kuliah')) return "Kalau lagi ada tugas ya dikerjain sana! Jangan malah nongkrong di Arthur Store buat cari akun game. Nanti nilaimu jelek lho!";
+
+        // Umpatan Kasar (Filter)
+        if (txt.includes('anjing') || txt.includes('babi') || txt.includes('goblok') || txt.includes('bodoh') || txt.includes('tolol')) return "Heh! Jaga mulutmu ya! Berani ngomong kasar di tokoku, aku blokir kamu dari sistem Escrow nih!";
+
+        // Jawaban Acak (Kalau kata kuncinya tidak ada di atas)
+        const randomReplies = [
+            "Huh? Apa maksudmu? Bicara yang jelas dong, aku lagi sibuk mantau transaksi Escrow nih!",
+            "Berisik! Jangan ajak ngobrol tentang hal nggak jelas terus, cepetan beli sesuatu!",
+            "Terserah kamu deh mau ngomong apa... B-bukan berarti aku nggak peduli lho ya! Cuma... ya udahlah!",
+            "Hmph! Aku nggak ngerti bahasa alienmu. Kalau ada kendala cara bayar QRIS, baru tanya aku!"
+        ];
+        return randomReplies[Math.floor(Math.random() * randomReplies.length)];
     }
 
-    document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
+    document.getElementById('aiChatForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const input = document.getElementById('aiChatInput');
         const txt = input.value.trim();
@@ -292,31 +305,16 @@ document.addEventListener('DOMContentLoaded', () => {
         chat.insertAdjacentHTML('beforeend', `<div id="${typingId}" class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm"><p class="text-xs text-gray-500 italic dark:text-gray-400">Arthur mengetik dengan kesal...</p></div>`);
         chat.scrollTop = chat.scrollHeight;
 
-        let finalReply = "";
+        // PROSES AI SIMULASI LOKAL (LANGSUNG DARI KAMUS DI ATAS)
+        const finalReply = superOfflineBrain(txt);
 
-        try {
-            // MENGGUNAKAN SERVER AI GRATIS TANPA API KEY (POLLINATIONS.AI)
-            const aiUrl = `https://text.pollinations.ai/openai/${encodeURIComponent(txt)}?system=${encodeURIComponent(AI_PERSONA)}`;
-            
-            const response = await fetch(aiUrl);
-
-            if (response.ok) {
-                // Server membalas langsung berupa teks
-                finalReply = await response.text(); 
-            } else {
-                throw new Error("Gagal terhubung"); 
-            }
-        } catch (error) {
-            // Kalau internet putus
-            finalReply = offlineTsundereBrain(txt);
-        }
-
+        // Simulasi ngetik selama 0.8 Detik biar kelihatan nyata
         setTimeout(() => {
             document.getElementById(typingId)?.remove();
             const formattedReply = finalReply.replace(/\n/g, '<br>');
             chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
             chat.scrollTop = chat.scrollHeight;
-        }, 600); 
+        }, 800); 
     });
 
     // --- 7. AUTO-SCROLL BANNER ---
