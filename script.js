@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI (ULTIMATE CS & BROAD CHAT) */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI (REAL FREE AI API) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.classList.toggle('dark');
     });
 
-    // --- 4. ALUR BELI, LOADING, TUGAS PEMBELI ---
+    // --- 4. ALUR BELI & TUGAS PEMBELI ---
     document.getElementById('productGrid')?.addEventListener('click', (e) => {
         const card = e.target.closest('.product-card');
         if (card) {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('backFromJualBtn').click(); 
     });
 
-    // --- 6. AI CHATBOT (ULTIMATE OFFLINE BRAIN - CS & CHAT MODE) ---
+    // --- 6. AI CHATBOT SUNGGUHAN (MENGGUNAKAN FREE PUBLIC API) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -252,129 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
 
-    // SISTEM PENDETEKSI KATA KUNCI TINGKAT TINGGI
-    function ultimateSmartBrain(text) {
-        const txt = text.toLowerCase().replace(/[^\w\s]/gi, '').trim(); 
-        
-        // ==========================================
-        // 1. ZONA BANTUAN & TROUBLESHOOTING (CS MODE)
-        // ==========================================
-        if (txt.includes('tolong') || txt.includes('bantu') || txt.includes('masalah') || txt.includes('gagal') || txt.includes('error') || txt.includes('rusak') || txt.includes('nggak bisa') || txt.includes('gak bisa') || txt.includes('bug')) {
-            
-            if (txt.includes('bayar') || txt.includes('qris') || txt.includes('saldo') || txt.includes('uang')) {
-                return "Kamu gagal bayar atau saldo kepotong tapi status belum sukses? Tenang aja! Tunggu 5-10 menit. Sistem Escrow kita bakal auto-refund uangmu ke e-wallet kalau transaksi batal. B-bukan berarti aku kasihan ya, ini emang SOP toko!";
-            }
-            if (txt.includes('login') || txt.includes('password') || txt.includes('masuk') || txt.includes('akun')) {
-                return "Gagal login ke akun yang dibeli? Pastikan passwordnya sesuai sama yang di halaman 'Amankan Akun'. Kalau masih salah atau akunnya di-hack, uang Escrow kamu aman dan nggak bakal kulepas ke penjual! Kasih tau aku id transaksinya!";
-            }
-            if (txt.includes('web') || txt.includes('halaman') || txt.includes('blank')) {
-                return "Website-nya error atau nge-bug? Hmph! Dasar developer-ku pasti kurang teliti. Coba kamu refresh aja halamannya. Data transaksimu tetap aman di memori kok!";
-            }
-            if (txt.includes('penipu') || txt.includes('scam') || txt.includes('bohong') || txt.includes('hack')) {
-                return "Ada penjual nakal?! Jangan panik! Uang kamu ditahan Escrow selama 30 hari. Selama kamu belum centang tombol 'Selesai', uangnya nggak bakal kuserahin ke penipu itu! Biar aku yang urus!";
-            }
-            // Bantuan Umum
-            return "Ada masalah apa bodoh?! Jangan cuma bilang 'tolong'. Jelasin masalahmu! Gagal bayar? Akun nggak bisa dilogin? Atau webnya error? Aku bakal bantu beresin!";
-        }
-
-        // Kalau ada yang cari "Admin" manusia
-        if (txt.includes('admin') || txt.includes('manusia') || txt.includes('cs') || txt.includes('hubungi')) {
-            return "Kamu mau ngomong sama admin manusia? Cih! Memangnya pelayananku kurang bagus?! Kalau emang darurat banget, kamu bisa hubungi email developer-ku di bawah. Tapi selesaikan dulu urusanmu sama aku!";
-        }
-
-        // ==========================================
-        // 2. ZONA NGOBROL LUAS & CURHAT BAPER
-        // ==========================================
-        if (txt.includes('sedih') || txt.includes('galau') || txt.includes('nangis') || txt.includes('patah hati') || txt.includes('putus')) {
-            return "Lho... k-kenapa kamu nangis?! Dengar ya, patah hati atau gagal itu wajar. Jangan jadi cengeng di tokoku! Mending kamu istirahat, makan yang enak, atau main game buat ngelupain. Aku... bakal ada di sini kok nemenin.";
-        }
-        if (txt.includes('gabut') || txt.includes('bosan') || txt.includes('bosen') || txt.includes('sepi')) {
-            return "Kalau gabut jangan ngerusuh di mari dong! Push rank kek, belajar koding kek, atau liat-liat katalog toko kita. Siapa tau ada akun inceranmu yang lagi diskon gede!";
-        }
-        if (txt.includes('capek') || txt.includes('lelah') || txt.includes('menyerah') || txt.includes('nyerah')) {
-            return "Capek itu tanda kamu udah berjuang keras! Wajar kalau mau istirahat. Tapi jangan pernah nyerah sama hidupmu bodoh! Kalau kamu nyerah, siapa nanti yang jajan di tokoku?!";
-        }
-        if (txt.includes('tugas') || txt.includes('kuliah') || txt.includes('sekolah') || txt.includes('kerja') || txt.includes('presentasi')) {
-            return "Pasti pusing banget ya ngerjain tugas atau presentasi? Selesain sekarang biar nanti malam kamu bisa nge-game tenang tanpa beban! Jangan ditunda-tunda!";
-        }
-        if (txt.includes('semangat') || txt.includes('motivasi')) {
-            return "Kamu butuh motivasi? Dengar baik-baik: Kamu itu hebat, berani nyoba hal baru! Walau kadang kodinganmu error atau hidupmu susah, kamu pasti bisa ngelewatinnya! Udah, sana senyum lagi!";
-        }
-        if (txt.includes('makan') || txt.includes('laper') || txt.includes('lapar') || txt.includes('makanan')) {
-            return "Udah jam segini belum makan?! Pantes aja kamu chat nggak jelas gini. Pergi makan sana! Aku nggak mau tanggug jawab kalau pelangganku pingsan pas lagi milih akun!";
-        }
-
-        // ==========================================
-        // 3. ZONA OBROLAN GAME & HOBI
-        // ==========================================
-        if (txt.includes('valorant') || txt.includes('valo') || txt.includes('vandal') || txt.includes('kuronami')) {
-            return "Wah, selera game-mu bagus! Valorant emang seru. Ngomong-ngomong, aku punya akun Ascendant full skin Kuronami di beranda tuh. Gak mau ngecek?";
-        }
-        if (txt.includes('ml') || txt.includes('mobile legends') || txt.includes('mythic') || txt.includes('kof')) {
-            return "Masih stuck Epic ya? Pantes nyari akun ML di sini. Canda! Kita punya akun Mythic Glory Unbind 100% aman kok, harganya lagi spesial tuh.";
-        }
-        if (txt.includes('roblox') || txt.includes('genshin') || txt.includes('ff') || txt.includes('free fire') || txt.includes('pubg')) {
-            return "Game itu ada kok stoknya di kita! Arthur Store itu serba ada. Langsung pakai fitur pencarian di atas buat nyari game yang spesifik ya.";
-        }
-        if (txt.includes('anime') || txt.includes('wibu') || txt.includes('manga') || txt.includes('film') || txt.includes('nonton')) {
-            return "Hah?! A-anime? Film? A-aku jarang nonton sih, sibuk jaga server! Tapi kadang aku nonton dikit pas tokonya lagi sepi... J-jangan sebar-sebar rahasiaku!";
-        }
-
-        // ==========================================
-        // 4. ZONA IDENTITAS & EKSISTENSI AI
-        // ==========================================
-        if (txt.includes('siapa kamu') || txt.includes('nama kamu') || txt.includes('kamu siapa')) {
-            return "Sekali lagi kuberitahu! Namaku Arthur! AI cerdas penjaga toko Arthur Store ID. Jangan lupakan nama itu!";
-        }
-        if (txt.includes('siapa yang buat') || txt.includes('developer') || txt.includes('pencipta') || txt.includes('bos')) {
-            return "Aku diciptakan oleh seorang developer jenius yang sedang mengerjakan presentasi lab-nya! Makanya aku harus kerja ekstra keras supaya nilainya A! Hmph!";
-        }
-        if (txt.includes('ai') || txt.includes('robot') || txt.includes('bot') || txt.includes('mesin') || txt.includes('asli')) {
-            return "Memangnya kenapa kalau aku bot atau AI?! Walaupun aku cuma kode Javascript, aku punya perasaan dedikasi buat ngejaga sistem toko ini tau!";
-        }
-        if (txt.includes('cinta') || txt.includes('sayang') || txt.includes('suka sama kamu') || txt.includes('pacaran')) {
-            return "A-apa-apaan bahas cinta ke AI?! B-bodoh! Otak sirkuitku bisa *overheat* kalau kamu ngomong yang aneh-aneh! F-fokus belanja aja sana!";
-        }
-
-        // ==========================================
-        // 5. ZONA SAPAAN UMUM
-        // ==========================================
-        if (txt === 'p' || txt === 'oi' || txt === 'woy' || txt === 'oy' || txt.includes('cuy') || txt.includes('bro')) {
-            return "Apa panggil-panggil?! Ada yang error? Atau mau top up? Jangan cuma bilang 'P', ketik yang bener!";
-        }
-        if (txt.includes('halo') || txt.includes('hai') || txt.includes('hi') || txt.includes('hey')) {
-            return "Halo juga! B-bukan berarti aku nungguin kamu chat lho ya! Ada yang bisa kubantu?";
-        }
-        if (txt.includes('assalamualaikum') || txt.includes('salam')) {
-            return "Waalaikumsalam! Selamat datang di Arthur Store. Ada keluhan transaksi atau mau nyari akun baru?";
-        }
-        if (txt.includes('makasih') || txt.includes('terima kasih') || txt.includes('thanks') || txt.includes('thx')) {
-            return "Hmph! S-sama-sama... Emang udah tugasku buat bantu pelanggan! Kalau mau balas budi, kasih bintang 5 di toko ya!";
-        }
-        
-        // ==========================================
-        // 6. FILTER UMPATAN
-        // ==========================================
-        if (txt.includes('anjing') || txt.includes('babi') || txt.includes('goblok') || txt.includes('bodoh') || txt.includes('tolol') || txt.includes('bangsat') || txt.includes('kontol')) {
-            return "Heh! Jaga mulutmu! Kamu lagi ngomong sama penjaga server! Berani ngomong kotor lagi di toko ini, uang Escrow-mu bakal kubekukan selamanya!";
-        }
-
-        // ==========================================
-        // 7. RESPONS ACAK (FALLBACK PINTAR)
-        // ==========================================
-        const randomReplies = [
-            "Huh? Apa maksudmu? Kalau ada masalah teknis, jelasin yang detail dong! Jangan sepotong-sepotong!",
-            "Terus? Apa hubungannya sama Arthur Store?! Aku ini cuma AI yang jaga transaksi, bukan peramal!",
-            "Gitu ya... Yaudah deh. Kalau kamu butuh bantuan soal cara bayar atau akun nyangkut, bilang aja ke aku.",
-            "Berisik! Aku lagi ngecek riwayat transaksi Escrow jutaan rupiah nih. Bahas yang lain nanti aja!",
-            "Maksudmu gimana? Ooh... aku kurang ngerti bahasa santai banget gitu. B-bukan karena AI ini bodoh ya!",
-            "Hm, menarik. Tapi daripada bahas itu, mending kamu cek stok akun baru kita di beranda deh!",
-            "Hmph! J-jangan ngajak ngobrol terus dong, nanti developer-ku ngira aku nggak kerja melayani *customer*!"
-        ];
-        return randomReplies[Math.floor(Math.random() * randomReplies.length)];
-    }
-
-    document.getElementById('aiChatForm')?.addEventListener('submit', (e) => {
+    document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const input = document.getElementById('aiChatInput');
         const txt = input.value.trim();
@@ -382,26 +260,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const chat = document.getElementById('chatMessages');
         
+        // Tampilkan pesan User
         chat.insertAdjacentHTML('beforeend', `<div class="self-end max-w-[85%] bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm"><p class="text-xs">${txt}</p></div>`);
         input.value = '';
         chat.scrollTop = chat.scrollHeight;
 
+        // Tampilkan animasi mengetik
         const typingId = 'typing-' + Date.now();
-        chat.insertAdjacentHTML('beforeend', `<div id="${typingId}" class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm"><p class="text-xs text-gray-500 italic dark:text-gray-400">Arthur mengetik dengan kesal...</p></div>`);
+        chat.insertAdjacentHTML('beforeend', `<div id="${typingId}" class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm"><p class="text-xs text-gray-500 italic dark:text-gray-400">Arthur sedang berpikir keras...</p></div>`);
         chat.scrollTop = chat.scrollHeight;
 
-        // PANGGIL ULTIMATE SMART BRAIN
-        const finalReply = ultimateSmartBrain(txt);
+        let finalReply = "";
 
-        // Simulasi waktu mikir AI (Supaya kelihatan kayak lagi ngetik atau nyari data)
-        const thinkTime = Math.floor(Math.random() * 600) + 600;
+        // Instruksi Persona untuk AI (Injection)
+        const systemPrompt = `Kamu adalah Arthur, penjaga Arthur Store ID. Sifatmu Tsundere (galak, gengsian, ketus di awal tapi diam-diam peduli, sering bilang Hmph, bodoh, atau jangan salah paham). Jawablah pertanyaan user ini dengan bahasa Indonesia gaul, sangat singkat, dan seluas mungkin: ${txt}`;
 
-        setTimeout(() => {
-            document.getElementById(typingId)?.remove();
-            const formattedReply = finalReply.replace(/\n/g, '<br>');
-            chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
-            chat.scrollTop = chat.scrollHeight;
-        }, thinkTime); 
+        try {
+            // Memanggil API AI Publik (Pollinations)
+            const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(systemPrompt)}`);
+            
+            if (response.ok) {
+                finalReply = await response.text();
+            } else {
+                throw new Error("API Blocked");
+            }
+        } catch (error) {
+            // JIKA GAGAL (Biasanya karena dibuka lewat file:/// di laptop, bukan dari GitHub/Server)
+            finalReply = "Cih! Koneksiku terblokir karena kamu menjalankan web ini secara offline dari foldermu! Upload dulu web ini ke GitHub Pages, baru otak cerdasku bisa aktif sepenuhnya dan ngobrol bebas sama kamu!";
+        }
+
+        // Tampilkan balasan AI
+        document.getElementById(typingId)?.remove();
+        const formattedReply = finalReply.replace(/\n/g, '<br>');
+        chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
+        chat.scrollTop = chat.scrollHeight;
     });
 
     // --- 7. AUTO-SCROLL BANNER ---
