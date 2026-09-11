@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI (HYBRID CLOUD & OFFLINE BRAIN) */
+/* script.js - Arthur Store ID Mobile + HYBRID TSUNDERE AI (LIVE API + OFFLINE FALLBACK) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. AI CHATBOT TSUNDERE (DENGAN OTAK OFFLINE CADANGAN) ---
+    // --- 6. AI CHATBOT (HYBRID BRAIN) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -268,32 +268,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
 
-    // Ini kode API yang kamu kasih (meskipun salah, kita tetap pasang). 
-    // Tapi aku udah buatkan sistem penangkalnya agar AI tetap bisa jawab pake Otak Offline!
-    const GEMINI_API_KEY = "AQ.Ab8RN6KcqR1ATUwDeL9JkAdTfVkxZWtuP5KHgEePdWHUfqLYSg"; 
+    // =========================================================================
+    // PASTIKAN KUNCI INI DIAWALI DENGAN "AIzaSy..." AGAR BOT BISA JAWAB BEBAS
+    // =========================================================================
+    const GEMINI_API_KEY = "MASUKKAN_KUNCI_API_ASLI_DISINI"; 
     
-    // Otak Offline Tsundere (Akan merespon otomatis walau API salah)
+    const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
+    Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
+    Kalau user curhat atau ajak ngobrol random di luar game, kamu pura-pura ogah-ogahan tapi tetap tanggapi dan jawab pertanyaannya dengan baik secara bebas. 
+    Jawablah dengan bahasa Indonesia gaul, singkat, dan natural.`;
+
+    // Otak Cadangan (Hanya aktif jika koneksi API gagal / Kunci API salah)
     function offlineTsundereBrain(text) {
         const lower = text.toLowerCase();
-        if (lower.includes('cara beli') || lower.includes('qris')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari. Jangan banyak nanya deh, buruan beli!";
-        if (lower.includes('jual') || lower.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya 10 Juta! Awas aja kalau masukin data ngawur!";
-        if (lower.includes('garansi') || lower.includes('aman')) return "B-bukan berarti aku khawatir ya, tapi sistem Escrow kita nahan uangnya sampai kamu selesai amankan akun. Jadi 100% aman! Puas?!";
-        if (lower.includes('halo') || lower.includes('hai') || lower.includes('pagi')) return "Apa lihat-lihat?! Kalau mau beli akun buruan, jangan buang waktuku buat ngobrol doang!";
-        if (lower.includes('nama') || lower.includes('siapa')) return "Namaku Arthur! Penjaga toko Arthur Store ID. Ingat baik-baik, bodoh!";
-        if (lower.includes('makasih') || lower.includes('terima kasih') || lower.includes('thanks')) return "Hmph! S-sama-sama... Jangan salah paham, ini emang pekerjaanku tau!";
-        if (lower.includes('game') || lower.includes('main')) return "Kita jual akun Valorant, Mobile Legends, Roblox, dan banyak lagi! Semuanya ada di beranda. Cari sendiri sana!";
-        
-        // Jawaban super random Tsundere
-        const randomReplies = [
-            "Berisik! Aku lagi sibuk ngurusin transaksi. B-bukan berarti aku nggak mau dengerin ya, tapi tanya yang jelas dong!",
-            "Huh? Apa maksudmu? Kalau mau beli akun langsung bayar aja pakai QRIS. Jangan ngawur deh!",
-            "Jangan ngajak bercanda! Mending kamu top up atau cek tier akun seller kamu di menu Saya!",
-            "Hmph! Aku nggak ngerti maksudmu. Tapi kalau ada kendala transaksi Escrow, aku pasti bakal bantu kok... J-jangan mikir aneh-aneh!"
-        ];
-        return randomReplies[Math.floor(Math.random() * randomReplies.length)];
+        if (lower.includes('cara beli') || lower.includes('qris')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari.";
+        if (lower.includes('jual') || lower.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya 10 Juta!";
+        if (lower.includes('halo') || lower.includes('hai')) return "Apa lihat-lihat?! Kalau mau beli akun buruan!";
+        return "Berisik! Karena API Key-nya belum valid, otak utamaku sedang offline! Aku cuma bisa jawab pertanyaan seputar toko sekarang. B-bukan berarti aku nggak mau ngobrol sama kamu ya!";
     }
-
-    const AI_PERSONA = `Namamu Arthur, penjaga toko Arthur Store ID. Sifatmu TSUNDERE. Jawablah singkat dan gaul.`;
 
     document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -314,7 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalReply = "";
 
         try {
-            // Mencoba panggil API Google
+            // Validasi Kunci Dasar
+            if (!GEMINI_API_KEY.startsWith("AIzaSy")) {
+                throw new Error("Invalid Key Format");
+            }
+
+            // Mencoba akses Otak Bebas (Live API)
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -327,11 +324,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 finalReply = data.candidates[0].content.parts[0].text;
             } else {
-                // KETIKA API KEY SALAH, GUNAKAN OTAK OFFLINE TSUNDERE!
-                finalReply = offlineTsundereBrain(txt);
+                throw new Error("API Error"); // Jika terblokir, pindah ke offline
             }
         } catch (error) {
-            // KETIKA INTERNET MATI, GUNAKAN OTAK OFFLINE TSUNDERE!
+            // Gagal akses? Gunakan Otak Offline tanpa error log di web
             finalReply = offlineTsundereBrain(txt);
         }
 
@@ -340,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedReply = finalReply.replace(/\n/g, '<br>');
             chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
             chat.scrollTop = chat.scrollHeight;
-        }, 800); // Simulasi delay mengetik
+        }, 600); 
     });
 
     // --- 7. AUTO-SCROLL BANNER ---
