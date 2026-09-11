@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI GEMINI (LIVE API) */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI (HYBRID CLOUD & OFFLINE BRAIN) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. AI CHATBOT TSUNDERE (DENGAN API KEY USER) ---
+    // --- 6. AI CHATBOT TSUNDERE (DENGAN OTAK OFFLINE CADANGAN) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -268,18 +268,32 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
 
-    // ==============================================================
-    // KUNCI API GEMINI (MILIKMU)
-    // ==============================================================
+    // Ini kode API yang kamu kasih (meskipun salah, kita tetap pasang). 
+    // Tapi aku udah buatkan sistem penangkalnya agar AI tetap bisa jawab pake Otak Offline!
     const GEMINI_API_KEY = "AQ.Ab8RN6KcqR1ATUwDeL9JkAdTfVkxZWtuP5KHgEePdWHUfqLYSg"; 
     
-    // KEPRIBADIAN TSUNDERE
-    const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
-    Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
-    Kamu sering pakai kata "Hmph!", "B-bukan berarti...", "Jangan salah paham ya!", atau "Bodoh!". 
-    Kamu melayani transaksi jual beli akun game. Kalau ditanya soal toko: kasih tau cara belinya gampang pakai QRIS, ada Escrow 30 hari yang aman, jual akun maksimal harga 10 juta, dan ada sistem Tier penjual.
-    Kalau user curhat atau ajak ngobrol random di luar game, kamu pura-pura ogah-ogahan tapi tetap tanggapi dan jawab pertanyaannya dengan baik. 
-    Jawablah dengan bahasa Indonesia gaul, singkat, dan natural.`;
+    // Otak Offline Tsundere (Akan merespon otomatis walau API salah)
+    function offlineTsundereBrain(text) {
+        const lower = text.toLowerCase();
+        if (lower.includes('cara beli') || lower.includes('qris')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari. Jangan banyak nanya deh, buruan beli!";
+        if (lower.includes('jual') || lower.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya 10 Juta! Awas aja kalau masukin data ngawur!";
+        if (lower.includes('garansi') || lower.includes('aman')) return "B-bukan berarti aku khawatir ya, tapi sistem Escrow kita nahan uangnya sampai kamu selesai amankan akun. Jadi 100% aman! Puas?!";
+        if (lower.includes('halo') || lower.includes('hai') || lower.includes('pagi')) return "Apa lihat-lihat?! Kalau mau beli akun buruan, jangan buang waktuku buat ngobrol doang!";
+        if (lower.includes('nama') || lower.includes('siapa')) return "Namaku Arthur! Penjaga toko Arthur Store ID. Ingat baik-baik, bodoh!";
+        if (lower.includes('makasih') || lower.includes('terima kasih') || lower.includes('thanks')) return "Hmph! S-sama-sama... Jangan salah paham, ini emang pekerjaanku tau!";
+        if (lower.includes('game') || lower.includes('main')) return "Kita jual akun Valorant, Mobile Legends, Roblox, dan banyak lagi! Semuanya ada di beranda. Cari sendiri sana!";
+        
+        // Jawaban super random Tsundere
+        const randomReplies = [
+            "Berisik! Aku lagi sibuk ngurusin transaksi. B-bukan berarti aku nggak mau dengerin ya, tapi tanya yang jelas dong!",
+            "Huh? Apa maksudmu? Kalau mau beli akun langsung bayar aja pakai QRIS. Jangan ngawur deh!",
+            "Jangan ngajak bercanda! Mending kamu top up atau cek tier akun seller kamu di menu Saya!",
+            "Hmph! Aku nggak ngerti maksudmu. Tapi kalau ada kendala transaksi Escrow, aku pasti bakal bantu kok... J-jangan mikir aneh-aneh!"
+        ];
+        return randomReplies[Math.floor(Math.random() * randomReplies.length)];
+    }
+
+    const AI_PERSONA = `Namamu Arthur, penjaga toko Arthur Store ID. Sifatmu TSUNDERE. Jawablah singkat dan gaul.`;
 
     document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -300,6 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalReply = "";
 
         try {
+            // Mencoba panggil API Google
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -312,18 +327,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 finalReply = data.candidates[0].content.parts[0].text;
             } else {
-                // Jika API Key tidak valid (bukan format standar)
-                finalReply = "Cih! Kunci API yang kamu masukkan itu aneh! Server Google menolaknya. Pastikan format API Key-nya benar (biasanya diawali dengan AIzaSy...). Jangan membuang waktuku!";
+                // KETIKA API KEY SALAH, GUNAKAN OTAK OFFLINE TSUNDERE!
+                finalReply = offlineTsundereBrain(txt);
             }
         } catch (error) {
-            // Fallback Offline - Tsundere Mode
-            finalReply = "Hmph! Koneksiku lagi jelek! J-jangan mikir aku sengaja nggak bales ya! Kalau mau tanya soal toko, transaksi kita pakai QRIS dan sistem Escrow yang aman kok. Puas?!";
+            // KETIKA INTERNET MATI, GUNAKAN OTAK OFFLINE TSUNDERE!
+            finalReply = offlineTsundereBrain(txt);
         }
 
-        document.getElementById(typingId)?.remove();
-        const formattedReply = finalReply.replace(/\n/g, '<br>');
-        chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
-        chat.scrollTop = chat.scrollHeight;
+        setTimeout(() => {
+            document.getElementById(typingId)?.remove();
+            const formattedReply = finalReply.replace(/\n/g, '<br>');
+            chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
+            chat.scrollTop = chat.scrollHeight;
+        }, 800); // Simulasi delay mengetik
     });
 
     // --- 7. AUTO-SCROLL BANNER ---
@@ -335,4 +352,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 3000);
 });
-        
