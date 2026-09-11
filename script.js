@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + TSUNDERE AI (REAL FREE AI API) */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI (HYBRID ANTI-BLOKIR) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -244,13 +244,52 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('backFromJualBtn').click(); 
     });
 
-    // --- 6. AI CHATBOT SUNGGUHAN (MENGGUNAKAN FREE PUBLIC API) ---
+    // --- 6. AI CHATBOT (ANTI-BLOKIR DENGAN SILENT FALLBACK) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
     document.getElementById('closeAiChatBtn')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
+
+    // Otak Backup (Akan merespons JIKA provider HP memblokir AI Internet)
+    function silentFallbackBrain(text) {
+        const txt = text.toLowerCase().replace(/[^\w\s]/gi, '').trim(); 
+        const words = txt.split(' ');
+
+        if (words.includes('p') || words.includes('oi') || txt.includes('halo') || txt.includes('hai') || txt.includes('assalamualaikum')) {
+            return "Halo juga! B-bukan berarti aku nungguin kamu chat lho ya! Ada yang bisa kubantu soal transaksi atau game?";
+        }
+        if (txt.includes('tolong') || txt.includes('bantu') || txt.includes('error') || txt.includes('gagal')) {
+            return "Kenapa panik?! Jelasin yang bener masalahnya! Gagal bayar QRIS, atau akunnya nggak bisa dilogin? Uangmu masih aman di Escrow kok!";
+        }
+        if (txt.includes('sedih') || txt.includes('galau') || txt.includes('nangis')) {
+            return "Lho... k-kenapa kamu nangis?! Cengeng banget! Daripada galau mending luangin waktu buat main game gih. Aku bakal di sini kok.";
+        }
+        if (txt.includes('tugas') || txt.includes('kuliah') || txt.includes('presentasi')) {
+            return "Pasti pusing banget ya ngerjain tugas atau presentasi lab? Berjuanglah! Selesain sekarang biar nanti bisa tenang!";
+        }
+        if (txt.includes('valorant') || txt.includes('ml') || txt.includes('game')) {
+            return "Selera game-mu lumayan. Kita punya banyak stok akun tuh di beranda. Langsung checkout aja gih keburu diambil orang!";
+        }
+        if (txt.includes('siapa kamu') || txt.includes('nama kamu')) {
+            return "Namaku Arthur! AI cerdas penjaga toko Arthur Store ID. Ingat baik-baik namaku!";
+        }
+        if (txt.includes('beli') || txt.includes('qris') || txt.includes('bayar')) {
+            return "Beli akun gampang banget! Pilih produknya, masuk ke keranjang, dan bayar lewat QRIS. Otomatis dan aman!";
+        }
+        if (txt.includes('jual') || txt.includes('tambah')) {
+            return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya maksimal 10 Juta Rupiah lho ya!";
+        }
+
+        const randomReplies = [
+            "Huh? Apa maksudmu? Kalau ada masalah teknis, jelasin yang detail dong! Jangan sepotong-sepotong!",
+            "Terus? Apa hubungannya sama Arthur Store?! Aku ini cuma AI, bukan peramal!",
+            "Maksudmu gimana? B-bukan karena AI ini bodoh ya, tapi ketikanmu itu yang nggak jelas!",
+            "Hm, menarik. Tapi daripada bahas itu, mending kamu cek stok akun baru kita di beranda deh!"
+        ];
+        return randomReplies[Math.floor(Math.random() * randomReplies.length)];
+    }
 
     document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -265,31 +304,30 @@ document.addEventListener('DOMContentLoaded', () => {
         input.value = '';
         chat.scrollTop = chat.scrollHeight;
 
-        // Tampilkan animasi mengetik
+        // Animasi loading
         const typingId = 'typing-' + Date.now();
         chat.insertAdjacentHTML('beforeend', `<div id="${typingId}" class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm"><p class="text-xs text-gray-500 italic dark:text-gray-400">Arthur sedang berpikir keras...</p></div>`);
         chat.scrollTop = chat.scrollHeight;
 
         let finalReply = "";
 
-        // Instruksi Persona untuk AI (Injection)
         const systemPrompt = `Kamu adalah Arthur, penjaga Arthur Store ID. Sifatmu Tsundere (galak, gengsian, ketus di awal tapi diam-diam peduli, sering bilang Hmph, bodoh, atau jangan salah paham). Jawablah pertanyaan user ini dengan bahasa Indonesia gaul, sangat singkat, dan seluas mungkin: ${txt}`;
 
         try {
-            // Memanggil API AI Publik (Pollinations)
+            // Coba tembak API AI Gratisan
             const response = await fetch(`https://text.pollinations.ai/${encodeURIComponent(systemPrompt)}`);
             
             if (response.ok) {
                 finalReply = await response.text();
             } else {
-                throw new Error("API Blocked");
+                throw new Error("Provider Blocked"); // Jika ISP/Provider nolak
             }
         } catch (error) {
-            // JIKA GAGAL (Biasanya karena dibuka lewat file:/// di laptop, bukan dari GitHub/Server)
-            finalReply = "Cih! Koneksiku terblokir karena kamu menjalankan web ini secara offline dari foldermu! Upload dulu web ini ke GitHub Pages, baru otak cerdasku bisa aktif sepenuhnya dan ngobrol bebas sama kamu!";
+            // JIKA API DIBLOKIR KARENA JARINGAN HP (TIDAK ADA ERROR DI LAYAR, LANGSUNG PAKAI OTAK CADANGAN!)
+            finalReply = silentFallbackBrain(txt);
         }
 
-        // Tampilkan balasan AI
+        // Tampilkan balasan
         document.getElementById(typingId)?.remove();
         const formattedReply = finalReply.replace(/\n/g, '<br>');
         chat.insertAdjacentHTML('beforeend', `<div class="self-start max-w-[85%] bg-gray-200 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm shadow-sm border border-gray-100 dark:border-gray-700"><p class="text-xs text-gray-800 dark:text-gray-200">${formattedReply}</p></div>`);
