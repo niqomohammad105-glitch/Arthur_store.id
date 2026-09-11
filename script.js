@@ -1,4 +1,4 @@
-/* script.js - Arthur Store ID Mobile + HYBRID TSUNDERE AI (TANPA BLOKIR API) */
+/* script.js - Arthur Store ID Mobile + TSUNDERE AI (KEYLESS PUBLIC API) */
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. AI CHATBOT (HYBRID BRAIN BEBAS KODE) ---
+    // --- 6. AI CHATBOT (KEYLESS FREE API) ---
     document.getElementById('aiChatFab')?.addEventListener('click', () => {
         document.getElementById('aiChatModal')?.classList.replace('hidden', 'flex');
     });
@@ -268,22 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('aiChatModal')?.classList.replace('flex', 'hidden');
     });
 
-    // =========================================================================
-    // API KEY AQ MILIKMU (Sudah tidak diblokir lagi oleh sistem!)
-    // =========================================================================
-    const GEMINI_API_KEY = "AQ.Ab8RN6KcqR1ATUwDeL9JkAdTfVkxZWtuP5KHgEePdWHUfqLYSg"; 
-    
-    const AI_PERSONA = `Namamu adalah Arthur, penjaga toko Arthur Store ID (marketplace akun game). 
-    Sifatmu TSUNDERE (gengsian, galak dan ketus di awal, tapi diam-diam peduli dan sangat membantu). 
-    Kalau user curhat atau ajak ngobrol random di luar game, kamu pura-pura ogah-ogahan tapi tetap tanggapi dan jawab pertanyaannya dengan baik secara bebas. 
-    Jawablah dengan bahasa Indonesia gaul, singkat, dan natural.`;
+    // Kepribadian AI (Sifat Bot)
+    const AI_PERSONA = "Namamu adalah Arthur, penjaga toko Arthur Store ID. Sifatmu TSUNDERE (galak, gengsian, tapi peduli). Jawablah semua pertanyaan pengguna secara bebas dengan bahasa Indonesia gaul dan singkat.";
 
+    // Otak Cadangan (Bila internet mati)
     function offlineTsundereBrain(text) {
-        const lower = text.toLowerCase();
-        if (lower.includes('cara beli') || lower.includes('qris')) return "Hmph! Beli aja gampang, tinggal klik produknya trus bayar pake QRIS! Escrow kita aman 30 hari.";
-        if (lower.includes('jual') || lower.includes('tambah')) return "Mau jualan? Masuk ke menu 'Saya' terus klik Jual Akun Baru. Batas harganya 10 Juta!";
-        if (lower.includes('halo') || lower.includes('hai')) return "Apa lihat-lihat?! Kalau mau beli akun buruan!";
-        return "Berisik! Server pusat menolak API Key-ku (Error)! K-kenapa kamu nanya yang aneh-aneh sih?! Tanya soal toko aja, pasti aku bantu!";
+        return "Berisik! Koneksiku lagi jelek nih, jadi aku cuma bisa jawab kalau nanya soal beli akun atau jualan aja!";
     }
 
     document.getElementById('aiChatForm')?.addEventListener('submit', async (e) => {
@@ -305,23 +295,19 @@ document.addEventListener('DOMContentLoaded', () => {
         let finalReply = "";
 
         try {
-            // TIDAK ADA LAGI BLOKIR VALIDASI, LANGSUNG TEMBAK SERVER GOOGLE!
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: AI_PERSONA + "\n\nUser: " + txt + "\nArthur:" }] }]
-                })
-            });
+            // MENGGUNAKAN SERVER AI GRATIS TANPA API KEY (POLLINATIONS.AI)
+            const aiUrl = `https://text.pollinations.ai/openai/${encodeURIComponent(txt)}?system=${encodeURIComponent(AI_PERSONA)}`;
+            
+            const response = await fetch(aiUrl);
 
             if (response.ok) {
-                const data = await response.json();
-                finalReply = data.candidates[0].content.parts[0].text;
+                // Server membalas langsung berupa teks
+                finalReply = await response.text(); 
             } else {
-                throw new Error("API Ditolak Server Google"); 
+                throw new Error("Gagal terhubung"); 
             }
         } catch (error) {
-            // Jika ditolak sungguhan oleh Google, jalankan otak offline
+            // Kalau internet putus
             finalReply = offlineTsundereBrain(txt);
         }
 
